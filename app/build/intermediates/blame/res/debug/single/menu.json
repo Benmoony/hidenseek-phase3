@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/temp_to_home.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/temp_to_home.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/join_login.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/join_login.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/active.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/active.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/players.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/players.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/temp_to_home.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/temp_to_home.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/host_config.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/host_config.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/join_login.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/join_login.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/host_config.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/host_config.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/active.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/active.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/select_match.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/select_match.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/host_login.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/host_login.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/players.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/players.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/home.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/home.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/select_match.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/select_match.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/res/merged/debug/menu/host_login.xml",
+        "source": "/Users/brianb/Code/BIT272/HideNSeek/app/src/main/res/menu/host_login.xml"
+    },
+    {
+        "merged": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/build/intermediates/res/merged/debug/menu/home.xml",
+        "source": "/Users/brianb/Code/BIT272_projects/HideNSeek/app/src/main/res/menu/home.xml"
+    }
+]

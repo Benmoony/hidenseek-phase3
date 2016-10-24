@@ -1,0 +1,7 @@
+#Mon Oct 24 14:15:28 PDT 2016
+base.0=/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c5fd70f89264958113b7987230b66b8aafa508f1
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_dc6f958e5d1c9a125d21e08de187d51d1e62b833/classes.dex
+base.1=/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_dc6f958e5d1c9a125d21e08de187d51d1e62b833
+file.0=/Users/brianb/Code/BIT272/HideNSeek/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c5fd70f89264958113b7987230b66b8aafa508f1/classes.dex
