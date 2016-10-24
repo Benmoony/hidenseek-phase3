@@ -59,7 +59,8 @@ Use Cases
 ----------------
 Third round for HideNSeek app.
 
-This app was started in the Spring of 2014.  The original idea was Aaron Campbell's and with the help of Barbara Greenlee they created the base foundation of the game.  
+This app was started in the Spring of 2014.  The original idea was Aaron Campbell's and with the help of Barbara Greenlee they created the base foundation of the game. The app received additional updates by Todd Taylor, Eric Sergio, Tao Hong in the Fall of 2014.
+ 
 
 
 
