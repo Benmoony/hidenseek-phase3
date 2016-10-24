@@ -1,9 +1,5 @@
-hidenseek-phase2
+hidenseek-phase3
 ================
-
-Second round for HideNSeek app.
-
-This app was started in the Spring of 2014.  The original idea was Aaron Campbell's and with the help of Barbara Greenlee they created the base foundation of the game.  
 
 Purpose:
 The Hide ‘n’ Seek app is a tool for bold, interactive gameplay that crosses the boundaries of traditional phone-based entertainment. 
@@ -60,7 +56,10 @@ Use Cases
       Ends before set server time limit
 
 
+----------------
+Third round for HideNSeek app.
 
+This app was started in the Spring of 2014.  The original idea was Aaron Campbell's and with the help of Barbara Greenlee they created the base foundation of the game.  
 
 
 
