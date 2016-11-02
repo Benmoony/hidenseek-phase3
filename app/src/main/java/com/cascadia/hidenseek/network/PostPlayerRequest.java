@@ -1,5 +1,5 @@
 package com.cascadia.hidenseek.network;
-
+/* Create the POST message to add a player to a match */
 import org.json.JSONException;
 
 import com.cascadia.hidenseek.Player;

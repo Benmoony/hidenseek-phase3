@@ -29,7 +29,7 @@ public class JoinLogin extends Activity {
 	
 			@Override
 			public void onClick(View v) {
-				HelpDialog helpDialog = new HelpDialog("Get the passworrd from the Match Host/Hostess.", "Password" );
+				HelpDialog helpDialog = new HelpDialog(getString(R.string.get_password_help), "Password" );
 				helpDialog.show(getFragmentManager(), "Help");
 			}
 		});
@@ -38,7 +38,7 @@ public class JoinLogin extends Activity {
 	
 			@Override
 			public void onClick(View v) {
-				HelpDialog helpDialog = new HelpDialog("Select a match to join.  The game will soon start! Hide in a safe place!", "Select a Match.");
+				HelpDialog helpDialog = new HelpDialog(getString(R.string.hide_help), "Select a Match.");
 				helpDialog.show(getFragmentManager(), "Help");
 			}
 		});
@@ -116,7 +116,6 @@ public class JoinLogin extends Activity {
 				PostPlayerRequest ppRequest = new PostPlayerRequest() {
 					@Override
 					protected void onException(Exception e) {
-						// TODO Auto-generated method stub
 						e.printStackTrace();
 					}
 					

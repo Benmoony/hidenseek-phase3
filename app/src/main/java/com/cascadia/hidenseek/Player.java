@@ -77,7 +77,7 @@ public class Player {
 	}
 
 	
-
+	// Parse the match/#/player json and return a list of players
 	public static List<Player> ParseToList(String jsonStr, Match associatedMatch)
 			throws JSONException {
 		List<Player> toReturn = new ArrayList<Player>();
@@ -140,7 +140,7 @@ public class Player {
 		toReturn.playerId = jObject.getInt("id");
 		toReturn.role = Role.Parse(jObject.getString("role"));
 		toReturn.status = Status.Parse(jObject.getString("hiderStatus"));
-		toReturn.isPlaying = jObject.getBoolean("playing");
+		toReturn.isPlaying = jObject.getInt("playing") == 1;
 		try {
 			toReturn.location = LocationParser.Parse(jObject.getString("GPSLocation"));
 			toReturn.lastUpdatedLocation = dateTimeFormat.parse(jObject.getString("lastUpdated"));
