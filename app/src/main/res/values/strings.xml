@@ -48,5 +48,7 @@
     <string name="title_activity_temp_to_home">TempToHome</string>
     <string name="title_activity_temp">Landing Page</string>
     <string name="title_activity_to_home">ToHome</string>
+    <string name="get_password_help">Get the password from the Match Host/Hostess.</string>
+    <string name="hide_help">Select a match to join.  The game will soon start! Hide in a safe place!</string>
 
 </resources>
