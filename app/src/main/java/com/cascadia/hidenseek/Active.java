@@ -53,7 +53,7 @@ public class Active extends FragmentActivity {
 	Role playerRole;
 	Player temp;
 	String Timer;
-	final Context context = this;
+	final Context context = (Context)this;
 	boolean tagged = true;
 	private ShowHider sh;
 	Long showTime = (long) 30000;
@@ -64,7 +64,7 @@ public class Active extends FragmentActivity {
 	private Handler h2 = new Handler();
 	// Millisecond delay between callbacks
 	private final int callbackDelay = 500;
-	private final int callbackDelay1 = 000;
+	//private final int callbackDelay1 = 000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class Active extends FragmentActivity {
 
 									// set title
 
-									alertDialogBuilder.setTitle("Found You");
+									alertDialogBuilder.setTitle("The Seeker Has Found You");
 									alertDialogBuilder
 											.setMessage(
 													"The seeker just said he found you, is this correct?")
