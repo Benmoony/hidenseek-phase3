@@ -138,7 +138,7 @@ public class Active extends FragmentActivity {
 					@Override
 					protected void onComplete(Match match) {
 						numPlayers = match.players.size();
-						googleMap.clear();
+						//googleMap.clear();			TODO: to update Google map
 						counter=0;
 						for (final Player p : match.players) {
 							pend = p.GetStatus();
