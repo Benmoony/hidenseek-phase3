@@ -64,20 +64,15 @@ public class Active extends FragmentActivity {
 	private Handler h2 = new Handler();
 	// Millisecond delay between callbacks
 	private final int callbackDelay = 500;
-	private final int callbackDelay1 = 000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
-		
-		
 
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
 		isActive = true;
-		
-		
 		
 		if (match == null || player == null) {
 			Dialog d = new Dialog(this);
@@ -86,10 +81,6 @@ public class Active extends FragmentActivity {
 			finish();
 
 		}
-		
-		
-		
-			
 		
 		ActionBar ab = getActionBar();
 		if (player.GetRole() != Player.Role.Seeker) {
@@ -137,142 +128,7 @@ public class Active extends FragmentActivity {
 
 					@Override
 					protected void onComplete(Match match) {
-						numPlayers = match.players.size();
-						googleMap.clear();
-						counter=0;
-						for (final Player p : match.players) {
-							pend = p.GetStatus();
-							if(player.GetName().toString()==p.GetName().toString())
-							{
-								player.SetID(p.GetId());
-							}
-							
-							if(match.GetType()==Match.MatchType.HideNSeek)
-							{
-							if(p.GetStatus()==Player.Status.Found)
-							{
-								counter++;
-								if(counter==numPlayers-1)
-								{
-									
-									CheckForEndGame();
-								}
-								
-							}
-							}
-							if (p.GetRole() == Player.Role.Seeker) {
-								temp = p;
-								
-							}
-							
-							
-
-							playerRole = p.GetRole();
-							
-							if (pend == Status.Spotted
-									&& player.GetId()==p.GetId()) {
-								if (tagged) {
-									tagged = false;
-									isActive=false;
-									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-											context);
-
-									// set title
-
-									alertDialogBuilder.setTitle("Found You");
-									alertDialogBuilder
-											.setMessage(
-													"The seeker just said he found you, is this correct?")
-											.setCancelable(false)
-											.setPositiveButton(
-													"Yes",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int id) {
-															
-															p.SetStatus(Player.Status.Found);
-															p.SetLocation(null);
-															PutStatusRequest pp = new PutStatusRequest() {
-
-																@Override
-																protected void onException(
-																		Exception e) {
-																	e.printStackTrace();
-																}
-
-															};
-															
-															pp.DoRequest(p);
-															
-															ShowSeeker();
-															tagged = true;
-															Intent intent = new Intent(context,TempToHome.class);
-															startActivity(intent);
-
-														}
-													})
-											.setNegativeButton(
-													"No",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int id) {
-															// if this button is
-															// clicked, just
-															// close
-															// the dialog box
-															// and do nothing
-															p.SetStatus(Status.Hiding);
-															PutStatusRequest pp = new PutStatusRequest() {
-
-																@Override
-																protected void onException(
-																		Exception e) {
-																	e.printStackTrace();
-																}
-
-															};
-															pp.DoRequest(p);
-															tagged = true;
-															
-
-														}
-													});
-
-									// create alert dialog
-									AlertDialog alertDialog = alertDialogBuilder
-											.create();
-
-									// show it
-									alertDialog.show();
-									isActive=true;
-								}
-							}
-
-							// Dont't add a marker for players with null
-							// locations or one for myself.
-
-							if (match.GetType() != Match.MatchType.Sandbox) {
-								if (p.GetLocation() != null&& p.GetId() != player.GetId()&& p.GetRole() != Player.Role.Seeker&& p.GetStatus() != Player.Status.Found) {
-									googleMap.addMarker(new MarkerOptions()
-											.position(
-													new LatLng(p.GetLocation().getLatitude(), p.GetLocation().getLongitude())).title(p.GetName()));
-								}
-							} else {
-								if (p.GetLocation() != null&& p.GetId() != player.GetId()) {
-									
-									googleMap.addMarker(new MarkerOptions().position(
-													new LatLng(p.GetLocation()
-															.getLatitude(), p
-															.GetLocation()
-															.getLongitude()))
-											.title(p.GetName()));
-									
-								}
-								
-							}
-						}
+						processStatus(match);
 					}
 				};
 				gplRequest.DoRequest(match);
@@ -295,6 +151,140 @@ public class Active extends FragmentActivity {
 		callback.run(); // Begin periodic updating!
 	
 		
+	}
+
+	private void processStatus(Match match) {
+		numPlayers = match.players.size();
+		//googleMap.clear();  TODO update Google API
+		counter = 0;
+		for (final Player p : match.players) {
+			pend = p.GetStatus();
+			if (player.GetName().toString() == p.GetName().toString()) {
+				player.SetID(p.GetId());
+			}
+
+			if (match.GetType() == Match.MatchType.HideNSeek) {
+				if (p.GetStatus() == Status.Found) {
+					counter++;
+					if (counter == numPlayers - 1) {
+
+						CheckForEndGame();
+					}
+
+				}
+			}
+			if (p.GetRole() == Role.Seeker) {
+				temp = p;
+
+			}
+
+
+			playerRole = p.GetRole();
+
+			if (pend == Status.Spotted
+					&& player.GetId() == p.GetId()) {
+				if (tagged) {
+					tagged = false;
+					isActive = false;
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							context);
+
+					// set title
+
+					alertDialogBuilder.setTitle("Found You");
+					alertDialogBuilder
+							.setMessage(
+									"The seeker just said he found you, is this correct?")
+							.setCancelable(false)
+							.setPositiveButton(
+									"Yes",
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog,
+												int id) {
+
+											p.SetStatus(Status.Found);
+											p.SetLocation(null);
+											PutStatusRequest pp = new PutStatusRequest() {
+
+												@Override
+												protected void onException(
+														Exception e) {
+													e.printStackTrace();
+												}
+
+											};
+
+											pp.DoRequest(p);
+
+											ShowSeeker();
+											tagged = true;
+											Intent intent = new Intent(context, TempToHome.class);
+											startActivity(intent);
+
+										}
+									})
+							.setNegativeButton(
+									"No",
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog,
+												int id) {
+											// if this button is
+											// clicked, just
+											// close
+											// the dialog box
+											// and do nothing
+											p.SetStatus(Status.Hiding);
+											PutStatusRequest pp = new PutStatusRequest() {
+
+												@Override
+												protected void onException(
+														Exception e) {
+													e.printStackTrace();
+												}
+
+											};
+											pp.DoRequest(p);
+											tagged = true;
+
+
+										}
+									});
+
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder
+							.create();
+
+					// show it
+					alertDialog.show();
+					isActive = true;
+				}
+			}
+
+			// Don't add a marker for players with null
+			// locations or one for myself.
+
+			if (match.GetType() != Match.MatchType.Sandbox) {
+				if (p.GetLocation() != null && p.GetId() != player.GetId() && p.GetRole() != Role.Seeker && p.GetStatus() != Status.Found) {
+					googleMap.addMarker(new MarkerOptions()
+							.position(
+									new LatLng(p.GetLocation().getLatitude(), p.GetLocation().getLongitude())).title(p.GetName()));
+				}
+			} else {
+				if (p.GetLocation() != null && p.GetId() != player.GetId()) {
+
+					googleMap.addMarker(new MarkerOptions().position(
+							new LatLng(p.GetLocation()
+									.getLatitude(), p
+									.GetLocation()
+									.getLongitude()))
+							.title(p.GetName()));
+
+				}
+
+			}
+		}
 	}
 
 	public void CheckForEndGame() {

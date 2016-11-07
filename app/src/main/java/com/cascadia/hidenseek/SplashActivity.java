@@ -72,10 +72,8 @@ public class SplashActivity extends Activity {
 
 	}
 	private void initSettings(){		
-		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
-		
-		
-		
+		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).
+				getString("Counttime", "6000");
 	}
 
 	/**
