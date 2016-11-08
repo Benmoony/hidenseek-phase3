@@ -167,7 +167,6 @@ public class Active extends FragmentActivity {
 				if (p.GetStatus() == Status.Found) {
 					counter++;
 					if (counter == numPlayers - 1) {
-
 						CheckForEndGame();
 					}
 
@@ -175,9 +174,7 @@ public class Active extends FragmentActivity {
 			}
 			if (p.GetRole() == Role.Seeker) {
 				temp = p;
-
 			}
-
 
 			playerRole = p.GetRole();
 
@@ -288,12 +285,12 @@ public class Active extends FragmentActivity {
 	}
 
 	public void CheckForEndGame() {
-		isActive=false;
-			PutStopRequest psr = new PutStopRequest();
-			psr.DoRequest(match);
-			match.SetStatus(Match.Status.Complete);
-			Intent end=new Intent(context,TempToHome.class);
-			startActivity(end);
+		isActive = false;
+		PutStopRequest psr = new PutStopRequest();
+		psr.DoRequest(match);
+		match.SetStatus(Match.Status.Complete);
+		Intent end = new Intent(context, TempToHome.class);
+		startActivity(end);
 	}
 
 	
