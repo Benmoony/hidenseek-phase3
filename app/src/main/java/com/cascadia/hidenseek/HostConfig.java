@@ -179,34 +179,36 @@ public class HostConfig extends Activity {
 				setPlayerList();
 				
 				//If joiner, then check if host has started yet.
-				if(!LoginManager.isHost) {
+				if (!LoginManager.isHost) {
 					GetMatchRequest gmRequest = new GetMatchRequest() {
 						@Override
-						protected void onException(Exception e) {}
+						protected void onException(Exception e) {
+						}
+
 						@Override
 						protected void onComplete(Match match) {
-							if(match.GetStatus() == Status.Active) {
+							if (match.GetStatus() == Status.Active) {
 								isActive = false;
-								String seek=String.valueOf(match.GetSeekTime());
-								sh_Pref = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE); 
-			            		toEdit = sh_Pref.edit(); 
-			            		toEdit.putString("Seektime", seek);
-			            		toEdit.commit(); 
-			            		Timer=seek;
-			            		scheduleAlarm();
-				    			Intent intent = new Intent(HostConfig.this,Active.class);
-				    			startActivity(intent);
+								String seek = String.valueOf(match.GetSeekTime());
+								sh_Pref = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE);
+								toEdit = sh_Pref.edit();
+								toEdit.putString("Seektime", seek);
+								toEdit.commit();
+								Timer = seek;
+								scheduleAlarm();
+								Intent intent = new Intent(HostConfig.this, Active.class);
+								startActivity(intent);
 							}
 						}
 					};
 					gmRequest.DoRequest(LoginManager.GetMatch().GetId());
 				}
 
-				if(isActive) {
+				if (isActive) {
 					h2.postDelayed(this, callbackDelay);
 				}
-	        }
-	    };
+			}
+		};
 	    callback.run(); //Begin periodic updating!
 
 	}
