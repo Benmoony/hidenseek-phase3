@@ -3,6 +3,7 @@ package com.cascadia.hidenseek;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -222,7 +223,20 @@ public class Match {
 	public void SetStatus(Match.Status s){
 		status= s;
 	}
-	private int matchId = -1; //Does not get set by constructor; set by 
+
+	public Date getStartTime() {
+		return startTime;
+	}
+	// Provide the expected end time
+	public Date getEndTime() {
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+		calendar.add(Calendar.SECOND, countTime);
+		calendar.add(Calendar.MINUTE, seekTime);
+		return calendar.getTime();
+	}
+
+	private int matchId = -1; //Does not get set by constructor; set by
 	private String name;
 	private String password;
 	private int countTime = -1;

@@ -217,7 +217,7 @@ public class Player {
 		associatedMatch=null;
 		role=null;
 		status=null;
-		playerId=-1;// TODO Auto-generated method stub
+		playerId=-1;
 		
 	}
 }
