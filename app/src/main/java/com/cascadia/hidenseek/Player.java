@@ -2,9 +2,8 @@ package com.cascadia.hidenseek;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Hashtable;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -23,7 +22,7 @@ public class Player {
 		Seeker,
 		Supervisor;
 		
-		public static Role Parse(String s) {
+		public static Role parse(String s) {
 			if(s.equalsIgnoreCase("hider")){
 				return Hider;
 			} else if (s.equalsIgnoreCase("seeker")) {
@@ -31,7 +30,7 @@ public class Player {
 			} else return Supervisor;
 		}
 		
-		public String GetApiString() {
+		public String getApiString() {
 			switch(this) {
 			case Hider:
 				return "hider";
@@ -48,7 +47,7 @@ public class Player {
 		Spotted,
 		Found;
 		
-		public static Status Parse(String s) {
+		public static Status parse(String s) {
 			if(s.equalsIgnoreCase("hiding")){
 				return Hiding;
 			} else if (s.equalsIgnoreCase("spotted")) {
@@ -58,7 +57,7 @@ public class Player {
 			} else return null;
 		}
 		
-		public String GetApiString() {
+		public String getApiString() {
 			switch(this) {
 			case Hiding:
 				return "hiding";
@@ -78,17 +77,18 @@ public class Player {
 
 	
 	// Parse the match/#/player json and return a list of players
-	public static List<Player> ParseToList(String jsonStr, Match associatedMatch)
+	public static Hashtable<Integer, Player> parseToList(String jsonStr, Match associatedMatch)
 			throws JSONException {
-		List<Player> toReturn = new ArrayList<Player>();
+		Hashtable<Integer, Player> toReturn = new Hashtable<>();
 		JSONArray jArray = new JSONObject(jsonStr).getJSONArray("players");
 		for(int i = 0; i < jArray.length(); i++) {
-			toReturn.add(parse(jArray.getJSONObject(i), associatedMatch));
+			Player player = parse(jArray.getJSONObject(i), associatedMatch);
+			toReturn.put(new Integer(player.getId()), player);
 		}
 		return toReturn;
 	}
 	
-	public String ToJSONPost(String password) throws JSONException {
+	public String toJSONPost(String password) throws JSONException {
 		JSONObject jObject = new JSONObject();
 		jObject.put("name", name);
 		jObject.put("password", password);
@@ -96,20 +96,20 @@ public class Player {
 	}
 
 	// Prepare the role data for the API request PUT .../players/playerid/role/
-	public String RoleToJSON() throws JSONException {
+	public String roleToJSON() throws JSONException {
 		JSONObject jObject = new JSONObject();
-		jObject.put("role", role.GetApiString());
+		jObject.put("role", role.getApiString());
 		return jObject.toString();
 	}
 
 	// Prepare the status data for the API request PUT .../players/playerid/status/
-	public String StatusToJSON() throws JSONException {
+	public String statusToJSON() throws JSONException {
 		JSONObject jObject = new JSONObject();
-		jObject.put("status", status.GetApiString());
+		jObject.put("status", status.getApiString());
 		return jObject.toString();
 	}
 	
-	public String LocationToJSON() throws JSONException {
+	public String locationToJSON() throws JSONException {
 		JSONObject jObject = new JSONObject();
 		jObject.put("gps", LocationParser.GetString(location));
 		return jObject.toString();
@@ -121,7 +121,7 @@ public class Player {
 		return jObject.toString();
 	}
 	
-	public boolean ProcessPostResponse(String jsonStr) {
+	public boolean processPostResponse(String jsonStr) {
 		try {
 			playerId = new JSONObject(jsonStr).getInt("playerID");
 			if(playerId == 0) {
@@ -138,8 +138,8 @@ public class Player {
 			throws JSONException {
 		Player toReturn = new Player(jObject.getString("name"), associatedMatch);
 		toReturn.playerId = jObject.getInt("id");
-		toReturn.role = Role.Parse(jObject.getString("role"));
-		toReturn.status = Status.Parse(jObject.getString("hiderStatus"));
+		toReturn.role = Role.parse(jObject.getString("role"));
+		toReturn.status = Status.parse(jObject.getString("hiderStatus"));
 		toReturn.isPlaying = jObject.getInt("playing") == 1;
 		try {
 			toReturn.location = LocationParser.Parse(jObject.getString("GPSLocation"));
@@ -151,54 +151,54 @@ public class Player {
 		return toReturn;
 	}
 	
-	public String GetName() {
+	public String getName() {
 		return name;
 	}
 	
-	public Location GetLocation() {
+	public Location getLocation() {
 		return location;
 	}
 	
-	public void SetLocation(Location l) {
+	public void setLocation(Location l) {
 		location = l;
 	}
 	
-	public Date GetLastUpdatedLocation() {
+	public Date getLastUpdatedLocation() {
 		return lastUpdatedLocation;
 	}
 	
-	public Role GetRole() {
+	public Role getRole() {
 		return role;
 	}
 	
-	public void SetRole(Role r) {
+	public void setRole(Role r) {
 		role = r;
 	}
 	
-	public Status GetStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
-	public void SetStatus(Status s) {
+	public void setStatus(Status s) {
 		status = s;
 	}
 	
-	public int GetId() {
+	public int getId() {
 		return playerId;
 	}
 	
-	public void SetID(int ID){
+	public void setID(int ID){
 		playerId=ID;
 	}
 	
-	public Boolean GetPlaying() {
+	public Boolean getPlaying() {
 		return isPlaying;
 	}
 	
-	public void SetPlaying(Boolean playing) {
+	public void setPlaying(Boolean playing) {
 		isPlaying = playing;
 	}
-	public Match GetAssociatedMatch() {
+	public Match getAssociatedMatch() {
 		return associatedMatch;
 	}
 	
@@ -213,7 +213,7 @@ public class Player {
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 
-	public void ResetPlayer() {
+	public void resetPlayer() {
 		associatedMatch=null;
 		role=null;
 		status=null;

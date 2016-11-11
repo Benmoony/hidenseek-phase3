@@ -1,12 +1,12 @@
 package com.cascadia.hidenseek;
 
-import com.google.android.gms.vision.barcode.Barcode;
-
-import java.util.Calendar;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+
+import com.cascadia.hidenseek.network.PutStopRequest;
+
+import java.util.Calendar;
 
 /**
  * Created by deb on 11/7/16.
@@ -22,37 +22,37 @@ public class SeekerTask extends GameTask {
     // The player objects are not updated until after this method runs,
     // so checks of these are for the last players and player
     @Override
-    protected void processStatus() {
+    protected void processPlayers() {
         int numPlayers = match.players.size();
         Message message = handler.obtainMessage();
         Bundle bundle = new Bundle();
         message.obj = match;
 
         int idx = 0;
-        for (final Player hider : match.players) {
-            // pass the index of the current player to the handler
-            if (hider.GetId() == player.GetId()) {
-                message.arg1 = idx;
+        for (final Player hider : match.players.values()) {
+            Player.Status status = hider.getStatus();
+
+            if (hider.getRole() == Player.Role.Seeker) {
+                numPlayers--;
+                continue;
             }
 
-            Player.Status status = hider.GetStatus();
-
-            if (match.GetType() == Match.MatchType.HideNSeek) {
-                switch (hider.GetStatus()) {
+            if (match.getType() == Match.MatchType.HideNSeek) {
+                switch (status) {
                     case Hiding:
                         bundle.putString("event", "hiding");
                         message.setData(bundle);
                         handler.sendMessage(message);
                         break;
                     case Spotted:
-                        if (players.get(new Integer(hider.GetId())).GetStatus() != Player.Status.Spotted) {
+                        if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Spotted) {
                             bundle.putString("event", "spotted");
                             message.setData(bundle);
                             handler.sendMessage(message);
                         }
                        break;
                     case Found:
-                        if (players.get(new Integer(hider.GetId())).GetStatus() != Player.Status.Found) {
+                        if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Found) {
                             bundle.putString("event", "found");
                             message.setData(bundle);
                             handler.sendMessage(message);
@@ -60,17 +60,13 @@ public class SeekerTask extends GameTask {
                         numPlayers--;
                         break;
                 }
-                if (hider.GetRole() == Player.Role.Seeker) {
-                    numPlayers--;
-                }
             }
             idx++;
         }
 
         if ((numPlayers == 0) || Calendar.getInstance().getTime().after(match.getEndTime())) {
-            bundle.putString("event", "game-over");
-            message.setData(bundle);
-            handler.sendMessage(message);
+            PutStopRequest putStopRequest = new PutStopRequest();
+            putStopRequest.DoRequest(match);
         }
     }
 

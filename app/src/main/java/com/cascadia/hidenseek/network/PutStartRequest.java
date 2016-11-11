@@ -8,9 +8,9 @@ public abstract class PutStartRequest extends NetworkRequest {
 	public void DoRequest(Match toStart) {
 		m = toStart;
 		Request r = new Request();
-		r.url = baseUrl + "matches/" + toStart.GetId() + "/start/";
+		r.url = baseUrl + "matches/" + toStart.getId() + "/start/";
 		r.type = RequestType.PUT;
-		r.jsonArgs = m.ToJSONStart();
+		r.jsonArgs = m.toJSONStart();
 		doRequest(r);
 	}
 	
@@ -19,7 +19,7 @@ public abstract class PutStartRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		m.StartMatch();
+		m.startMatch();
 		onComplete(m);
 	}
 	

@@ -71,7 +71,7 @@ public class HostLogin extends Activity {
             		@Override
             		protected void onComplete(Match m) {                   	
             			
-            			LoginManager.playerMe.SetRole(Role.Seeker);
+            			LoginManager.playerMe.setRole(Role.Seeker);
             			PostPlayerRequest pp = new PostPlayerRequest() {
 							
 							@Override
@@ -95,7 +95,7 @@ public class HostLogin extends Activity {
 		            			
 							}
 						};
-						pp.DoRequest(LoginManager.playerMe, m.GetPassword());
+						pp.DoRequest(LoginManager.playerMe, m.getPassword());
             		}
             		
 					@Override

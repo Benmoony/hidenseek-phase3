@@ -18,7 +18,7 @@ public abstract class GetPlayerListRequest extends NetworkRequest {
 	public void DoRequest(Match match) {
 		Request r = new Request();
 		m = match;
-		r.url = baseUrl + "matches/" + m.GetId() + "/players/";
+		r.url = baseUrl + "matches/" + m.getId() + "/players/";
 		r.type = RequestType.GET;
 		doRequest(r);
 	}
@@ -28,7 +28,7 @@ public abstract class GetPlayerListRequest extends NetworkRequest {
 	@Override
 	protected final void processPostExecute(String s) {
 		try {
-			m.players = Player.ParseToList(s, m); 
+			m.players = Player.parseToList(s, m);
 		} catch(JSONException e) {
 			onException(e);
 		}

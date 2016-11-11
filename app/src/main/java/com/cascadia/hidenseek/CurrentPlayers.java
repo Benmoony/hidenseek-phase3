@@ -1,5 +1,4 @@
 package com.cascadia.hidenseek;
-import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.Match.Status;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
@@ -13,6 +12,8 @@ import android.view.MenuItem;
 
 
 import android.widget.ListView;
+
+import java.util.Arrays;
 
 
 public class CurrentPlayers extends Activity {
@@ -55,14 +56,14 @@ public class CurrentPlayers extends Activity {
 						protected void onException(Exception e) {}
 						@Override
 						protected void onComplete(Match match) {
-							if(match.GetStatus() == Status.Active) {
+							if(match.getStatus() == Status.Active) {
 								isActive = false;
 				    			Intent intent = new Intent(CurrentPlayers.this, Active.class);
 				    			startActivity(intent);
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.GetMatch().GetId());
+					gmRequest.DoRequest(LoginManager.GetMatch().getId());
 				}
 
 				if(isActive) {
@@ -94,15 +95,15 @@ public class CurrentPlayers extends Activity {
 			protected void onComplete(Match match) {
 				String[] titles = new String[match.players.size()];
 				int i = 0;
-				for(Player p : match.players) {
-					if(p.GetStatus()==Player.Status.Hiding || p.GetStatus()==null){
-					titles[i] = Integer.toString(p.GetId()) + ","+p.GetName()+","+p.GetRole().GetApiString();
+				for (Player p : match.players.values()) {
+					if (p.getStatus() == Player.Status.Hiding || p.getStatus() == null) {
+						titles[i] = Integer.toString(p.getId()) + "," + p.getName() + "," + p.getRole().getApiString();
 					}
 					i++;
 				}
+				Arrays.sort(titles);
 				CustomPlayersList adapter = new CustomPlayersList(CurrentPlayers.this, titles);
 				list.setAdapter(adapter);
-				
 			}
 		};
 		request.DoRequest(LoginManager.GetMatch());
