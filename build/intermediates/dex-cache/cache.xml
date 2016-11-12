@@ -39,6 +39,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="bd73407eac9c6a45b191b939dbc614d7b690e284">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b6597e7ad1e03dd5fcacd3891ec8c183572caa22\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -63,6 +72,15 @@
         revision="23.0.3"
         sha1="bf803332f826adea247cc452d0bb04d7943f0007">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-9.6.0_b15f77c93a677a2546f329353d2490c0feba77f5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a723c85825d9591baec200523c10662e30c8bed7">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.6.0_14f49df671a23f4dda02ebb17505dd6ebd1b986a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -102,237 +120,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0_fa626903897bd02f351f446a598fe0811ec65156\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="3270d392adef5decc7bace1a3c2e749bec7bf19e">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.6.0_21168e4bb6b5604943f48e808209a3300a50aa15\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="53f7fbab5e6f4149eb5a1cdeabaeeeee11a84ebe">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.6.0_2da5ea085c069c383ca93a0854e9fa9408c5599a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ba2f029ff37297295d2d197ac6e957b361bfccaf">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.6.0_082a9ee4bc472113b1928820a38feededd4f543b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="97e3259dcdaa9b33014a849f6d3bdbb4ef478383">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.6.0_df61ac77d39e00e5447bb7c37e494694249a5d9d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f2c9c986087e5862518757d0c988c8eac1a47bfd">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.6.0_ac3181b6dbd71561da8f6515694f370247f63514\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="1bf2ceb0034efe20249a561096f6e288cce7a0a4">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.6.0_97494209f0f465e48923e51a70dda19a1bde63e0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="6079f942bb34faee179b4c46396a26fbbfc43e5d">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.6.0_b4b41419c6b6ed961e06f5f6f4ea5828d343e97b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f861fce2e9fa167e7fe8d8558cf2cbb910b9fb34">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.6.0_c55c7d91882a8b2757589549ae976819ed246d62\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f6afcfbf1989631424f9ceaae6ee24777d3cf6ba">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.6.0_4cb525a1b38dc4dd28944b55e74c4655fba0861a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="a917154cf730ea6ec2495705309e6a4065cde2ac">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.6.0_0c5f9405c5b0f419974833981733332459156067\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="938ba83fbb26987368049237e47718d56e91e222">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.6.0_c642f024266ce4b7d7a3b64983835c4fab222897\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ea5537e2a88ce0497d3e2272b1cf93f2e0c77b0d">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.6.0_6b5d72979df013067a8c80e3d52bd3272ef3512c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="bd11b3899f275668a9355f19cea2c2320f5f9d14">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.6.0_4be71da89e57f9c63dcacf6d2b76a0d0ec540e64\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="26cd46f7bc6e1f269062b61269317a29329a9a7b">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-awareness-9.6.0_b3596296433cae19b462d637d766c60a1eb3a758\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="580fa73d5bf63ffd04b9d66d0e75a2ed21842702">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.6.0_0c3aa38a710239af24f1f78612d9ea168946efa4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="d39f676be8400123523882d189a1d84040d34339">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.6.0_c7a65706d54d3b22ddfb2b019e43606d225f641a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="db0a4170961a16af6d7a5222bf90a5876eea4227">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.6.0_175466173502eef94a9f0e94c4b246da396ca0e7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0_41ecab0891dc686880d9799c4a641861f7d77c90\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="415336382149f2a79eb80599e340e188f6724d6d">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.6.0_45bdf2e7678b89d964d2f0254ed92f4a78b7f34d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="6d16df2955bbd154b36819386cfd2e3b7f7cae5b">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.6.0_479f2cc3f368153b0cdab9da8d1f9a5af0dc99e4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="614b2ffd04818e865e1c02cc149c6b92e518e862">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.6.0_6f87a503dabeb19049c228641776b384ce4daf99\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f4540ad2a6e3741694e9332f0c20607c780fae6c">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.6.0_ad61d6fbb8b8d37d09798f50b0eac17867832532\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="3ee7bc280e45d8dcb324f7940d03ffebdb836de4">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b6597e7ad1e03dd5fcacd3891ec8c183572caa22\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="a723c85825d9591baec200523c10662e30c8bed7">
-        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.6.0_14f49df671a23f4dda02ebb17505dd6ebd1b986a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="734e80dffea7bd76c18ae256822a124c30d85850">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.0.0_143d881bfcc0109ca7de65e78304e01a21e5dd93\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0_fa626903897bd02f351f446a598fe0811ec65156\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -351,6 +153,15 @@
         revision="23.0.3"
         sha1="266e4ac186afacc3b220a0cf8382348283b42407">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.6.0_3e1cf4d85cc200226d11c37aecffe53a79d7a9e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="3270d392adef5decc7bace1a3c2e749bec7bf19e">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.6.0_21168e4bb6b5604943f48e808209a3300a50aa15\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -399,6 +210,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="53f7fbab5e6f4149eb5a1cdeabaeeeee11a84ebe">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.6.0_2da5ea085c069c383ca93a0854e9fa9408c5599a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -417,12 +237,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ba2f029ff37297295d2d197ac6e957b361bfccaf">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.6.0_082a9ee4bc472113b1928820a38feededd4f543b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.6.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="5e651c1430cc9b8a3b3b5a9d92bb173214dfdf42">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.6.0_3eb149737c68a91ef89cc0627e75aeb8fbdbee42\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="97e3259dcdaa9b33014a849f6d3bdbb4ef478383">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.6.0_df61ac77d39e00e5447bb7c37e494694249a5d9d\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -435,12 +273,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f2c9c986087e5862518757d0c988c8eac1a47bfd">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.6.0_ac3181b6dbd71561da8f6515694f370247f63514\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="1bf2ceb0034efe20249a561096f6e288cce7a0a4">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.6.0_97494209f0f465e48923e51a70dda19a1bde63e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.6.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="73699fb64ea3de4a43d0f5c37dc525a5e1341ca1">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.6.0_816c1e5fac62b86cb43e66bd70fbb8465e5d07a7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6079f942bb34faee179b4c46396a26fbbfc43e5d">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.6.0_b4b41419c6b6ed961e06f5f6f4ea5828d343e97b\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -457,7 +322,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="2c4c8026a22597fd0d11c9820390b7ec7374b401">
+        sha1="02d3d21cf8f2bade46c3d98f9e580cd9e2ddfe27">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e9d8f7659a97bdda9af9b410c43ec2bf566ad3ac\classes.dex" />
     </item>
     <item
@@ -480,12 +345,75 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f861fce2e9fa167e7fe8d8558cf2cbb910b9fb34">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.6.0_c55c7d91882a8b2757589549ae976819ed246d62\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f6afcfbf1989631424f9ceaae6ee24777d3cf6ba">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.6.0_4cb525a1b38dc4dd28944b55e74c4655fba0861a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.6.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="c48db997d87eb3e3ad47713cfbfe7cb878a2e66c">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.6.0_9a5f981b256c5f2e655a3fc8d05f9fd46b846fdb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a917154cf730ea6ec2495705309e6a4065cde2ac">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.6.0_0c5f9405c5b0f419974833981733332459156067\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="938ba83fbb26987368049237e47718d56e91e222">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.6.0_c642f024266ce4b7d7a3b64983835c4fab222897\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ea5537e2a88ce0497d3e2272b1cf93f2e0c77b0d">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.6.0_6b5d72979df013067a8c80e3d52bd3272ef3512c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="bd11b3899f275668a9355f19cea2c2320f5f9d14">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.6.0_4be71da89e57f9c63dcacf6d2b76a0d0ec540e64\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="26cd46f7bc6e1f269062b61269317a29329a9a7b">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-awareness-9.6.0_b3596296433cae19b462d637d766c60a1eb3a758\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -498,6 +426,51 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="580fa73d5bf63ffd04b9d66d0e75a2ed21842702">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.6.0_0c3aa38a710239af24f1f78612d9ea168946efa4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="d39f676be8400123523882d189a1d84040d34339">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.6.0_c7a65706d54d3b22ddfb2b019e43606d225f641a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="db0a4170961a16af6d7a5222bf90a5876eea4227">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.6.0_175466173502eef94a9f0e94c4b246da396ca0e7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0_41ecab0891dc686880d9799c4a641861f7d77c90\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="415336382149f2a79eb80599e340e188f6724d6d">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.6.0_45bdf2e7678b89d964d2f0254ed92f4a78b7f34d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\9.6.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -507,12 +480,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6d16df2955bbd154b36819386cfd2e3b7f7cae5b">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.6.0_479f2cc3f368153b0cdab9da8d1f9a5af0dc99e4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="614b2ffd04818e865e1c02cc149c6b92e518e862">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.6.0_6f87a503dabeb19049c228641776b384ce4daf99\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.6.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="7a343e17f154f513a09c12946fae0f172be079ec">
         <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-common-9.6.0_b6dfd97d1de9bb65f0a2bab9987cb394b6a86303\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f4540ad2a6e3741694e9332f0c20607c780fae6c">
+        <dex dex="C:\Users\Debra\Documents\GitHub\hidenseek-phase3\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.6.0_ad61d6fbb8b8d37d09798f50b0eac17867832532\classes.dex" />
     </item>
     <item
         is-multidex="true"

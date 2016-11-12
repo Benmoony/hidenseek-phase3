@@ -1,24 +1,26 @@
 package com.cascadia.hidenseek;
 
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.network.PostMatchRequest;
-import com.cascadia.hidenseek.network.PostPlayerRequest;
-import com.cascadia.hidenseek.network.PutRoleRequest;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.cascadia.hidenseek.Player.Role;
+import com.cascadia.hidenseek.network.PostMatchRequest;
+import com.cascadia.hidenseek.network.PostPlayerRequest;
+import com.cascadia.hidenseek.network.PutRoleRequest;
+
 
 public class HostLogin extends Activity {
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +28,22 @@ public class HostLogin extends Activity {
 		setContentView(R.layout.activity_host_login);
 		initSpinner();
 		initSettings();
-		
+
         ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
+
+        //InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        //imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
             	EditText mName = (EditText) findViewById(R.id.loginMatchNameInput);
             	Spinner mType = (Spinner) findViewById(R.id.loginMatchTypeSelect);
             	EditText mPassword = (EditText) findViewById(R.id.loginPasswordInput);
             	EditText pName = (EditText) findViewById(R.id.TextPlayerNameInput);
             	String matchName = mName.getText().toString();
-				if (matchName.isEmpty() || matchName.trim().length() <2)
+
+                if (matchName.isEmpty() || matchName.trim().length() <2)
 				{					
 					HelpDialog helpDialog = new HelpDialog("Match name must at least 2 characters and not blanks!", "Match Name" );
 					helpDialog.show(getFragmentManager(), "Help");
@@ -65,6 +73,10 @@ public class HostLogin extends Activity {
         			startActivity(intent);
         			return;
             	}
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
             	LoginManager.playerMe = new Player(hostName, m);
             	PostMatchRequest pm = new PostMatchRequest() {
 					
@@ -164,5 +176,7 @@ public class HostLogin extends Activity {
 		EditText uName = (EditText)findViewById(R.id.TextPlayerNameInput);
 		uName.setText(username);
 	}
+
+
 
 }
