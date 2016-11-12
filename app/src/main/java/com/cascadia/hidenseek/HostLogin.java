@@ -31,8 +31,6 @@ public class HostLogin extends Activity {
 
         ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
 
-        //InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        //imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
