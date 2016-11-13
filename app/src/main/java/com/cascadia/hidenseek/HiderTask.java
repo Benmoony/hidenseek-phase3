@@ -24,15 +24,14 @@ public class HiderTask extends GameTask {
         message.obj = match;
 
         //googleMap.clear();  TODO update Google API
-        int idx = 0;
 
-        // We need to identify which player this is before anything else
-        for (idx = 0; idx < match.players.size(); idx++) {
+        // See if one of the other players has been found
+        for (final Player hider : match.players.values()) {
+            boolean thisPlayer = (hider.getId() == player.getId());
 
-            Player hider = match.players.get(idx);
-            if (hider.getId() == player.getId()) {
-                Player.Status status = hider.getStatus();
-                message.arg1 = idx; // let the handler know which player is the current player
+            Player.Status status = hider.getStatus();
+
+            if (thisPlayer) {
                 if (status == Player.Status.Hiding) {
                     bundle.putString("event", "hiding");
                     message.setData(bundle);
@@ -47,24 +46,15 @@ public class HiderTask extends GameTask {
                     handler.sendMessage(message);
                 }
             }
-        }
-        // See if one of the other players has been found
-        idx = 0;
-        for (final Player hider : match.players.values()) {
-            boolean thisPlayer = (hider.getId() == player.getId());
-
-            Player.Status status = hider.getStatus();
-
-            if (match.getType() == Match.MatchType.HideNSeek) {
-                if (!thisPlayer && (status == Player.Status.Found) &&
+            else if (match.getType() == Match.MatchType.HideNSeek) {
+                if ((status == Player.Status.Found) &&
                         (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Found)) {
                     bundle.putString("event", "show-other-players");
                     message.setData(bundle);
-                    message.arg2 = idx; // let the handler know which player was found
+                    message.arg1 = hider.getId(); // let the handler know which player was found
                     handler.sendMessage(message);
                 }
             }
-            idx++;
         }
 
         if (match.getStatus() == Match.Status.Complete) {
