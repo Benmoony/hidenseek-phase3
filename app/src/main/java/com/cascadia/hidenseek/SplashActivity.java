@@ -12,8 +12,10 @@ import android.widget.TextView;
 public class SplashActivity extends Activity {
 	private TextView count_down_text = null;
 	private MyCountDownTimer countdowntimer = null;
+	private SecondCountTimer seektimer = null;
 	String counttime;
-	
+	String seektime;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +24,15 @@ public class SplashActivity extends Activity {
 		setContentView(view);
 		initSettings();
 		count_down_text = (TextView) findViewById(R.id.mTextField);
-		countdowntimer = new MyCountDownTimer(Long.parseLong(counttime)*1000, 1000);
+		countdowntimer = new MyCountDownTimer(Long.parseLong(counttime) * 1000, 1000);
 		countdowntimer.start();
 	}
+
 
 	private void redirectToLogin() {
 		Intent intentToGame = new Intent(this, Active.class);
 		startActivity(intentToGame);
-		
+
 	}
 
 	public void startCountDown(View view) {
@@ -39,7 +42,7 @@ public class SplashActivity extends Activity {
 	}
 
 	public class MyCountDownTimer extends CountDownTimer {
-		private long starttime;				//start time
+		private long starttime;                //start time
 		private boolean isrunning = false;
 
 		public MyCountDownTimer(long startTime, long interval) {
@@ -70,13 +73,70 @@ public class SplashActivity extends Activity {
 			return isrunning;
 		}
 
-	}
-	private void initSettings(){		
-		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
+		private void initSettings() {
+			counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
+			seektime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
+		}
+		/**
+		 * A placeholder fragment containing a simple view.
+		 */
+
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
+	//Zin//////////////////////////////////////////////////////////////////
+
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		final View view = View.inflate(this, R.layout.splash_screen, null);
+		setContentView(view);
+		initSettings();
+		count_down_text = (TextView) findViewById(R.id.mTextField);
+		seektimer = new SecondCountTimer(Long.parseLong((seektime) * 1000, 1000));
+		seektimer.start();
+	}
+
+	public void startSeekCountDown(View view) {
+		if (!seektimer.isRunning())
+			seektimer.startCountDown();
+		// can also directly seektimer.start()
+	}
+
+	public class SecondCountTimer extends CountDownTimer {
+		private long starttime;
+		private boolean isrunning = false;
+
+		public SecondCountTimer(long starttime, long interval) {
+
+			super(starttime, interval);
+			this.starttime = starttime;
+		}
+
+		public void startSeekCountDown() {
+			isrunning = true;
+			count_down_text.setText("" + starttime / 1000);
+			Log.d("TAG", " starttime/1000:" + starttime / 1000);
+			start();
+		}
+
+		@Override
+		public void onFinish() {
+			redirectToLogin();
+			isrunning = false;
+		}
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			count_down_text.setText("" + millisUntilFinished / 1000);
+		}
+
+		public boolean isRunning() {
+			return isrunning;
+		}
+
+		private void initSettings() {
+			seektime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
+		}
+	}
 }
-

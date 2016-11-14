@@ -86,11 +86,7 @@ public class Active extends FragmentActivity {
 			finish();
 
 		}
-		
-		
-		
-			
-		
+
 		ActionBar ab = getActionBar();
 		if (player.GetRole() != Player.Role.Seeker) {
 			ab.hide();
