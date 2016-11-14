@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -72,8 +71,8 @@ public class HostLogin extends Activity {
         			return;
             	}
 
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
             	LoginManager.playerMe = new Player(hostName, m);
             	PostMatchRequest pm = new PostMatchRequest() {
