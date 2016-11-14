@@ -57,8 +57,8 @@ public class SelectMatch extends Activity {
 				//Gets the list of matches and puts in listview
 				ArrayList<String> gameTitles = new ArrayList<String>();
 				for(Match m : matches) {
-					if(m.GetStatus() == Status.Pending) {
-						String title = m.GetId() + " - " + m.GetName();
+					if(m.getStatus() == Status.Pending) {
+						String title = m.getId() + " - " + m.getName();
 						gameTitles.add(title);
 					}
 				}

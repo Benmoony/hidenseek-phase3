@@ -79,7 +79,7 @@ public class JoinLogin extends Activity {
 		}
 		String intString = SelectMatch.selectedMatch.trim().replaceFirst(" - .*", "");
 		int matchId = Integer.parseInt(intString);
-		if (LoginManager.GetMatch()!= null && LoginManager.GetMatch().GetId() == matchId)
+		if (LoginManager.GetMatch()!= null && LoginManager.GetMatch().getId() == matchId)
 		{
 			HelpDialog helpDialog = new HelpDialog("You can't join the match you already in.", "Join a Match.");
 			helpDialog.show(getFragmentManager(), "Help");
@@ -97,10 +97,10 @@ public class JoinLogin extends Activity {
 				EditText mPassword = (EditText) findViewById(R.id.JoinPasswordInput);
 				EditText pName = (EditText) findViewById(R.id.PlayerNameInput);
 				String pwInput = mPassword.getText().toString();
-				String pwJason = match.GetPassword();
+				String pwJason = match.getPassword();
 				if (!pwInput.contains(pwJason) || !pwJason.contains(pwInput))
 				{
-					String noMatch = mPassword.getText().toString() + " -- " + match.GetPassword();
+					String noMatch = mPassword.getText().toString() + " -- " + match.getPassword();
 					HelpDialog helpDialog = new HelpDialog("Enter the correct password for the match! Ask your host!"+ noMatch, "Password" );
 					helpDialog.show(getFragmentManager(), "Help");
 					return;

@@ -1,13 +1,5 @@
 package com.cascadia.hidenseek;
 
-import java.util.GregorianCalendar;
-
-import com.cascadia.hidenseek.Match.MatchType;
-import com.cascadia.hidenseek.Match.Status;
-import com.cascadia.hidenseek.network.GetMatchRequest;
-import com.cascadia.hidenseek.network.GetPlayerListRequest;
-import com.cascadia.hidenseek.network.PutStartRequest;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -28,6 +20,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.GetMatchRequest;
+import com.cascadia.hidenseek.network.GetPlayerListRequest;
+import com.cascadia.hidenseek.network.PutStartRequest;
+
+import java.util.GregorianCalendar;
 
 
 public class HostConfig extends Activity {
@@ -56,10 +56,10 @@ public class HostConfig extends Activity {
 			d.show();
 			finish();
 		}
-		int temp=LoginManager.playerMe.GetId();
+		int temp=LoginManager.playerMe.getId();
 		Toast.makeText(this, Integer.toString(temp), Toast.LENGTH_LONG).show();
-		LoginManager.playerMe.SetID(temp);
-		Toast.makeText(this, "Id Changed to" + Integer.toString(LoginManager.playerMe.GetId()), Toast.LENGTH_LONG).show();
+		LoginManager.playerMe.setID(temp);
+		Toast.makeText(this, "Id Changed to" + Integer.toString(LoginManager.playerMe.getId()), Toast.LENGTH_LONG).show();
 		initSettings();
 		
 		list=(ListView)findViewById(R.id.configPlayerList);
@@ -94,7 +94,7 @@ public class HostConfig extends Activity {
             	Match m = LoginManager.GetMatch();
             	
             	//Validate countTime and searchTime input unless this is a sandbox
-            	if(LoginManager.GetMatch().GetType() != MatchType.Sandbox) {
+            	if(LoginManager.GetMatch().getType() != MatchType.Sandbox) {
                 	String sCountTime = countTime.getText().toString();
             		String sSeekTime = seekTime.getText().toString();
             		
@@ -104,8 +104,8 @@ public class HostConfig extends Activity {
             			return;
             		}
 	            	try {
-		            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
-		            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
+		            	m.setCountTime(Integer.parseInt(countTime.getText().toString()));
+		            	m.setSeekTime(Integer.parseInt(seekTime.getText().toString()));
 		            	// Save if we go through
 		            	sh_Pref = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE); 
 	            		toEdit = sh_Pref.edit(); 
@@ -128,21 +128,20 @@ public class HostConfig extends Activity {
 					@Override
 					protected void onComplete(Match m) {
 						Intent intent;
-						if(LoginManager.GetMatch().GetType()==Match.MatchType.HideNSeek){
-						Timer = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE)
+						if (LoginManager.GetMatch().getType() == Match.MatchType.HideNSeek) {
+							Timer = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE)
 									.getString("Seektime", null);
-						scheduleAlarm();
-						intent = new Intent(HostConfig.this, SplashActivity.class);
-						
-		    			startActivity(intent);
-		    			isActive=false;
-						}
-						else{
-							intent=new Intent(HostConfig.this, Active.class);
+							scheduleAlarm();
+							intent = new Intent(HostConfig.this, SplashActivity.class);
+
 							startActivity(intent);
-							isActive=false;
+							isActive = false;
+						} else {
+							intent = new Intent(HostConfig.this, Active.class);
+							startActivity(intent);
+							isActive = false;
 						}
-							
+
 					}
 					
 				};
@@ -159,7 +158,7 @@ public class HostConfig extends Activity {
 		});
         
         //Remove count time and search time things if this is a sandbox
-        if(LoginManager.GetMatch().GetType() == MatchType.Sandbox||!LoginManager.isHost) {
+        if(LoginManager.GetMatch().getType() == MatchType.Sandbox||!LoginManager.isHost) {
         	findViewById(R.id.configTimeContainer).setVisibility(View.GONE);
         }
         
@@ -187,9 +186,9 @@ public class HostConfig extends Activity {
 
 						@Override
 						protected void onComplete(Match match) {
-							if (match.GetStatus() == Status.Active) {
+							if (match.getStatus() == Status.Active) {
 								isActive = false;
-								String seek = String.valueOf(match.GetSeekTime());
+								String seek = String.valueOf(match.getSeekTime());
 								sh_Pref = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE);
 								toEdit = sh_Pref.edit();
 								toEdit.putString("Seektime", seek);
@@ -201,7 +200,7 @@ public class HostConfig extends Activity {
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.GetMatch().GetId());
+					gmRequest.DoRequest(LoginManager.GetMatch().getId());
 				}
 
 				if (isActive) {
@@ -234,8 +233,8 @@ public class HostConfig extends Activity {
 			protected void onComplete(Match match) {
 				String[] titles = new String[match.players.size()];
 				int i = 0;
-				for(Player p : match.players) {
-					titles[i] = p.GetName();
+				for (Player p : match.players.values()) {
+					titles[i] = p.getName();
 					i++;
 				}
 				CustomList adapter = new CustomList(HostConfig.this, titles);

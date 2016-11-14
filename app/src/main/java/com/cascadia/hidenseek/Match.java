@@ -1,19 +1,19 @@
 package com.cascadia.hidenseek;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import android.content.Intent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.Intent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
 
 public class Match {
 
@@ -22,7 +22,7 @@ public class Match {
 		Pending,
 		Complete;
 
-		public static Status Parse(String s) {
+		public static Status parse(String s) {
 			if(s.equalsIgnoreCase("active")){
 				return Active;
 			} else if (s.equalsIgnoreCase("pending")) {
@@ -30,7 +30,7 @@ public class Match {
 			} else return Complete;
 		}
 		
-		public String GetApiString() {
+		public String getApiString() {
 			switch(this) {
 			case Active:
 				return "active";
@@ -82,7 +82,7 @@ public class Match {
 	 * Hide-n-Seek API for the /matches/ request
 	 * @return A list of Matches. Returns null in case of parsing error.
 	 */
-	public static List<Match> ParseToList(String jsonStr) {
+	public static List<Match> parseToList(String jsonStr) {
 		List<Match> toReturn = new ArrayList<Match>();
 		JSONArray jArray;
 		
@@ -106,7 +106,7 @@ public class Match {
 	 * Hide-n-Seek API for a /matches/match id request
 	 * @return A Match. Returns null in case of parsing error.
 	 */
-	public static Match Parse(String jsonStr) {
+	public static Match parse(String jsonStr) {
 		try {
 			return parse(
 					new JSONObject(jsonStr)
@@ -119,7 +119,7 @@ public class Match {
 		}
 	}
 	
-	public String ToJSONPost() {
+	public String toJSONPost() {
 		JSONObject jObject = new JSONObject();
 		try {
 			jObject.put("name", name);
@@ -132,7 +132,7 @@ public class Match {
 		}
 	}
 	
-	public void ProcessPostResponse(String jsonStr) {
+	public void processPostResponse(String jsonStr) {
 		try {
 			matchId = new JSONObject(jsonStr).getInt("id");
 		} catch (JSONException e) {
@@ -143,7 +143,7 @@ public class Match {
 	}
 	
 	//Parameters needed to start the match
-	public String ToJSONStart() {
+	public String toJSONStart() {
 		JSONObject jObject = new JSONObject();
 		try {
 			jObject.put("countTime", countTime);
@@ -179,7 +179,7 @@ public class Match {
 			toReturn.seekTime = -1;
 		}
 		try {
-			toReturn.status = Status.Parse(jObject.getString("status"));
+			toReturn.status = Status.parse(jObject.getString("status"));
 		} catch(JSONException e) {
 			//Leave it null
 		}
@@ -193,34 +193,34 @@ public class Match {
 		return toReturn;
 	}
 	
-	public int GetId() {
+	public int getId() {
 		return matchId;
 	}
-	public String GetName() {
+	public String getName() {
 		return name;
 	}
-	public String GetPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public int GetCountTime() {
+	public int getCountTime() {
 		return countTime;
 	}
-	public void SetCountTime(int time) {
+	public void setCountTime(int time) {
 		countTime = time;
 	}
-	public int GetSeekTime() {
+	public int getSeekTime() {
 		return seekTime;
 	}
-	public void SetSeekTime(int time) {
+	public void setSeekTime(int time) {
 		seekTime = time;
 	}
-	public MatchType GetType() {
+	public MatchType getType() {
 		return type;
 	}
-	public Status GetStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void SetStatus(Match.Status s){
+	public void setStatus(Match.Status s){
 		status= s;
 	}
 
@@ -251,9 +251,9 @@ public class Match {
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 	
-	public List<Player> players = new ArrayList<Player>();
+	public Hashtable<Integer, Player> players = new Hashtable();
 
-	public void StartMatch() {
+	public void startMatch() {
 		startTime = new Date();
 		status = Status.Active;
 	}

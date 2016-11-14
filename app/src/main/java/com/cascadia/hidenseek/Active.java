@@ -1,21 +1,5 @@
 package com.cascadia.hidenseek;
 
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.Player.Status;
-import com.cascadia.hidenseek.network.DeletePlayingRequest;
-import com.cascadia.hidenseek.network.GetPlayerListRequest;
-import com.cascadia.hidenseek.network.PutGpsRequest;
-import com.cascadia.hidenseek.network.PutStatusRequest;
-import com.cascadia.hidenseek.network.PutStopRequest;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -24,14 +8,25 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.cascadia.hidenseek.Player.Role;
+import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.network.DeletePlayingRequest;
+import com.cascadia.hidenseek.network.PutStatusRequest;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.GoogleMap;
 
 public class Active extends FragmentActivity {
 	GoogleMap googleMap;
@@ -45,11 +40,6 @@ public class Active extends FragmentActivity {
 	boolean tagged = true;
 	private ShowHider sh;
 	Long showTime = (long) 30000;
-
-	// Used for periodic callback.
-	private Handler h2 = new Handler();
-	// Millisecond delay between callbacks
-	private final int callbackDelay = 500;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +59,7 @@ public class Active extends FragmentActivity {
 		}
 		
 		ActionBar ab = getActionBar();
-		if (player.GetRole() != Player.Role.Seeker) {
+		if (player.getRole() != Player.Role.Seeker) {
 			ab.hide();
 		}
 
@@ -99,7 +89,7 @@ public class Active extends FragmentActivity {
 			}
 		});
 
-		if (player.GetRole() == Role.Seeker) {
+		if (player.getRole() == Role.Seeker) {
 			new Thread(new SeekerTask(seekerHandler, player)).start();
 		}
 		else {
@@ -128,11 +118,13 @@ public class Active extends FragmentActivity {
 				case "showFound":
 					showFound();
 					break;
-				case "endGame":
-					endGame();
+				case "game-over":
+					gameOver();
 			}
 		}
 	};
+
+
 
 	// Send a message to the handler with information it needs to update the distance indication
 	// from the Seeker to the hider
@@ -144,10 +136,13 @@ public class Active extends FragmentActivity {
 	// Send a message to the handler with information it needs to update the player to show found
 	private void showFound() {
 	}
-	// Send a message to the handler with information it needs to end the game
-	private void endGame() {
+	// Go back to the login screen when the game has ended
+	private void gameOver() {
+		Intent end = new Intent(context, TempToHome.class);
+		startActivity(end);
 	}
 
+	// Handle events from the hider task
 	private Handler hiderHandler= new Handler() {
 		@Override
 		public void handleMessage(Message message) {
@@ -188,8 +183,8 @@ public class Active extends FragmentActivity {
 	private DialogInterface.OnClickListener foundClickListener = new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int id) {
 
-			player.SetStatus(Status.Found);
-			player.SetLocation(null);
+			player.setStatus(Status.Found);
+			player.setLocation(null);
 			PutStatusRequest pp = new PutStatusRequest() {
 
 				@Override
@@ -211,7 +206,7 @@ public class Active extends FragmentActivity {
 		public void onClick(DialogInterface dialog, int id) {
 			// if this button is clicked, just close the dialog box
 			// and do nothing
-			player.SetStatus(Status.Hiding);
+			player.setStatus(Status.Hiding);
 			PutStatusRequest pp = new PutStatusRequest() {
 
 				@Override
@@ -225,16 +220,6 @@ public class Active extends FragmentActivity {
 		}
 	};
 	private void showOtherPlayers() {
-	}
-
-
-	public void CheckForEndGame() {
-		isActive = false;
-		PutStopRequest psr = new PutStopRequest();
-		psr.DoRequest(match);
-		match.SetStatus(Match.Status.Complete);
-		Intent end = new Intent(context, TempToHome.class);
-		startActivity(end);
 	}
 
 

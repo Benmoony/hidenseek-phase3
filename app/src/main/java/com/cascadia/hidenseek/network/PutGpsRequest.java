@@ -8,15 +8,15 @@ import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 public abstract class PutGpsRequest extends NetworkRequest {
 
 	public void DoRequest(Player p) {
-		if(p.GetLocation() == null) {
+		if(p.getLocation() == null) {
 			onException(new NullPointerException("Null location in PutGpsRequest"));
 			return;
 		}
 		Request r = new Request();
-		r.url = baseUrl + "players/" + p.GetId() + "/gps/";
+		r.url = baseUrl + "players/" + p.getId() + "/gps/";
 		r.type = RequestType.PUT;
 		try {
-			r.jsonArgs = p.LocationToJSON();
+			r.jsonArgs = p.locationToJSON();
 		} catch(JSONException e) {
 			onException(e);
 		}

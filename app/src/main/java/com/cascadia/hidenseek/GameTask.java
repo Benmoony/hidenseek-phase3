@@ -1,11 +1,14 @@
 package com.cascadia.hidenseek;
 
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
+import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 
-import android.os.Handler;
-
-import java.util.HashMap;
+import java.util.Hashtable;
 
 /**
  * Created by deb on 11/7/16.
@@ -23,13 +26,13 @@ public abstract class GameTask implements Runnable {
     protected Player player;
     protected final int DELAY = 500; // delay between checks of player status
     // Keep track of the last status for all the players
-    protected HashMap<Integer, Player> players = new HashMap<>();
+    protected Hashtable<Integer, Player> players = new Hashtable<>();
 
     // Create the GameTask and provide it with a message handler in the
     // GUI task
     public GameTask(Handler handler, Player player) {
         this.handler = handler;
-        this.match = player.GetAssociatedMatch();
+        this.match = player.getAssociatedMatch();
         this.player = player;
     }
     // Run the task
@@ -37,8 +40,8 @@ public abstract class GameTask implements Runnable {
         // loop until the user has left the game or it is over
         while (true) {
             // Break out of the loop if the match is over or the player is found
-            if ((match.GetStatus() == Match.Status.Complete) ||
-                    (player.GetStatus() == Player.Status.Found)) {
+            if ((match.getStatus() == Match.Status.Complete) ||
+                    (player.getStatus() == Player.Status.Found)) {
                 break;
             }
             // Do request and update values in match. No callback needed.
@@ -50,19 +53,36 @@ public abstract class GameTask implements Runnable {
 
                 @Override
                 protected void onComplete(Match newMatch) {
-                    match = newMatch;
-                    processStatus();
+//                    match.players = newMatch.players;
+                    processPlayers();
 
                     // Update the status for each player, and the current player
-                    for (Player hider : match.players) {
-                        players.put(new Integer(hider.GetId()), hider);
-                        if (hider.GetId() == player.GetId())
-                            player = hider;
-                    }
+                    players = newMatch.players;
+                    player = players.get(new Integer(player.getId()));
                 }
             };
             gplRequest.DoRequest(match);
 
+            GetMatchRequest gmRequest = new GetMatchRequest() {
+                @Override
+                protected void onException(Exception e) {
+                }
+
+                @Override
+                protected void onComplete(Match matchUpdate) {
+                    Match.Status status = matchUpdate.getStatus();
+                    if ((status == Match.Status.Complete) /*&& (match.getStatus() != Match.Status.Complete)*/) {
+                        Message message = handler.obtainMessage();
+                        Bundle bundle = new Bundle();
+                        message.obj = match;
+                        bundle.putString("event", "game-over");
+                        message.setData(bundle);
+                        handler.sendMessage(message);
+                    }
+                    match = matchUpdate;
+                }
+            };
+            gmRequest.DoRequest(LoginManager.GetMatch().getId());
             try {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) {
@@ -73,5 +93,5 @@ public abstract class GameTask implements Runnable {
 
     }
     // Process the returned status for the match
-    protected abstract void processStatus();
+    protected abstract void processPlayers();
 }
