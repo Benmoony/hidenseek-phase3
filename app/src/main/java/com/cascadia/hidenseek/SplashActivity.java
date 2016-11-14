@@ -39,7 +39,7 @@ public class SplashActivity extends Activity {
 	}
 
 	public class MyCountDownTimer extends CountDownTimer {
-		private long starttime;
+		private long starttime;				//start time
 		private boolean isrunning = false;
 
 		public MyCountDownTimer(long startTime, long interval) {
@@ -73,9 +73,6 @@ public class SplashActivity extends Activity {
 	}
 	private void initSettings(){		
 		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "6000");
-		
-		
-		
 	}
 
 	/**

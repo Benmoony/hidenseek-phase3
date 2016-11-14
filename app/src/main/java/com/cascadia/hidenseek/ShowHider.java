@@ -17,9 +17,6 @@ public class ShowHider extends CountDownTimer {
 		super(StartTime, interval);
 		isSeeker=p;
 	}
-	
-
-	
 
 	public void startCountDown1() {
 		isrunning = true;

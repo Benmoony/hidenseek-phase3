@@ -70,15 +70,9 @@ public class Active extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
-		
-		
-
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
 		isActive = true;
-		
-		
-		
 		if (match == null || player == null) {
 			Dialog d = new Dialog(this);
 			d.setTitle("Error: null match.");
@@ -86,11 +80,6 @@ public class Active extends FragmentActivity {
 			finish();
 
 		}
-		
-		
-		
-			
-		
 		ActionBar ab = getActionBar();
 		if (player.GetRole() != Player.Role.Seeker) {
 			ab.hide();
@@ -138,7 +127,7 @@ public class Active extends FragmentActivity {
 					@Override
 					protected void onComplete(Match match) {
 						numPlayers = match.players.size();
-						googleMap.clear();
+						//googleMap.clear();			TODO: to update Google map
 						counter=0;
 						for (final Player p : match.players) {
 							pend = p.GetStatus();
@@ -146,7 +135,6 @@ public class Active extends FragmentActivity {
 							{
 								player.SetID(p.GetId());
 							}
-							
 							if(match.GetType()==Match.MatchType.HideNSeek)
 							{
 							if(p.GetStatus()==Player.Status.Found)
@@ -154,7 +142,6 @@ public class Active extends FragmentActivity {
 								counter++;
 								if(counter==numPlayers-1)
 								{
-									
 									CheckForEndGame();
 								}
 								
@@ -164,8 +151,6 @@ public class Active extends FragmentActivity {
 								temp = p;
 								
 							}
-							
-							
 
 							playerRole = p.GetRole();
 							
@@ -176,9 +161,7 @@ public class Active extends FragmentActivity {
 									isActive=false;
 									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 											context);
-
 									// set title
-
 									alertDialogBuilder.setTitle("The Seeker Has Found You");
 									alertDialogBuilder
 											.setMessage(
@@ -190,10 +173,9 @@ public class Active extends FragmentActivity {
 														public void onClick(
 																DialogInterface dialog,
 																int id) {
-															
 															p.SetStatus(Player.Status.Found);
 															p.SetLocation(null);
-															PutStatusRequest pp = new PutStatusRequest() {
+															PutStatusRequest pp = git new PutStatusRequest() {
 
 																@Override
 																protected void onException(
