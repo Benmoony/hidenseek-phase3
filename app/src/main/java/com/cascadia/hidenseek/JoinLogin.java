@@ -73,7 +73,7 @@ public class JoinLogin extends Activity {
 	}
 
 	private void joinMatch() {
-		if(SelectMatch.selectedMatch == null) {
+		if (SelectMatch.selectedMatch == null) {
 			//Error!
 			return;
 		}

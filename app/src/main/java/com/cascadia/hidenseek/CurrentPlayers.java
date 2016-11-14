@@ -36,13 +36,9 @@ public class CurrentPlayers extends Activity {
 			d.show();
 			finish();
 		}
-		
-		
-		
+
 		list=(ListView)findViewById(R.id.configPlayerList1);
 		isActive = true;
-		
-       
 		
 	    Runnable callback = new Runnable() {
 	    	
