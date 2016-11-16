@@ -10,10 +10,10 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 	public void DoRequest(Player toPost, String password) {
 		p = toPost;
 		Request r = new Request();
-		r.url = baseUrl + "matches/" + toPost.GetAssociatedMatch().GetId() + "/players/";
+		r.url = baseUrl + "matches/" + toPost.getAssociatedMatch().getId() + "/players/";
 		r.type = RequestType.POST;
 		try {
-			r.jsonArgs = p.ToJSONPost(password);
+			r.jsonArgs = p.toJSONPost(password);
 		} catch (JSONException e) {
 			onException(e);
 		}
@@ -25,7 +25,7 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		p.ProcessPostResponse(s);
+		p.processPostResponse(s);
 		onComplete(p);
 	}
 	

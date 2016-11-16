@@ -1,48 +1,32 @@
 package com.cascadia.hidenseek;
 
-import java.util.GregorianCalendar;
-
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.Player.Status;
-import com.cascadia.hidenseek.SplashActivity.MyCountDownTimer;
-import com.cascadia.hidenseek.network.DeletePlayingRequest;
-import com.cascadia.hidenseek.network.GetPlayerListRequest;
-import com.cascadia.hidenseek.network.PutGpsRequest;
-import com.cascadia.hidenseek.network.PutRoleRequest;
-import com.cascadia.hidenseek.network.PutStatusRequest;
-import com.cascadia.hidenseek.network.PutStopRequest;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
+import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.cascadia.hidenseek.Player.Role;
+import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.network.DeletePlayingRequest;
+import com.cascadia.hidenseek.network.PutStatusRequest;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.GoogleMap;
 
 public class Active extends FragmentActivity {
 	GoogleMap googleMap;
@@ -51,33 +35,20 @@ public class Active extends FragmentActivity {
 	boolean isActive;
 	Status pend;
 	Role playerRole;
-	Player temp;
 	String Timer;
 	final Context context = this;
 	boolean tagged = true;
 	private ShowHider sh;
 	Long showTime = (long) 30000;
-	private int counter;
-	private int numPlayers;
-
-	// Used for periodic callback.
-	private Handler h2 = new Handler();
-	// Millisecond delay between callbacks
-	private final int callbackDelay = 500;
-	private final int callbackDelay1 = 000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
-		
-		
 
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
 		isActive = true;
-		
-		
 		
 		if (match == null || player == null) {
 			Dialog d = new Dialog(this);
@@ -86,9 +57,9 @@ public class Active extends FragmentActivity {
 			finish();
 
 		}
-
+		
 		ActionBar ab = getActionBar();
-		if (player.GetRole() != Player.Role.Seeker) {
+		if (player.getRole() != Player.Role.Seeker) {
 			ab.hide();
 		}
 
@@ -108,7 +79,8 @@ public class Active extends FragmentActivity {
 								.newLatLngZoom(point, 17));
 					}
 				});
-		*/// User clicked Leave Match button
+		*/
+		// User clicked Leave Match button
 		ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
 		btnLeave.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -117,197 +89,145 @@ public class Active extends FragmentActivity {
 			}
 		});
 
-		Runnable callback = new Runnable() {
+		if (player.getRole() == Role.Seeker) {
+			new Thread(new SeekerTask(seekerHandler, player)).start();
+		}
+		else {
+			new Thread(new HiderTask(hiderHandler, player)).start();
+		}
 
-			// This function gets called twice per second until the app is
-			// stopped.
-			@Override
-			public void run() {
+	}
 
-				// Do request and update values in match. No callback needed.
-				GetPlayerListRequest gplRequest = new GetPlayerListRequest() {
+	private Handler seekerHandler = new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			Bundle bundle = message.getData();
 
-					@Override
-					protected void onException(Exception e) {
-					}
+			String event = bundle.getString("event");
+			match = (Match) message.obj;
+			player = match.players.get(message.arg1);
 
-					@Override
-					protected void onComplete(Match match) {
-						numPlayers = match.players.size();
-						//googleMap.clear();			TODO: to update Google map
-						counter=0;
-						for (final Player p : match.players) {
-							pend = p.GetStatus();
-							if(player.GetName().toString()==p.GetName().toString())
-							{
-								player.SetID(p.GetId());
-							}
-							
-							if(match.GetType()==Match.MatchType.HideNSeek)
-							{
-							if(p.GetStatus()==Player.Status.Found)
-							{
-								counter++;
-								if(counter==numPlayers-1)
-								{
-									
-									CheckForEndGame();
-								}
-								
-							}
-							}
-							if (p.GetRole() == Player.Role.Seeker) {
-								temp = p;
-								
-							}
-							
-							
-
-							playerRole = p.GetRole();
-							
-							if (pend == Status.Spotted
-									&& player.GetId()==p.GetId()) {
-								if (tagged) {
-									tagged = false;
-									isActive=false;
-									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-											context);
-
-									// set title
-
-									alertDialogBuilder.setTitle("Found You");
-									alertDialogBuilder
-											.setMessage(
-													"The seeker just said he found you, is this correct?")
-											.setCancelable(false)
-											.setPositiveButton(
-													"Yes",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int id) {
-															
-															p.SetStatus(Player.Status.Found);
-															p.SetLocation(null);
-															PutStatusRequest pp = new PutStatusRequest() {
-
-																@Override
-																protected void onException(
-																		Exception e) {
-																	e.printStackTrace();
-																}
-
-															};
-															
-															pp.DoRequest(p);
-															
-															ShowSeeker();
-															tagged = true;
-															Intent intent = new Intent(context,TempToHome.class);
-															startActivity(intent);
-
-														}
-													})
-											.setNegativeButton(
-													"No",
-													new DialogInterface.OnClickListener() {
-														public void onClick(
-																DialogInterface dialog,
-																int id) {
-															// if this button is
-															// clicked, just
-															// close
-															// the dialog box
-															// and do nothing
-															p.SetStatus(Status.Hiding);
-															PutStatusRequest pp = new PutStatusRequest() {
-
-																@Override
-																protected void onException(
-																		Exception e) {
-																	e.printStackTrace();
-																}
-
-															};
-															pp.DoRequest(p);
-															tagged = true;
-															
-
-														}
-													});
-
-									// create alert dialog
-									AlertDialog alertDialog = alertDialogBuilder
-											.create();
-
-									// show it
-									alertDialog.show();
-									isActive=true;
-								}
-							}
-
-							// Dont't add a marker for players with null
-							// locations or one for myself.
-
-							if (match.GetType() != Match.MatchType.Sandbox) {
-								if (p.GetLocation() != null&& p.GetId() != player.GetId()&& p.GetRole() != Player.Role.Seeker&& p.GetStatus() != Player.Status.Found) {
-									googleMap.addMarker(new MarkerOptions()
-											.position(
-													new LatLng(p.GetLocation().getLatitude(), p.GetLocation().getLongitude())).title(p.GetName()));
-								}
-							} else {
-								if (p.GetLocation() != null&& p.GetId() != player.GetId()) {
-									
-									googleMap.addMarker(new MarkerOptions().position(
-													new LatLng(p.GetLocation()
-															.getLatitude(), p
-															.GetLocation()
-															.getLongitude()))
-											.title(p.GetName()));
-									
-								}
-								
-							}
-						}
-					}
-				};
-				gplRequest.DoRequest(match);
-
-				
-				// Do request. No callback needed. Player location set by
-				// Google Maps' onMyLocationChange
-				PutGpsRequest pgRequest = new PutGpsRequest() {
-					@Override
-					protected void onException(Exception e) {
-					}
-				};
-				pgRequest.DoRequest(player);
-
-				if (isActive) {
-					h2.postDelayed(this, callbackDelay);
-				}
+			// handle the event
+			switch (event) {
+				case "showDistance":
+					showDistance();
+					break;
+				case "showSpotted":
+					showSpotted();
+					break;
+				case "showFound":
+					showFound();
+					break;
+				case "game-over":
+					gameOver();
 			}
-		};
-		callback.run(); // Begin periodic updating!
-	
-		
+		}
+	};
+
+
+
+	// Send a message to the handler with information it needs to update the distance indication
+	// from the Seeker to the hider
+	private void showDistance() {
+	}
+	// Send a message to the handler with information it needs to update the player to show spotted
+	private void showSpotted() {
+	}
+	// Send a message to the handler with information it needs to update the player to show found
+	private void showFound() {
+	}
+	// Go back to the login screen when the game has ended
+	private void gameOver() {
+		Intent end = new Intent(context, TempToHome.class);
+		startActivity(end);
 	}
 
-	public void CheckForEndGame() {
-		isActive=false;
-			PutStopRequest psr = new PutStopRequest();
-			psr.DoRequest(match);
-			match.SetStatus(Match.Status.Complete);
-			Intent end=new Intent(context,TempToHome.class);
-			startActivity(end);
+	// Handle events from the hider task
+	private Handler hiderHandler= new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			Bundle bundle = message.getData();
+
+			String event = bundle.getString("event");
+
+			switch (event) {
+				case "spotted":
+					showFoundAlert();
+					break;
+				case "show-other-players":
+					showOtherPlayers();
+					break;
+			}
+		}
+	};
+
+	private void showFoundAlert() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+		// set title
+		alertDialogBuilder.setTitle("Found You");
+
+		alertDialogBuilder
+                .setMessage("The seeker just said he found you, is this correct?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", foundClickListener)
+                .setNegativeButton("No", notFoundClickListener);
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
 	}
 
-	
+	private DialogInterface.OnClickListener foundClickListener = new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int id) {
+
+			player.setStatus(Status.Found);
+			player.setLocation(null);
+			PutStatusRequest pp = new PutStatusRequest() {
+
+				@Override
+				protected void onException(Exception e) {
+					e.printStackTrace();
+				}
+
+			};
+
+			pp.DoRequest(player);
+
+			ShowSeeker();
+			tagged = true;
+			Intent intent = new Intent(context, TempToHome.class);
+			startActivity(intent);
+		}
+	};
+	private DialogInterface.OnClickListener notFoundClickListener = new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int id) {
+			// if this button is clicked, just close the dialog box
+			// and do nothing
+			player.setStatus(Status.Hiding);
+			PutStatusRequest pp = new PutStatusRequest() {
+
+				@Override
+				protected void onException(Exception e) {
+					e.printStackTrace();
+				}
+
+			};
+			pp.DoRequest(player);
+			tagged = true;
+		}
+	};
+	private void showOtherPlayers() {
+	}
+
 
 	public void ShowSeeker() {
+/*
 		sh = new ShowHider(showTime, 1000, temp);
 		sh.startCountDown1();
-
+*/
 	}
 
 	public void onPause() {
@@ -408,3 +328,4 @@ public class Active extends FragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 }
+

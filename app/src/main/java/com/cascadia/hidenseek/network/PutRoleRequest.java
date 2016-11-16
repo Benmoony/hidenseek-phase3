@@ -9,10 +9,10 @@ public abstract class PutRoleRequest extends NetworkRequest {
 
 	public void DoRequest(Player p) {
 		Request r = new Request();
-		r.url = baseUrl + "players/" + p.GetId() + "/role/";
+		r.url = baseUrl + "players/" + p.getId() + "/role/";
 		r.type = RequestType.PUT;
 		try {
-			r.jsonArgs = p.RoleToJSON();
+			r.jsonArgs = p.roleToJSON();
 		} catch(JSONException e) {
 			onException(e);
 		}

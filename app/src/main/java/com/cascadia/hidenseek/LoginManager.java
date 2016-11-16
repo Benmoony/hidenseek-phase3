@@ -19,7 +19,7 @@ public class LoginManager {
 	 
 	public static void ValidateJoinLogin(Player p) {
 		playerMe = p;
-		m = p.GetAssociatedMatch();
+		m = p.getAssociatedMatch();
 		isHost = false;
 	}
 	/*  Should not allow to change match, it is related to player

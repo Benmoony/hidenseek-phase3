@@ -10,7 +10,7 @@ public abstract class PostMatchRequest extends NetworkRequest {
 		Request r = new Request();
 		r.url = baseUrl + "matches/";
 		r.type = RequestType.POST;
-		r.jsonArgs = m.ToJSONPost();
+		r.jsonArgs = m.toJSONPost();
 		doRequest(r);
 	}
 	
@@ -20,7 +20,7 @@ public abstract class PostMatchRequest extends NetworkRequest {
 	@Override
 	protected final void processPostExecute(String s) {
 		try {
-			m.ProcessPostResponse(s);
+			m.processPostResponse(s);
 		} catch (NullPointerException e) {
 			onException(e);
 			return;
