@@ -105,7 +105,7 @@ public class Active extends FragmentActivity {
 
 			String event = bundle.getString("event");
 			match = (Match) message.obj;
-			player = match.players.get(message.arg1);
+			player = match.players.get(new Integer(message.arg1));
 
 			// handle the event
 			switch (event) {
@@ -120,20 +120,21 @@ public class Active extends FragmentActivity {
 					break;
 				case "game-over":
 					gameOver();
+					break;
 			}
 		}
 	};
 
 
 
-	// Send a message to the handler with information it needs to update the distance indication
+	// Update the distance indication
 	// from the Seeker to the hider
 	private void showDistance() {
 	}
-	// Send a message to the handler with information it needs to update the player to show spotted
+	// Update the player to show spotted
 	private void showSpotted() {
 	}
-	// Send a message to the handler with information it needs to update the player to show found
+	// Update the player to show found
 	private void showFound() {
 	}
 	// Go back to the login screen when the game has ended
@@ -155,7 +156,7 @@ public class Active extends FragmentActivity {
 					showFoundAlert();
 					break;
 				case "show-other-players":
-					showOtherPlayers();
+					showOtherPlayers(message.arg1);
 					break;
 			}
 		}
@@ -219,7 +220,9 @@ public class Active extends FragmentActivity {
 			tagged = true;
 		}
 	};
-	private void showOtherPlayers() {
+	// Show the other hiders and the Seeker for a period of time
+	// when another hider has been found
+	private void showOtherPlayers(int foundID) {
 	}
 
 

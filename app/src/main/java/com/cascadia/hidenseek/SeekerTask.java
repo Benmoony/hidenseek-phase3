@@ -28,8 +28,8 @@ public class SeekerTask extends GameTask {
         Bundle bundle = new Bundle();
         message.obj = match;
 
-        int idx = 0;
         for (final Player hider : match.players.values()) {
+            message.arg1 = hider.getId();
             Player.Status status = hider.getStatus();
 
             if (hider.getRole() == Player.Role.Seeker) {
@@ -61,7 +61,6 @@ public class SeekerTask extends GameTask {
                         break;
                 }
             }
-            idx++;
         }
 
         if ((numPlayers == 0) || Calendar.getInstance().getTime().after(match.getEndTime())) {
