@@ -1,5 +1,6 @@
 package com.cascadia.hidenseek;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,8 +15,8 @@ import java.util.Calendar;
 
 public class SeekerTask extends GameTask {
 
-    public SeekerTask(Handler handler, Player player) {
-        super(handler, player);
+    public SeekerTask(Context context, Handler handler, Player player) {
+        super(context, handler, player);
     }
 
     // Process the new status for the match and players.

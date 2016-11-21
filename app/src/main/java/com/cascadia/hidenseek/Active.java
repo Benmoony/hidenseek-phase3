@@ -1,5 +1,6 @@
 package com.cascadia.hidenseek;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -8,10 +9,15 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
@@ -26,9 +32,21 @@ import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PutStatusRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Active extends FragmentActivity {
+public class Active extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 	GoogleMap googleMap;
 	Match match;
 	Player player;
@@ -40,6 +58,7 @@ public class Active extends FragmentActivity {
 	boolean tagged = true;
 	private ShowHider sh;
 	Long showTime = (long) 30000;
+    protected GoogleApiClient googleApiClient;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +68,7 @@ public class Active extends FragmentActivity {
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
 		isActive = true;
-		
+
 		if (match == null || player == null) {
 			Dialog d = new Dialog(this);
 			d.setTitle("Error: null match.");
@@ -57,29 +76,23 @@ public class Active extends FragmentActivity {
 			finish();
 
 		}
-		
+
 		ActionBar ab = getActionBar();
 		if (player.getRole() != Player.Role.Seeker) {
 			ab.hide();
 		}
 
-		/* Show user's position on map
-		googleMap = ((SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.mapview)).getMap();
-		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		googleMap.setMyLocationEnabled(true);
-		googleMap
-				.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-					@Override
-					public void onMyLocationChange(Location location) {
-						LatLng point = new LatLng(location.getLatitude(),
-								location.getLongitude());
-						player.SetLocation(location);
-						googleMap.animateCamera(CameraUpdateFactory
-								.newLatLngZoom(point, 17));
-					}
-				});
-		*/
+		SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
+		if (savedInstanceState == null) {
+			getSupportFragmentManager()
+					.beginTransaction()
+					.add(R.id.Context_Player_UI, supportMapFragment, "map")
+					.commit();
+		}
+
+		/* Show user's position on map */
+		supportMapFragment.getMapAsync(this);
+
 		// User clicked Leave Match button
 		ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
 		btnLeave.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +103,95 @@ public class Active extends FragmentActivity {
 		});
 
 		if (player.getRole() == Role.Seeker) {
-			new Thread(new SeekerTask(seekerHandler, player)).start();
+			new Thread(new SeekerTask(this, seekerHandler, player)).start();
+		} else {
+			new Thread(new HiderTask(this, hiderHandler, player)).start();
 		}
-		else {
-			new Thread(new HiderTask(hiderHandler, player)).start();
-		}
+
+        // Create an instance of GoogleAPIClient.
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(context)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
 	}
+	private final int MY_PERMISSIONS_REQUEST_MAPS_RECEIVE = 1;
+	private Boolean locationGranted = false;
+	private Boolean locationAnswered = false;
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		this.googleMap = googleMap;
 
-	private Handler seekerHandler = new Handler() {
+		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+				ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+			if (!locationAnswered) {
+				ActivityCompat.requestPermissions(this,
+						new String[]{ Manifest.permission.ACCESS_FINE_LOCATION },
+						MY_PERMISSIONS_REQUEST_MAPS_RECEIVE);
+			}
+		}
+		else {
+			googleMap.setMyLocationEnabled(true);
+            /*CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .zoom(20)                   // Sets the zoom
+                    .build();                   // Creates a CameraPosition from the builder
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
+		}
+		// Add a marker in Cascadia College, and move the camera.
+		LatLng cascadia = new LatLng(47.760641, -122.191283);
+		googleMap.addMarker(new MarkerOptions().position(cascadia).title("Cascadia College"));
+
+        final CameraPosition cameraPosition =
+                new CameraPosition.Builder().target(cascadia)
+                        .zoom(20.0f)
+                        .build();
+		googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case MY_PERMISSIONS_REQUEST_MAPS_RECEIVE: {
+				locationAnswered = true;
+				// If request is cancelled, the result arrays are empty.
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+					locationGranted = true;
+					googleMap.setMyLocationEnabled(true);
+                    createLocationRequest();
+				}
+	//			return;
+			}
+
+			// other 'case' lines to check for other
+			// permissions this app might request
+		}
+	}
+
+    protected void createLocationRequest() {
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(googleApiClient,
+                        builder.build());
+        /*result.setResultCallback(new LocationSettingsResult() {
+
+        });*/
+    }
+
+    private Handler seekerHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
 			Bundle bundle = message.getData();
@@ -149,7 +242,17 @@ public class Active extends FragmentActivity {
 		public void handleMessage(Message message) {
 			Bundle bundle = message.getData();
 
-			String event = bundle.getString("event");
+            Location location = player.getLocation();
+            if (location != null) {
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLatitude())));
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(new LatLng(location.getLatitude(), location.getLatitude()))      // Sets the center of the map to the player location
+                        .zoom(20.0f)                // Sets the zoom
+                        .build();                   // Creates a CameraPosition from the builder
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
+
+            String event = bundle.getString("event");
 
 			switch (event) {
 				case "spotted":
@@ -301,12 +404,14 @@ public class Active extends FragmentActivity {
 			}
 		}
 	}
+	protected void onStart() {
+		super.onStart();
+	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
 		isActive = true;
-		
 	}
 
 	@Override
@@ -330,5 +435,20 @@ public class Active extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
 
