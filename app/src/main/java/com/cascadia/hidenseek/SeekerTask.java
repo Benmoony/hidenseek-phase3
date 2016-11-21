@@ -1,5 +1,6 @@
 package com.cascadia.hidenseek;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,8 +15,8 @@ import java.util.Calendar;
 
 public class SeekerTask extends GameTask {
 
-    public SeekerTask(Handler handler, Player player) {
-        super(handler, player);
+    public SeekerTask(Context context, Handler handler, Player player) {
+        super(context, handler, player);
     }
 
     // Process the new status for the match and players.
@@ -28,8 +29,8 @@ public class SeekerTask extends GameTask {
         Bundle bundle = new Bundle();
         message.obj = match;
 
-        int idx = 0;
         for (final Player hider : match.players.values()) {
+            message.arg1 = hider.getId();
             Player.Status status = hider.getStatus();
 
             if (hider.getRole() == Player.Role.Seeker) {
@@ -61,7 +62,6 @@ public class SeekerTask extends GameTask {
                         break;
                 }
             }
-            idx++;
         }
 
         if ((numPlayers == 0) || Calendar.getInstance().getTime().after(match.getEndTime())) {

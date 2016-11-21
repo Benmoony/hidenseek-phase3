@@ -1,6 +1,7 @@
 package com.cascadia.hidenseek;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ import java.util.Hashtable;
 
 public abstract class GameTask implements Runnable {
 
+    protected Context context;
     protected Handler handler; // message handler
     protected Match match;
     protected Player player;
@@ -34,12 +36,14 @@ public abstract class GameTask implements Runnable {
 
     // Create the GameTask and provide it with a message handler in the
     // GUI task
-    public GameTask(Handler handler, Player player) {
+    public GameTask(Context context, Handler handler, Player player) {
+        this.context = context;
         this.handler = handler;
         this.match = player.getAssociatedMatch();
         this.player = player;
 
     }
+
     // Run the task
     public void run() {
         // loop until the user has left the game or it is over
@@ -87,7 +91,9 @@ public abstract class GameTask implements Runnable {
                     match = matchUpdate;
                 }
             };
+
             gmRequest.DoRequest(LoginManager.GetMatch().getId());
+
             try {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) {
@@ -97,6 +103,7 @@ public abstract class GameTask implements Runnable {
         }
     }
 
+<<<<<<< HEAD
     // Process the returned status for the match
     protected abstract void processPlayers();
 
@@ -130,6 +137,12 @@ public abstract class GameTask implements Runnable {
 
         Button b = (Button) findViewById(R.id.btnConfigBegin);
     }
+=======
+    // Process the returned
+    // status for the match
+    protected abstract void processPlayers();
+
+>>>>>>> origin/develop
 }
 
 
