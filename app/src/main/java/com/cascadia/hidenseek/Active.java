@@ -125,7 +125,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     }
 
     private final int MY_PERMISSIONS_REQUEST_MAPS_RECEIVE = 1;
-    private Boolean locationGranted = false;
     private Boolean locationAnswered = false;
 
     @Override
@@ -165,7 +164,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    locationGranted = true;
                     googleMap.setMyLocationEnabled(true);
                     createLocationRequest();
                 }
@@ -184,15 +182,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-       /*LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-
-        PendingResult<LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings(googleApiClient,
-                        builder.build());*/
-        /*result.setResultCallback(new LocationSettingsResult() {
-
-        });*/
     }
 
     private Handler seekerHandler = new Handler() {
@@ -283,7 +272,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         // show it
         alertDialog.show();
     }
-
+    // Update the player status to found when acknowledged
     private DialogInterface.OnClickListener foundClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
 
@@ -306,6 +295,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             startActivity(intent);
         }
     };
+    // Reset the player status to hiding if he/she denies being found
     private DialogInterface.OnClickListener notFoundClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
             // if this button is clicked, just close the dialog box
