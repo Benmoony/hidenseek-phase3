@@ -4,6 +4,9 @@ package com.cascadia.hidenseek;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Button;
+import android.widget.TextView;
+
 
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
@@ -28,12 +31,14 @@ public abstract class GameTask implements Runnable {
     // Keep track of the last status for all the players
     protected Hashtable<Integer, Player> players = new Hashtable<>();
 
+
     // Create the GameTask and provide it with a message handler in the
     // GUI task
     public GameTask(Handler handler, Player player) {
         this.handler = handler;
         this.match = player.getAssociatedMatch();
         this.player = player;
+
     }
     // Run the task
     public void run() {
@@ -90,8 +95,41 @@ public abstract class GameTask implements Runnable {
                 break;
             }
         }
-
     }
+
     // Process the returned status for the match
     protected abstract void processPlayers();
+
+    TextView timerTextView;
+    long startTime;
+
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long mills = System.currentTimeMillis() + (R.id.configCountTimeInput);
+            int secs = (int) (mills / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+
+            timerTextView = (TextView) findViewById(R.id.mTextField);
+
+            timerTextView .setText(String.format("%d:%02d", mins, secs));
+
+            timerHandler.postDelayed(timerRunnable, 500);
+        }
+    };
+
+    @Override
+    public void onCreate (Bundle savedInstaceState){
+        super.onCreate(savedInstaceState);
+        setContentView(R.layout.activity_host_config);
+
+        timerTextView = (TextView) findViewById(R.id.configCountTimeInput);
+
+        Button b = (Button) findViewById(R.id.btnConfigBegin);
+    }
 }
+
+

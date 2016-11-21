@@ -62,6 +62,5 @@ public class HiderTask extends GameTask {
             message.setData(bundle);
             handler.sendMessage(message);
         }
-
     }
 }

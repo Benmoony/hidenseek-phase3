@@ -69,5 +69,4 @@ public class SeekerTask extends GameTask {
             putStopRequest.DoRequest(match);
         }
     }
-
 }
