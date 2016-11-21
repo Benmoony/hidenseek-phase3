@@ -9,10 +9,10 @@ public abstract class PutStatusRequest extends NetworkRequest {
 
 	public void DoRequest(Player p) {
 		Request r = new Request();
-		r.url = baseUrl + "players/" + p.GetId() + "/status/";
+		r.url = baseUrl + "players/" + p.getId() + "/status/";
 		r.type = RequestType.PUT;
 		try {
-			r.jsonArgs = p.StatusToJSON();
+			r.jsonArgs = p.statusToJSON();
 		} catch(JSONException e) {
 			onException(e);
 		}

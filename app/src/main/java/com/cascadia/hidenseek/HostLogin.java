@@ -20,27 +20,22 @@ import com.cascadia.hidenseek.network.PutRoleRequest;
 
 public class HostLogin extends Activity {
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_login);
 		initSpinner();
 		initSettings();
-
+		
         ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
-
-
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
             	EditText mName = (EditText) findViewById(R.id.loginMatchNameInput);
             	Spinner mType = (Spinner) findViewById(R.id.loginMatchTypeSelect);
             	EditText mPassword = (EditText) findViewById(R.id.loginPasswordInput);
             	EditText pName = (EditText) findViewById(R.id.TextPlayerNameInput);
             	String matchName = mName.getText().toString();
-
-                if (matchName.isEmpty() || matchName.trim().length() <2)
+				if (matchName.isEmpty() || matchName.trim().length() <2)
 				{					
 					HelpDialog helpDialog = new HelpDialog("Match name must at least 2 characters and not blanks!", "Match Name" );
 					helpDialog.show(getFragmentManager(), "Help");
@@ -70,17 +65,13 @@ public class HostLogin extends Activity {
         			startActivity(intent);
         			return;
             	}
-
-//                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
             	LoginManager.playerMe = new Player(hostName, m);
             	PostMatchRequest pm = new PostMatchRequest() {
 					
             		@Override
             		protected void onComplete(Match m) {                   	
             			
-            			LoginManager.playerMe.SetRole(Role.Seeker);
+            			LoginManager.playerMe.setRole(Role.Seeker);
             			PostPlayerRequest pp = new PostPlayerRequest() {
 							
 							@Override
@@ -104,7 +95,7 @@ public class HostLogin extends Activity {
 		            			
 							}
 						};
-						pp.DoRequest(LoginManager.playerMe, m.GetPassword());
+						pp.DoRequest(LoginManager.playerMe, m.getPassword());
             		}
             		
 					@Override
@@ -173,7 +164,5 @@ public class HostLogin extends Activity {
 		EditText uName = (EditText)findViewById(R.id.TextPlayerNameInput);
 		uName.setText(username);
 	}
-
-
 
 }

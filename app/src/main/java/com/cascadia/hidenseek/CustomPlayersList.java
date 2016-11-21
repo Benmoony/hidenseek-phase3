@@ -1,7 +1,7 @@
 package com.cascadia.hidenseek;
 
+import java.util.Hashtable;
 import java.util.List;
-import java.util.zip.Inflater;
 
 
 import com.cascadia.hidenseek.Player.Status;
@@ -37,51 +37,46 @@ public class CustomPlayersList extends ArrayAdapter<String>{
 		final TextView txtTitle = (TextView) rowView.findViewById(R.id.player_name);
 		Button btn=(Button) rowView.findViewById(R.id.btn_found);
 		txtTitle.setText(web[position]);
-		
-		 btn.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					String playerStr = txtTitle.getText().toString();
-					int sIndex = playerStr.indexOf(',');
-					String playerID = playerStr.substring(0, sIndex);
-					Player p = null;
-					List<Player> players = LoginManager.GetMatch().players;
-				    for (int i=0; i< players.size(); i++)
-				    {
-				    	 if(players.get(i).GetId() == Integer.parseInt(playerID)){
-				    	     p = players.get(i);
-				    	 }
-				    }
-				    if (p!=null && p.GetStatus() == Status.Hiding)
-				    {
-				    	Dialog d = new Dialog(context);
-						d.setTitle("Player " + p.GetName() + " Found!");
-						d.show(); 
-				    }
-				   else
-					   return;
-				    	
-				    p.SetStatus(Status.Spotted);
-				    PutStatusRequest pp = new PutStatusRequest() {
-						
-						@Override
-						protected void onException(Exception e) {
-							e.printStackTrace();
-						}
-						@SuppressWarnings("unused")
-						protected void onComplete(Player p) {
-							Dialog d = new Dialog(context);
-							d.setTitle("Player " + p.GetName() + " Found!");
-							d.show(); 
-						}
-											
-					};
-					pp.DoRequest(p);			
-					
-				}
-			});		
-		
+
+		btn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String playerStr = txtTitle.getText().toString();
+				int sIndex = playerStr.indexOf(',');
+				String playerID = playerStr.substring(0, sIndex);
+				Player player = null;
+				Hashtable<Integer, Player> players = LoginManager.GetMatch().players;
+				player = players.get(new Integer(playerID));
+
+				if (player != null && player.getStatus() == Status.Hiding) {
+					Dialog dialog = new Dialog(context);
+					dialog.setTitle("Player " + player.getName() + " Found!");
+					dialog.show();
+				} else
+					return;
+
+				player.setStatus(Status.Spotted);
+				PutStatusRequest putStatusRequest = new PutStatusRequest() {
+
+					@Override
+					protected void onException(Exception e) {
+						e.printStackTrace();
+					}
+
+					@SuppressWarnings("unused")
+					protected void onComplete(Player p) {
+						Dialog dialog = new Dialog(context);
+						dialog.setTitle("Player " + p.getName() + " Found!");
+						dialog.show();
+					}
+
+				};
+				putStatusRequest.DoRequest(player);
+
+			}
+		});
+
 		return rowView;
 	}
 }

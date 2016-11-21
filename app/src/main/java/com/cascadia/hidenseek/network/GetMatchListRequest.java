@@ -19,7 +19,7 @@ public abstract class GetMatchListRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		onComplete(Match.ParseToList(s));
+		onComplete(Match.parseToList(s));
 	}
 
 }
