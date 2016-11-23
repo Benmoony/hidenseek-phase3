@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.os.Build;
@@ -59,6 +60,8 @@ public class Active extends FragmentActivity {
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
 		isActive = true;
+		FrameLayout roleLayout;
+
 		
 		if (match == null || player == null) {
 			Dialog d = new Dialog(this);
@@ -71,6 +74,17 @@ public class Active extends FragmentActivity {
 		ActionBar ab = getActionBar();
 		if (player.GetRole() != Player.Role.Seeker) {
 			ab.hide();
+		}
+
+
+		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
+
+		if(player.GetRole() == Player.Role.Seeker){
+
+		}
+
+		if(player.GetRole() == Player.Role.Hider){
+
 		}
 
 		/* Show user's position on map
