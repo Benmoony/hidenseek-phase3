@@ -7,9 +7,9 @@ public class PutStopRequest extends NetworkRequest{
 	public void DoRequest(Match toStop) {
 		m = toStop;
 		Request r = new Request();
-		r.url = baseUrl + "matches/" + toStop.GetId() + "/stop/";
+		r.url = baseUrl + "matches/" + toStop.getId() + "/stop/";
 		r.type = RequestType.PUT;
-		r.jsonArgs = m.ToJSONStart();
+		r.jsonArgs = m.toJSONStart();
 		doRequest(r);
 	}
 	protected void onComplete(Match match) { }

@@ -7,7 +7,7 @@ public abstract class PutPlayingRequest extends NetworkRequest {
 
 	public void DoRequest(Player p) {
 		Request r = new Request();
-		r.url = baseUrl + "players/" + p.GetId() + "/playing/";
+		r.url = baseUrl + "players/" + p.getId() + "/playing/";
 		r.type = RequestType.PUT_NoArgs;
 		doRequest(r);
 	}

@@ -20,7 +20,7 @@ public class ShowHider extends CountDownTimer {
 
 	public void startCountDown1() {
 		isrunning = true;
-		isSeeker.SetRole(Role.Supervisor);
+		isSeeker.setRole(Role.Supervisor);
 	    PutRoleRequest pp = new PutRoleRequest() {
 			
 			@Override
@@ -37,7 +37,7 @@ public class ShowHider extends CountDownTimer {
 	@Override
 	public void onFinish() {
 		isrunning = true;
-		isSeeker.SetRole(Role.Seeker);
+		isSeeker.setRole(Role.Seeker);
 	    PutRoleRequest pp = new PutRoleRequest() {
 			
 			@Override

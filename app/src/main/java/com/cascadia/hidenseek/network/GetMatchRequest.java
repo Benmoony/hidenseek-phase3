@@ -16,7 +16,7 @@ public abstract class GetMatchRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		onComplete(Match.Parse(s));
+		onComplete(Match.parse(s));
 	}
 
 }
