@@ -69,11 +69,11 @@ public class Active extends FragmentActivity {
 
 		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
 
-		if(player.GetRole() == Player.Role.Seeker){
+		if(player.getRole() == Player.Role.Seeker){
 
 		}
 
-		if(player.GetRole() == Player.Role.Hider){
+		if(player.getRole() == Player.Role.Hider){
 
 		}
 
