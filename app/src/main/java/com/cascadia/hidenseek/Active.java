@@ -79,7 +79,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             d.setTitle("Error: null match.");
             d.show();
             finish();
-
         }
 
         ActionBar ab = getActionBar();
