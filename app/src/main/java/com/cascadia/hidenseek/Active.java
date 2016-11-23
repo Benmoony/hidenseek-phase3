@@ -55,10 +55,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     GoogleMap googleMap;
     Match match;
     Player player;
-    boolean isActive;
-    Status pend;
-    Role playerRole;
-    String Timer;
+    //boolean isActive;
+    //Status pend;
+    //Role playerRole;
+    //String Timer;
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
@@ -72,7 +72,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         match = LoginManager.GetMatch();
         player = LoginManager.playerMe;
-        isActive = true;
+        //isActive = true;
 
         if (match == null || player == null) {
             Dialog d = new Dialog(this);
@@ -108,9 +108,9 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         });
 
         if (player.getRole() == Role.Seeker) {
-            new Thread(new SeekerTask(this, seekerHandler, player)).start();
+            new Thread(new SeekerTask(seekerHandler, player)).start();
         } else {
-            new Thread(new HiderTask(this, hiderHandler, player)).start();
+            new Thread(new HiderTask(hiderHandler, player)).start();
         }
 
         // Create an instance of GoogleAPIClient.
@@ -430,7 +430,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     public void onStop() {
         googleApiClient.disconnect();
         super.onStop();
-        isActive = true;
+        //isActive = true;
     }
 
     @Override
