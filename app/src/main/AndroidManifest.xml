@@ -17,9 +17,12 @@
     <!--
          The following two permissions are not required to use
 	     Google Maps Android API v2, but are recommended.
+
+
+
     -->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -47,6 +50,7 @@
         </activity>
         <activity
             android:name=".HostLogin"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_host_login"
             android:parentActivityName=".Home" >
             <meta-data
@@ -110,11 +114,11 @@
         </activity>
 
         <receiver android:name=".AlarmReciever" />
-<!--
+
         <activity
             android:name=".ToHome"
             android:label="@string/title_activity_to_home" >
-        </activity>-->
+        </activity>
     </application>
 
 </manifest>

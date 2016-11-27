@@ -36,8 +36,7 @@ public abstract class GameTask implements Runnable {
 
     // Create the GameTask and provide it with a message handler in the
     // GUI task
-    public GameTask(Context context, Handler handler, Player player) {
-        this.context = context;
+    public GameTask(Handler handler, Player player) {
         this.handler = handler;
         this.match = player.getAssociatedMatch();
         this.player = player;
