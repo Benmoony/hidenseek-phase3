@@ -190,7 +190,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             String event = bundle.getString("event");
             match = (Match) message.obj;
-            player = match.players.get(new Integer(message.arg1));
+            player = match.players.get(new Integer(player.getId()));
 
             // handle the event
             switch (event) {
@@ -364,6 +364,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
+        if (player == null) return;
         player.setLocation(location);
 
         // Update the player's location at the API
