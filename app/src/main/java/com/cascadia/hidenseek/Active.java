@@ -23,14 +23,17 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.cascadia.hidenseek.Player.Role;
 import com.cascadia.hidenseek.Player.Status;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
+import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.cascadia.hidenseek.network.PutStatusRequest;
+import com.cascadia.hidenseek.network.dummy.DummyContent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -51,7 +54,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
-        ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
     GoogleMap googleMap;
     Match match;
     Player player;
@@ -72,6 +75,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         match = LoginManager.GetMatch();
         player = LoginManager.playerMe;
+		FrameLayout roleLayout;
         //isActive = true;
 
         if (match == null || player == null) {
@@ -86,13 +90,29 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             ab.hide();
         }
 
+
+
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.Context_Player_UI, supportMapFragment, "map")
-                    .commit();
-        }
+		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
+
+			if (savedInstanceState == null) {
+
+				if(player.getRole() == Player.Role.Seeker) {
+
+					getSupportFragmentManager()
+							.beginTransaction()
+							.add(R.id.Context_Player_UI, new PlayerListFragment(), "playList")
+							.commit();
+				}
+				else {
+					getSupportFragmentManager()
+							.beginTransaction()
+							.add(R.id.Context_Player_UI, supportMapFragment, "map")
+							.commit();
+				}
+
+			}
+
 
 		/* Show user's position on map */
         supportMapFragment.getMapAsync(this);
@@ -384,6 +404,12 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 .zoom(20.0f)                // Sets the zoom
                 .build();                   // Creates a CameraPosition from the builder
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+
+    @Override
+    //This is where Active communicates with PlayerListFragment.java i.e. If something changes in PlayerListFragment in order to communicate with app, this manages that.
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 
