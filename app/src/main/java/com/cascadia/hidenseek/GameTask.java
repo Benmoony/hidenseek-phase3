@@ -102,46 +102,9 @@ public abstract class GameTask implements Runnable {
         }
     }
 
-<<<<<<< HEAD
     // Process the returned status for the match
     protected abstract void processPlayers();
 
-    TextView timerTextView;
-    long startTime;
-
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            long mills = System.currentTimeMillis() + (R.id.configCountTimeInput);
-            int secs = (int) (mills / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-
-            timerTextView = (TextView) findViewById(R.id.mTextField);
-
-            timerTextView .setText(String.format("%d:%02d", mins, secs));
-
-            timerHandler.postDelayed(timerRunnable, 500);
-        }
-    };
-
-    @Override
-    public void onCreate (Bundle savedInstaceState){
-        super.onCreate(savedInstaceState);
-        setContentView(R.layout.activity_host_config);
-
-        timerTextView = (TextView) findViewById(R.id.configCountTimeInput);
-
-        Button b = (Button) findViewById(R.id.btnConfigBegin);
-    }
-=======
-    // Process the returned
-    // status for the match
-    protected abstract void processPlayers();
-
->>>>>>> origin/develop
 }
 
 
