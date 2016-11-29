@@ -283,7 +283,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             };
 
-            pp.DoRequest(player);
+            pp.doRequest(player);
 
             ShowSeeker();
             tagged = true;
@@ -305,7 +305,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 }
 
             };
-            pp.DoRequest(player);
+            pp.doRequest(player);
             tagged = true;
         }
     };
@@ -356,7 +356,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 e.printStackTrace();
             }
         };
-        dpRequest.DoRequest(player);
+        dpRequest.doRequest(player);
     }
 
     @Override
@@ -373,7 +373,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         };
         // Do the request
-        putGpsRequest.DoRequest(player);
+        putGpsRequest.doRequest(player);
 
         // Update the center of the map
         CameraPosition cameraPosition = new CameraPosition.Builder()

@@ -71,7 +71,7 @@ public class CustomPlayersList extends ArrayAdapter<String>{
 					}
 
 				};
-				putStatusRequest.DoRequest(player);
+				putStatusRequest.doRequest(player);
 
 			}
 		});

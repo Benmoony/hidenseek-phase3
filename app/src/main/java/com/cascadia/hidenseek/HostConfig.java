@@ -127,7 +127,7 @@ public class HostConfig extends Activity {
 					}
 					
 				};
-				request.DoRequest(m);
+				request.doRequest(m);
             }
         });	
         
@@ -175,7 +175,7 @@ public class HostConfig extends Activity {
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.getMatch().getId());
+					gmRequest.doRequest(LoginManager.getMatch().getId());
 				}
 
 				if (isActive) {
@@ -217,7 +217,7 @@ public class HostConfig extends Activity {
 				
 			}
 		};
-		request.DoRequest(LoginManager.getMatch());
+		request.doRequest(LoginManager.getMatch());
 	}
 	
 	@Override

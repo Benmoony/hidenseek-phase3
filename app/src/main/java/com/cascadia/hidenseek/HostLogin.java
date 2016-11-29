@@ -89,13 +89,13 @@ public class HostLogin extends Activity {
 										
 									}
 								};
-								rr.DoRequest(LoginManager.playerMe);
+								rr.doRequest(LoginManager.playerMe);
 		            			Intent intent = new Intent(HostLogin.this, HostConfig.class);
 		            			startActivity(intent);
 		            			
 							}
 						};
-						pp.DoRequest(LoginManager.playerMe, m.getPassword());
+						pp.doRequest(LoginManager.playerMe, m.getPassword());
             		}
             		
 					@Override
@@ -103,7 +103,7 @@ public class HostLogin extends Activity {
 						e.printStackTrace();
 					}
 				};
-				pm.DoRequest(m);
+				pm.doRequest(m);
             }
         });
         ImageView pwHelp = (ImageView) findViewById(R.id.loginPasswordHelp);

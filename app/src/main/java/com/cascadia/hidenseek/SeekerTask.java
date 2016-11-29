@@ -65,7 +65,7 @@ public class SeekerTask extends GameTask {
 
         if ((numPlayers == 0) || Calendar.getInstance().getTime().after(match.getEndTime())) {
             PutStopRequest putStopRequest = new PutStopRequest();
-            putStopRequest.DoRequest(match);
+            putStopRequest.doRequest(match);
         }
     }
 

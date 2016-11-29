@@ -4,7 +4,7 @@ import com.cascadia.hidenseek.Match;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public class PutStopRequest extends NetworkRequest{
-	public void DoRequest(Match toStop) {
+	public void doRequest(Match toStop) {
 		m = toStop;
 		Request r = new Request();
 		r.url = baseUrl + "matches/" + toStop.getId() + "/stop/";

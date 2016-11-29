@@ -23,8 +23,6 @@ public class HiderTask extends GameTask {
         Bundle bundle = new Bundle();
         message.obj = match;
 
-        //googleMap.clear();  TODO update Google API
-
         // See if one of the other players has been found
         for (final Player hider : match.players.values()) {
             boolean thisPlayer = (hider.getId() == player.getId());

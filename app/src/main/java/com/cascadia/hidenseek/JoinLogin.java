@@ -127,10 +127,10 @@ public class JoinLogin extends Activity {
 	        			startActivity(intent);
 					}
 				};
-				ppRequest.DoRequest(p, mPassword.getText().toString());
+				ppRequest.doRequest(p, mPassword.getText().toString());
 			}
 		};
-		gmRequest.DoRequest(matchId);
+		gmRequest.doRequest(matchId);
 	}
 	
 	@Override

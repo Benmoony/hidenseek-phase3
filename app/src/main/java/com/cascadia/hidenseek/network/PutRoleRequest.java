@@ -1,13 +1,13 @@
 package com.cascadia.hidenseek.network;
 
-import org.json.JSONException;
-
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
+import org.json.JSONException;
+
 public abstract class PutRoleRequest extends NetworkRequest {
 
-	public void DoRequest(Player p) {
+	public void doRequest(Player p) {
 		Request r = new Request();
 		r.url = baseUrl + "players/" + p.getId() + "/role/";
 		r.type = RequestType.PUT;

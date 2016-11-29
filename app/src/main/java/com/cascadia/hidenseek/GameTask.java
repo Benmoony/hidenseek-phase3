@@ -67,7 +67,7 @@ public abstract class GameTask implements Runnable {
                     player = players.get(new Integer(player.getId()));
                 }
             };
-            gplRequest.DoRequest(match);
+            gplRequest.doRequest(match);
 
             GetMatchRequest gmRequest = new GetMatchRequest() {
                 @Override
@@ -91,7 +91,7 @@ public abstract class GameTask implements Runnable {
                 }
             };
 
-            gmRequest.DoRequest(LoginManager.getMatch().getId());
+            gmRequest.doRequest(LoginManager.getMatch().getId());
 
             try {
                 Thread.sleep(DELAY);

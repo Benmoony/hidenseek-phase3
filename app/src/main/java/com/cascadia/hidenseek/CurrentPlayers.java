@@ -63,7 +63,7 @@ public class CurrentPlayers extends Activity {
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.getMatch().getId());
+					gmRequest.doRequest(LoginManager.getMatch().getId());
 				}
 
 				if(isActive) {
@@ -106,7 +106,7 @@ public class CurrentPlayers extends Activity {
 				list.setAdapter(adapter);
 			}
 		};
-		request.DoRequest(LoginManager.getMatch());
+		request.doRequest(LoginManager.getMatch());
 	}
 
 	@Override
