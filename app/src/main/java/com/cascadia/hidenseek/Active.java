@@ -396,9 +396,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             return (result);
         }
 
-        public void show(FragmentManager supportFragmentManager,
-                         String TAG_ERROR_DIALOG_FRAGMENT) {
-            // TODO Auto-generated method stub
+        public void show(FragmentManager supportFragmentManager, String TAG_ERROR_DIALOG_FRAGMENT) {
 
         }
 

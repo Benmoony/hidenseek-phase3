@@ -7,6 +7,7 @@ import android.os.Message;
 import com.cascadia.hidenseek.network.PutStopRequest;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by deb on 11/7/16.
@@ -63,7 +64,9 @@ public class SeekerTask extends GameTask {
             }
         }
 
-        if ((numPlayers == 0) || Calendar.getInstance().getTime().after(match.getEndTime())) {
+        Date now = Calendar.getInstance().getTime();
+        Date matchEnd = match.getEndTime();
+        if ((numPlayers == 0) || now.after(matchEnd)) {
             PutStopRequest putStopRequest = new PutStopRequest();
             putStopRequest.doRequest(match);
         }
