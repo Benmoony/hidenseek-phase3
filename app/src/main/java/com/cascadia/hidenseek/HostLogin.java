@@ -55,7 +55,7 @@ public class HostLogin extends Activity {
 					helpDialog.show(getFragmentManager(), "Help");
 					return;
 				}
-            	Match m = LoginManager.ValidateHostLogin(mName.getText().toString(),
+            	Match m = LoginManager.validateHostLogin(mName.getText().toString(),
 			            			mPassword.getText().toString(),
 			            			mType.getSelectedItemPosition());
             	

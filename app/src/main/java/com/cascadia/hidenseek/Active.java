@@ -36,12 +36,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -62,7 +59,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
-    Long showTime = (long) 30000;
+    //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
 
     @Override
@@ -70,7 +67,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
 
-        match = LoginManager.GetMatch();
+        match = LoginManager.getMatch();
         player = LoginManager.playerMe;
         //isActive = true;
 
@@ -364,7 +361,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-        if (player == null) return;
         player.setLocation(location);
 
         // Update the player's location at the API

@@ -1,7 +1,6 @@
 package com.cascadia.hidenseek;
 
 import java.util.Hashtable;
-import java.util.List;
 
 
 import com.cascadia.hidenseek.Player.Status;
@@ -46,7 +45,7 @@ public class CustomPlayersList extends ArrayAdapter<String>{
 				int sIndex = playerStr.indexOf(',');
 				String playerID = playerStr.substring(0, sIndex);
 				Player player = null;
-				Hashtable<Integer, Player> players = LoginManager.GetMatch().players;
+				Hashtable<Integer, Player> players = LoginManager.getMatch().players;
 				player = players.get(new Integer(playerID));
 
 				if (player != null && player.getStatus() == Status.Hiding) {

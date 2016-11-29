@@ -44,7 +44,7 @@ public class HostConfig extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_config);
 		
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			Dialog d = new Dialog(this);
 			d.setTitle("Error: null match.");
 			d.show();
@@ -85,10 +85,10 @@ public class HostConfig extends Activity {
             	//Set the match count time and seek time as specified, etc.
             	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
             	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
-            	Match m = LoginManager.GetMatch();
+            	Match m = LoginManager.getMatch();
             	
             	//Validate countTime and searchTime input unless this is a sandbox
-            	if(LoginManager.GetMatch().getType() != MatchType.Sandbox) {
+            	if(LoginManager.getMatch().getType() != MatchType.Sandbox) {
                 	String sCountTime = countTime.getText().toString();
             		String sSeekTime = seekTime.getText().toString();
             		
@@ -140,7 +140,7 @@ public class HostConfig extends Activity {
 		});
         
         //Remove count time and search time things if this is a sandbox
-        if(LoginManager.GetMatch().getType() == MatchType.Sandbox||!LoginManager.isHost) {
+        if(LoginManager.getMatch().getType() == MatchType.Sandbox||!LoginManager.isHost) {
         	findViewById(R.id.configTimeContainer).setVisibility(View.GONE);
         }
         
@@ -175,7 +175,7 @@ public class HostConfig extends Activity {
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.GetMatch().getId());
+					gmRequest.DoRequest(LoginManager.getMatch().getId());
 				}
 
 				if (isActive) {
@@ -189,7 +189,7 @@ public class HostConfig extends Activity {
 	
 	
 	private void setPlayerList() {
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			String[] titles = {"Failed to update match list.", "(null match)"};
 			CustomList adapter = new CustomList(HostConfig.this, titles);
 			list.setAdapter(adapter);
@@ -217,7 +217,7 @@ public class HostConfig extends Activity {
 				
 			}
 		};
-		request.DoRequest(LoginManager.GetMatch());
+		request.DoRequest(LoginManager.getMatch());
 	}
 	
 	@Override
