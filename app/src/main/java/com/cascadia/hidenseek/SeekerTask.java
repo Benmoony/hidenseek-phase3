@@ -43,13 +43,13 @@ public class SeekerTask extends GameTask {
                         break;
                     case Spotted:
                         if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Spotted) {
-                            message = createMessage("spotted", hider);
+                            message = createMessage("showSpotted", hider);
                             handler.sendMessage(message);
                         }
                        break;
                     case Found:
                         if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Found) {
-                            message = createMessage("event", hider);
+                            message = createMessage("showFound", hider);
                             handler.sendMessage(message);
                         }
                         numPlayers--;
