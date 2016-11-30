@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cascadia.hidenseek.Player.Role;
@@ -46,6 +47,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Calendar;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -211,6 +214,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     // Update the distance indication
     // from the Seeker to the hider
     private void showDistance() {
+        TextView phase = (TextView) findViewById(R.id.textrole);
+        phase.setText("Seek");
+        TextView timeLeft = (TextView) findViewById(R.id.timer);
+        timeLeft.setText(String.format("%d", match.getEndTime().compareTo(Calendar.getInstance().getTime())));
     }
 
     // Update the player to show spotted

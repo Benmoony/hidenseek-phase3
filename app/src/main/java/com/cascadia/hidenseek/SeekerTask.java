@@ -25,12 +25,9 @@ public class SeekerTask extends GameTask {
     @Override
     protected void processPlayers() {
         int numPlayers = match.players.size();
-        Message message = handler.obtainMessage();
-        Bundle bundle = new Bundle();
-        message.obj = match;
 
         for (final Player hider : match.players.values()) {
-            message.arg1 = hider.getId();
+
             Player.Status status = hider.getStatus();
 
             if (hider.getRole() == Player.Role.Seeker) {
@@ -38,24 +35,22 @@ public class SeekerTask extends GameTask {
                 continue;
             }
 
+            Message message;
             if (match.getType() == Match.MatchType.HideNSeek) {
                 switch (status) {
                     case Hiding:
-                        bundle.putString("event", "hiding");
-                        message.setData(bundle);
+                        message = createMessage("showDistance", hider);
                         handler.sendMessage(message);
                         break;
                     case Spotted:
                         if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Spotted) {
-                            bundle.putString("event", "spotted");
-                            message.setData(bundle);
+                            message = createMessage("showSpotted", hider);
                             handler.sendMessage(message);
                         }
                        break;
                     case Found:
                         if (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Found) {
-                            bundle.putString("event", "found");
-                            message.setData(bundle);
+                            message = createMessage("showFound", hider);
                             handler.sendMessage(message);
                         }
                         numPlayers--;
@@ -70,6 +65,16 @@ public class SeekerTask extends GameTask {
             PutStopRequest putStopRequest = new PutStopRequest();
             putStopRequest.doRequest(match);
         }
+    }
+    /* Create a message to send to the Active Activity */
+    protected Message createMessage(String event, Player hider) {
+        Message message = handler.obtainMessage();
+        message.obj = match;
+        message.arg1 = hider.getId();
+        Bundle bundle = new Bundle();
+        bundle.putString("event", event);
+        message.setData(bundle);
+        return message;
     }
 
 }
