@@ -1,11 +1,8 @@
 package com.cascadia.hidenseek;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,8 +24,6 @@ import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStartRequest;
 
-import java.util.GregorianCalendar;
-
 
 public class HostConfig extends Activity {
 
@@ -37,8 +32,7 @@ public class HostConfig extends Activity {
 	boolean isActive;
 	SharedPreferences sh_Pref;
 	Editor toEdit;
-	String Timer;
-	
+
 	//Used for periodic callback.
     private Handler h2 = new Handler();
     //Millisecond delay between callbacks
@@ -50,7 +44,7 @@ public class HostConfig extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_config);
 		
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			Dialog d = new Dialog(this);
 			d.setTitle("Error: null match.");
 			d.show();
@@ -91,10 +85,10 @@ public class HostConfig extends Activity {
             	//Set the match count time and seek time as specified, etc.
             	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
             	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
-            	Match m = LoginManager.GetMatch();
+            	Match m = LoginManager.getMatch();
             	
             	//Validate countTime and searchTime input unless this is a sandbox
-            	if(LoginManager.GetMatch().getType() != MatchType.Sandbox) {
+            	if(LoginManager.getMatch().getType() != MatchType.Sandbox) {
                 	String sCountTime = countTime.getText().toString();
             		String sSeekTime = seekTime.getText().toString();
             		
@@ -127,25 +121,13 @@ public class HostConfig extends Activity {
 					}
 					@Override
 					protected void onComplete(Match m) {
-						Intent intent;
-						if (LoginManager.GetMatch().getType() == Match.MatchType.HideNSeek) {
-							Timer = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE)
-									.getString("Seektime", null);
-							scheduleAlarm();
-							intent = new Intent(HostConfig.this, SplashActivity.class);
-
-							startActivity(intent);
-							isActive = false;
-						} else {
-							intent = new Intent(HostConfig.this, Active.class);
-							startActivity(intent);
-							isActive = false;
-						}
-
+						Intent intent = new Intent(HostConfig.this, Active.class);
+						startActivity(intent);
+						isActive = false;
 					}
 					
 				};
-				request.DoRequest(m);
+				request.doRequest(m);
             }
         });	
         
@@ -158,7 +140,7 @@ public class HostConfig extends Activity {
 		});
         
         //Remove count time and search time things if this is a sandbox
-        if(LoginManager.GetMatch().getType() == MatchType.Sandbox||!LoginManager.isHost) {
+        if(LoginManager.getMatch().getType() == MatchType.Sandbox||!LoginManager.isHost) {
         	findViewById(R.id.configTimeContainer).setVisibility(View.GONE);
         }
         
@@ -188,19 +170,12 @@ public class HostConfig extends Activity {
 						protected void onComplete(Match match) {
 							if (match.getStatus() == Status.Active) {
 								isActive = false;
-								String seek = String.valueOf(match.getSeekTime());
-								sh_Pref = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE);
-								toEdit = sh_Pref.edit();
-								toEdit.putString("Seektime", seek);
-								toEdit.commit();
-								Timer = seek;
-								scheduleAlarm();
 								Intent intent = new Intent(HostConfig.this, Active.class);
 								startActivity(intent);
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.GetMatch().getId());
+					gmRequest.doRequest(LoginManager.getMatch().getId());
 				}
 
 				if (isActive) {
@@ -214,7 +189,7 @@ public class HostConfig extends Activity {
 	
 	
 	private void setPlayerList() {
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			String[] titles = {"Failed to update match list.", "(null match)"};
 			CustomList adapter = new CustomList(HostConfig.this, titles);
 			list.setAdapter(adapter);
@@ -242,39 +217,9 @@ public class HostConfig extends Activity {
 				
 			}
 		};
-		request.DoRequest(LoginManager.GetMatch());
+		request.doRequest(LoginManager.getMatch());
 	}
 	
-	public void scheduleAlarm() {
-		// time at which alarm will be scheduled here alarm is scheduled at 1
-		// day from current time,
-		// we fetch the current time in milliseconds and added 1 day time
-		// i.e. 24*60*60*1000= 86,400,000 milliseconds in a day
-		Long time = new GregorianCalendar().getTimeInMillis()
-				+ Long.parseLong(Timer)*60000 ;
-
-		// create an Intent and set the class which will execute when Alarm
-		// triggers, here we have
-		// given AlarmReciever in the Intent, the onRecieve() method of this
-		// class will execute when
-		// alarm triggers and
-		// we will write the code to send SMS inside onRecieve() method pf
-		// Alarmreciever class
-		
-		Intent intentAlarm = new Intent(this, AlarmReciever.class);
-		
-		// create the object
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-		// set the alarm for particular time
-		alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent
-				.getBroadcast(this, 1, intentAlarm,
-						PendingIntent.FLAG_UPDATE_CURRENT));
-		Toast.makeText(this, "Alarm Scheduled", Toast.LENGTH_LONG).show();
-		
-
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

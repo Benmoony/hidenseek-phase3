@@ -1,13 +1,13 @@
 package com.cascadia.hidenseek.network;
 
-import org.json.JSONException;
-
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
+import org.json.JSONException;
+
 public abstract class PutGpsRequest extends NetworkRequest {
 
-	public void DoRequest(Player p) {
+	public void doRequest(Player p) {
 		if(p.getLocation() == null) {
 			onException(new NullPointerException("Null location in PutGpsRequest"));
 			return;

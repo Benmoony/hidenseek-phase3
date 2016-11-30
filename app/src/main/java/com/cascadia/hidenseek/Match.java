@@ -1,7 +1,5 @@
 package com.cascadia.hidenseek;
 
-import android.content.Intent;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -247,7 +245,7 @@ public class Match {
 	private Date startTime;
 	private Date endTime;
 	private Status stat;
-	Intent intent;
+/*	Intent intent;*/
 	
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
@@ -258,10 +256,9 @@ public class Match {
 		startTime = new Date();
 		status = Status.Active;
 	}
-	public void stopMatch() {
-		endTime=new Date();
-		stat=Status.Complete;
-		// TODO Auto-generated method stub
-		
-	}
+
+    public void stopMatch() {
+        endTime = new Date();
+        stat = Status.Complete;
+    }
 }

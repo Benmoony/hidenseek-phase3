@@ -1,10 +1,5 @@
 package com.cascadia.hidenseek;
 
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.network.PostMatchRequest;
-import com.cascadia.hidenseek.network.PostPlayerRequest;
-import com.cascadia.hidenseek.network.PutRoleRequest;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.cascadia.hidenseek.Player.Role;
+import com.cascadia.hidenseek.network.PostMatchRequest;
+import com.cascadia.hidenseek.network.PostPlayerRequest;
+import com.cascadia.hidenseek.network.PutRoleRequest;
 
 
 public class HostLogin extends Activity {
@@ -55,7 +55,7 @@ public class HostLogin extends Activity {
 					helpDialog.show(getFragmentManager(), "Help");
 					return;
 				}
-            	Match m = LoginManager.ValidateHostLogin(mName.getText().toString(),
+            	Match m = LoginManager.validateHostLogin(mName.getText().toString(),
 			            			mPassword.getText().toString(),
 			            			mType.getSelectedItemPosition());
             	
@@ -89,13 +89,13 @@ public class HostLogin extends Activity {
 										
 									}
 								};
-								rr.DoRequest(LoginManager.playerMe);
+								rr.doRequest(LoginManager.playerMe);
 		            			Intent intent = new Intent(HostLogin.this, HostConfig.class);
 		            			startActivity(intent);
 		            			
 							}
 						};
-						pp.DoRequest(LoginManager.playerMe, m.getPassword());
+						pp.doRequest(LoginManager.playerMe, m.getPassword());
             		}
             		
 					@Override
@@ -103,7 +103,7 @@ public class HostLogin extends Activity {
 						e.printStackTrace();
 					}
 				};
-				pm.DoRequest(m);
+				pm.doRequest(m);
             }
         });
         ImageView pwHelp = (ImageView) findViewById(R.id.loginPasswordHelp);

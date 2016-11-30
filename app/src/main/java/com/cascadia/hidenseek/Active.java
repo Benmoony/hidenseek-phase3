@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cascadia.hidenseek.Player.Role;
@@ -39,12 +40,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -52,6 +50,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Calendar;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener  {
@@ -65,7 +65,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
-    Long showTime = (long) 30000;
+    //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
     private PlayerListFragment playerList;
 
@@ -74,7 +74,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
 
-        match = LoginManager.GetMatch();
+        match = LoginManager.getMatch();
         player = LoginManager.playerMe;
 		FrameLayout roleLayout;
         //isActive = true;
@@ -215,7 +215,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             String event = bundle.getString("event");
             match = (Match) message.obj;
-            player = match.players.get(new Integer(message.arg1));
+            player = match.players.get(new Integer(player.getId()));
 
             // handle the event
             switch (event) {
@@ -239,6 +239,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     // Update the distance indication
     // from the Seeker to the hider
     private void showDistance() {
+        TextView phase = (TextView) findViewById(R.id.textrole);
+        phase.setText("Seek");
+        TextView timeLeft = (TextView) findViewById(R.id.timer);
+        timeLeft.setText(String.format("%d", match.getEndTime().compareTo(Calendar.getInstance().getTime())));
     }
 
     // Update the player to show spotted
@@ -311,7 +315,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             };
 
-            pp.DoRequest(player);
+            pp.doRequest(player);
 
             ShowSeeker();
             tagged = true;
@@ -333,7 +337,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 }
 
             };
-            pp.DoRequest(player);
+            pp.doRequest(player);
             tagged = true;
         }
     };
@@ -384,7 +388,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 e.printStackTrace();
             }
         };
-        dpRequest.DoRequest(player);
+        dpRequest.doRequest(player);
     }
 
     @Override
@@ -401,7 +405,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         };
         // Do the request
-        putGpsRequest.DoRequest(player);
+        putGpsRequest.doRequest(player);
 
         // Update the center of the map
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -430,9 +434,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             return (result);
         }
 
-        public void show(FragmentManager supportFragmentManager,
-                         String TAG_ERROR_DIALOG_FRAGMENT) {
-            // TODO Auto-generated method stub
+        public void show(FragmentManager supportFragmentManager, String TAG_ERROR_DIALOG_FRAGMENT) {
 
         }
 
