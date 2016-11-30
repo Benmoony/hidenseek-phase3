@@ -7,38 +7,36 @@ public class LoginManager {
 
 	public LoginManager() {	} 
 	
-	public static Match ValidateHostLogin(String matchName, String password, int matchType ) {
+	public static Match validateHostLogin(String matchName, String password, int matchType ) {
 		if(matchType == 0) {
-			m = new Match(matchName, password, MatchType.HideNSeek);
+			match = new Match(matchName, password, MatchType.HideNSeek);
 		} else {
-			m = new Match(matchName, password, MatchType.Sandbox);
+			match = new Match(matchName, password, MatchType.Sandbox);
 		}
 		isHost = true;
-		return m;
+		return match;
 	}
 	 
-	public static void ValidateJoinLogin(Player p) {
-		playerMe = p;
-		m = p.getAssociatedMatch();
+	public static void validateJoinLogin(Player player) {
+		playerMe = player;
+		match = player.getAssociatedMatch();
 		isHost = false;
 	}
 	/*  Should not allow to change match, it is related to player
 	public static void SetMatch(Match match) {
-		m = match;
+		match = match;
 	} */
 	
-	public static Match GetMatch() {
-		return m;
+	public static Match getMatch() {
+		return match;
 	}
-	public static void resetLoginManger(){
-		playerMe=null;
-		m=null;
-		
+
+	public static void resetLoginManger() {
+		playerMe = null;
+		match = null;
+
 	}
 	public static Player playerMe;
-	private static Match m;
+	private static Match match;
 	public static boolean isHost;
-	
-	
-
 }

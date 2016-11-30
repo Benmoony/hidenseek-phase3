@@ -79,7 +79,7 @@ public class JoinLogin extends Activity {
 		}
 		String intString = SelectMatch.selectedMatch.trim().replaceFirst(" - .*", "");
 		int matchId = Integer.parseInt(intString);
-		if (LoginManager.GetMatch()!= null && LoginManager.GetMatch().getId() == matchId)
+		if (LoginManager.getMatch()!= null && LoginManager.getMatch().getId() == matchId)
 		{
 			HelpDialog helpDialog = new HelpDialog("You can't join the match you already in.", "Join a Match.");
 			helpDialog.show(getFragmentManager(), "Help");
@@ -122,15 +122,15 @@ public class JoinLogin extends Activity {
 					@Override
 					protected void onComplete(Player p) {
 						//TODO: don't keep going if the password was wrong.
-						LoginManager.ValidateJoinLogin(p);
+						LoginManager.validateJoinLogin(p);
 						Intent intent = new Intent(JoinLogin.this, HostConfig.class);
 	        			startActivity(intent);
 					}
 				};
-				ppRequest.DoRequest(p, mPassword.getText().toString());
+				ppRequest.doRequest(p, mPassword.getText().toString());
 			}
 		};
-		gmRequest.DoRequest(matchId);
+		gmRequest.doRequest(matchId);
 	}
 	
 	@Override

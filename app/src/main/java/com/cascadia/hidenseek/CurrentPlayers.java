@@ -31,7 +31,7 @@ public class CurrentPlayers extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_current_players);
 		
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			Dialog d = new Dialog(this);
 			d.setTitle("Error: null match.");
 			d.show();
@@ -63,7 +63,7 @@ public class CurrentPlayers extends Activity {
 							}
 						}
 					};
-					gmRequest.DoRequest(LoginManager.GetMatch().getId());
+					gmRequest.doRequest(LoginManager.getMatch().getId());
 				}
 
 				if(isActive) {
@@ -76,7 +76,7 @@ public class CurrentPlayers extends Activity {
 	}
 	
 	private void setPlayerList() {
-		if(LoginManager.GetMatch() == null) {
+		if(LoginManager.getMatch() == null) {
 			String[] titles = {"Failed to update match list.", "(null match)"};
 			CustomPlayersList adapter = new CustomPlayersList(CurrentPlayers.this, titles);
 			list.setAdapter(adapter);
@@ -106,7 +106,7 @@ public class CurrentPlayers extends Activity {
 				list.setAdapter(adapter);
 			}
 		};
-		request.DoRequest(LoginManager.GetMatch());
+		request.doRequest(LoginManager.getMatch());
 	}
 
 	@Override

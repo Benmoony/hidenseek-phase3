@@ -5,7 +5,7 @@ import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class DeletePlayingRequest extends NetworkRequest {
 
-	public void DoRequest(Player p) {
+	public void doRequest(Player p) {
 		Request r = new Request();
 		r.url = baseUrl + "players/" + p.getId() + "/playing/";
 		r.type = RequestType.DELETE;
