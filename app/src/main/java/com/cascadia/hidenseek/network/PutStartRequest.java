@@ -5,7 +5,7 @@ import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class PutStartRequest extends NetworkRequest {
 
-	public void DoRequest(Match toStart) {
+	public void doRequest(Match toStart) {
 		m = toStart;
 		Request r = new Request();
 		r.url = baseUrl + "matches/" + toStart.getId() + "/start/";

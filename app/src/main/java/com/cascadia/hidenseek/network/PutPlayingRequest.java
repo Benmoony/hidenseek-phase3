@@ -5,7 +5,7 @@ import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class PutPlayingRequest extends NetworkRequest {
 
-	public void DoRequest(Player p) {
+	public void doRequest(Player p) {
 		Request r = new Request();
 		r.url = baseUrl + "players/" + p.getId() + "/playing/";
 		r.type = RequestType.PUT_NoArgs;

@@ -62,7 +62,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
-    Long showTime = (long) 30000;
+    //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
 
     @Override
@@ -70,7 +70,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
 
-        match = LoginManager.GetMatch();
+        match = LoginManager.getMatch();
         player = LoginManager.playerMe;
         //isActive = true;
 
@@ -190,7 +190,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             String event = bundle.getString("event");
             match = (Match) message.obj;
-            player = match.players.get(new Integer(message.arg1));
+            player = match.players.get(new Integer(player.getId()));
 
             // handle the event
             switch (event) {
@@ -290,7 +290,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             };
 
-            pp.DoRequest(player);
+            pp.doRequest(player);
 
             ShowSeeker();
             tagged = true;
@@ -312,7 +312,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 }
 
             };
-            pp.DoRequest(player);
+            pp.doRequest(player);
             tagged = true;
         }
     };
@@ -363,7 +363,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 e.printStackTrace();
             }
         };
-        dpRequest.DoRequest(player);
+        dpRequest.doRequest(player);
     }
 
     @Override
@@ -380,7 +380,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         };
         // Do the request
-        putGpsRequest.DoRequest(player);
+        putGpsRequest.doRequest(player);
 
         // Update the center of the map
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -403,9 +403,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             return (result);
         }
 
-        public void show(FragmentManager supportFragmentManager,
-                         String TAG_ERROR_DIALOG_FRAGMENT) {
-            // TODO Auto-generated method stub
+        public void show(FragmentManager supportFragmentManager, String TAG_ERROR_DIALOG_FRAGMENT) {
 
         }
 

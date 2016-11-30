@@ -30,7 +30,7 @@ public class ShowHider extends CountDownTimer {
 			
 								
 		};
-		pp.DoRequest(isSeeker);
+		pp.doRequest(isSeeker);
 		start();
 	}
 	
@@ -47,7 +47,7 @@ public class ShowHider extends CountDownTimer {
 			
 								
 		};
-		pp.DoRequest(isSeeker);
+		pp.doRequest(isSeeker);
 		start();
 		isrunning = false;
 	}

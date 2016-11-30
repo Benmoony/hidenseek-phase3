@@ -1,19 +1,18 @@
 package com.cascadia.hidenseek;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Locale;
+import android.location.Location;
+
+import com.cascadia.hidenseek.network.LocationParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.location.Location;
-
-
-import com.cascadia.hidenseek.network.LocationParser;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Locale;
 
 public class Player {
 
@@ -76,7 +75,7 @@ public class Player {
 	}
 
 	
-	// Parse the match/#/player json and return a list of players
+	// parse the match/#/player json and return a list of players
 	public static Hashtable<Integer, Player> parseToList(String jsonStr, Match associatedMatch)
 			throws JSONException {
 		Hashtable<Integer, Player> toReturn = new Hashtable<>();
@@ -111,7 +110,7 @@ public class Player {
 	
 	public String locationToJSON() throws JSONException {
 		JSONObject jObject = new JSONObject();
-		jObject.put("gps", LocationParser.GetString(location));
+		jObject.put("gps", LocationParser.getString(location));
 		return jObject.toString();
 	}
 	
@@ -142,7 +141,7 @@ public class Player {
 		toReturn.status = Status.parse(jObject.getString("hiderStatus"));
 		toReturn.isPlaying = jObject.getInt("playing") == 1;
 		try {
-			toReturn.location = LocationParser.Parse(jObject.getString("GPSLocation"));
+			toReturn.location = LocationParser.parse(jObject.getString("GPSLocation"));
 			toReturn.lastUpdatedLocation = dateTimeFormat.parse(jObject.getString("lastUpdated"));
 		} catch(JSONException e) {
 		} catch(ParseException e) {
