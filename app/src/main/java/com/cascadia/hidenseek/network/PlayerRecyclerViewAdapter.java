@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.network.PlayerListFragment.OnListFragmentInteractionListener;
 import com.cascadia.hidenseek.network.dummy.DummyContent.DummyItem;
 
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -19,10 +21,10 @@ import java.util.List;
  */
 public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final Hashtable<Integer, Player> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public PlayerRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public PlayerRecyclerViewAdapter(Hashtable<Integer,Player> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,9 +38,9 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        Integer player = new Integer(position);
+        holder.mItem = mValues.get(player);
+        holder.mContentView.setText(mValues.get(player).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Player mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -54,7 +54,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
-        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
+        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener  {
     GoogleMap googleMap;
     Match match;
     Player player;
@@ -67,6 +67,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ShowHider sh;
     Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
+    private PlayerListFragment playerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 			if (savedInstanceState == null) {
 
 				if(player.getRole() == Player.Role.Seeker) {
+
+                    playerList = new PlayerListFragment();
+                    playerList.setPlayers(match.players);
+
 
 					getSupportFragmentManager()
 							.beginTransaction()
@@ -409,7 +414,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     //This is where Active communicates with PlayerListFragment.java i.e. If something changes in PlayerListFragment in order to communicate with app, this manages that.
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Player item) {
 
     }
 

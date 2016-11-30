@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.network.dummy.DummyContent;
 import com.cascadia.hidenseek.network.dummy.DummyContent.DummyItem;
 
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class PlayerListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private    OnListFragmentInteractionListener mListener;
+    Hashtable<Integer,Player> players;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,7 +73,7 @@ public class PlayerListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new PlayerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, mListener));
         }
         return view;
     }
@@ -93,6 +96,10 @@ public class PlayerListFragment extends Fragment {
         mListener = null;
     }
 
+    public void setPlayers(Hashtable<Integer,Player> players) {
+        this.players = players;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -105,6 +112,6 @@ public class PlayerListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Player item);
     }
 }

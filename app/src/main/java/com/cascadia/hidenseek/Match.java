@@ -74,6 +74,7 @@ public class Match {
 		this.name = name;
 		this.password = password;
 		this.type = type;
+
 	}
 	
 	/**
