@@ -1,16 +1,16 @@
 package com.cascadia.hidenseek.network;
 
 
+import android.location.Location;
+
 import java.text.ParseException;
 import java.util.Locale;
 
-import android.location.Location;
-
 public class LocationParser {
 
-	public static String GetString(Location l) {
+	public static String getString(Location l) {
 		if(l == null) {
-			throw new NullPointerException("Null Location in LocationParser.GetString");
+			throw new NullPointerException("Null Location in LocationParser.getString");
 		}
 		return String.format(Locale.ENGLISH, "%f\n%f\n%f\n%f\n%f",
 				l.getLatitude(),
@@ -20,7 +20,7 @@ public class LocationParser {
 				l.getSpeed());
 	}
 	
-	public static Location Parse(String s) throws ParseException {
+	public static Location parse(String s) throws ParseException {
 		Location toReturn = new Location("server");
 		String[] values = s.split("\n");
 		if(values.length < 5) {

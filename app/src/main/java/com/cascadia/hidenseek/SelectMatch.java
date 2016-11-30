@@ -1,8 +1,5 @@
 package com.cascadia.hidenseek;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +11,9 @@ import android.widget.ListView;
 
 import com.cascadia.hidenseek.Match.Status;
 import com.cascadia.hidenseek.network.GetMatchListRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectMatch extends Activity {
 
@@ -66,7 +66,7 @@ public class SelectMatch extends Activity {
 				l.setAdapter(arrayAdapter);				
 			}
 		};
-		request.DoRequest();
+		request.doRequest();
 		
 	}
 

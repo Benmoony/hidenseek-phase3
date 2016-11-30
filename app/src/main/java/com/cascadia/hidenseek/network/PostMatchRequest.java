@@ -5,7 +5,7 @@ import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class PostMatchRequest extends NetworkRequest {
 
-	public void DoRequest(Match toPost) {
+	public void doRequest(Match toPost) {
 		m = toPost;
 		Request r = new Request();
 		r.url = baseUrl + "matches/";
