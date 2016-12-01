@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cascadia.hidenseek.Player.Role;
@@ -50,6 +51,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.cascadia.hidenseek.Timer;
+
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
     GoogleMap googleMap;
@@ -64,11 +67,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ShowHider sh;
     Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
+    TextView roleView;
+    TextView timerView;
+    Timer hidetime;
+    Timer seektime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
+
+        roleView = (TextView) findViewById(R.id.textrole);
+        timerView = (TextView) findViewById(R.id.timer);
 
         match = LoginManager.GetMatch();
         player = LoginManager.playerMe;
@@ -163,8 +173,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    googleMap.setMyLocationEnabled(true);
-                    createLocationRequest();
+                   // googleMap.setMyLocationEnabled(true);
+                    //createLocationRequest();
                 }
                 //			return;
             }
@@ -191,6 +201,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             String event = bundle.getString("event");
             match = (Match) message.obj;
             player = match.players.get(new Integer(message.arg1));
+
+            //create the timer
+            //update the UI
+            hidetime = new Timer(match);
+            hidetime.setTimername("Go hide now!");
+
+            //seektime = new Timer(match.getEndTime());
+            //seektime.setTimername("Start Seeking");
+
+            roleView.setText(hidetime.timername);
+
+            timerView.setText(hidetime.secondsLeft());
 
             // handle the event
             switch (event) {

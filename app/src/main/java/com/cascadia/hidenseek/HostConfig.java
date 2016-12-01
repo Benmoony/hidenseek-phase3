@@ -132,7 +132,7 @@ public class HostConfig extends Activity {
 							Timer = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE)
 									.getString("Seektime", null);
 							scheduleAlarm();
-							intent = new Intent(HostConfig.this, SplashActivity.class);
+							intent = new Intent(HostConfig.this, Active.class);
 
 							startActivity(intent);
 							isActive = false;
