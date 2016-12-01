@@ -50,6 +50,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Calendar;
 
+import com.cascadia.hidenseek.Timer;
+
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
     GoogleMap googleMap;
@@ -64,11 +66,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ShowHider sh;
     //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
+    TextView roleView;
+    TextView timerView;
+    Timer hidetime;
+    Timer seektime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
+
+        roleView = (TextView) findViewById(R.id.textrole);
+        timerView = (TextView) findViewById(R.id.timer);
 
         match = LoginManager.getMatch();
         player = LoginManager.playerMe;
@@ -192,6 +201,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             match = (Match) message.obj;
             player = match.players.get(new Integer(player.getId()));
 
+            //create the timer
+            //update the UI
+            hidetime = new Timer(match);
+            hidetime.setTimername("Go hide now!");
+
+            //seektime = new Timer(match.getEndTime());
+            //seektime.setTimername("Start Seeking");
+
+            roleView.setText(hidetime.timername);
+
+            timerView.setText(hidetime.secondsLeft());
+
             // handle the event
             switch (event) {
                 case "showDistance":
@@ -214,10 +235,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     // Update the distance indication
     // from the Seeker to the hider
     private void showDistance() {
-        TextView phase = (TextView) findViewById(R.id.textrole);
-        phase.setText("Seek");
-        TextView timeLeft = (TextView) findViewById(R.id.timer);
-        timeLeft.setText(String.format("%d", match.getEndTime().compareTo(Calendar.getInstance().getTime())));
     }
 
     // Update the player to show spotted

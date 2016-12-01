@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="ROLE"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:id="@+id/textrole"
