@@ -1,13 +1,13 @@
 package com.cascadia.hidenseek.network;
 /* Create the POST message to add a player to a match */
-import org.json.JSONException;
-
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
+import org.json.JSONException;
+
 public abstract class PostPlayerRequest extends NetworkRequest {
 
-	public void DoRequest(Player toPost, String password) {
+	public void doRequest(Player toPost, String password) {
 		p = toPost;
 		Request r = new Request();
 		r.url = baseUrl + "matches/" + toPost.getAssociatedMatch().getId() + "/players/";

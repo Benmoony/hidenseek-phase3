@@ -65,11 +65,14 @@ public abstract class GameTask implements Runnable {
                     processPlayers();
 
                     // Update the status for each player, and the current player
-                    players = newMatch.players;
+                    players.clear();
+                    for (Player player : newMatch.players.values()) {
+                       players.put(new Integer(player.getId()), player);
+                    }
                     player = players.get(new Integer(player.getId()));
                 }
             };
-            gplRequest.DoRequest(match);
+            gplRequest.doRequest(match);
 
             GetMatchRequest gmRequest = new GetMatchRequest() {
                 @Override
@@ -87,11 +90,13 @@ public abstract class GameTask implements Runnable {
                         message.setData(bundle);
                         handler.sendMessage(message);
                     }
+                    Hashtable<Integer, Player> players = match.players;
                     match = matchUpdate;
+                    match.players = players;
                 }
             };
 
-            gmRequest.DoRequest(LoginManager.GetMatch().getId());
+            gmRequest.doRequest(LoginManager.getMatch().getId());
 
             try {
                 Thread.sleep(DELAY);

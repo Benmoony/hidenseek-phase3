@@ -2,11 +2,11 @@ package com.cascadia.hidenseek.network;
 
 
 
-import org.json.JSONException;
-
 import com.cascadia.hidenseek.Match;
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
+
+import org.json.JSONException;
 
 public abstract class GetPlayerListRequest extends NetworkRequest {
 
@@ -15,7 +15,7 @@ public abstract class GetPlayerListRequest extends NetworkRequest {
 	 * method with the updated match passed in when complete. Calls onException
 	 * in case of IOException or JSONException
 	 */
-	public void DoRequest(Match match) {
+	public void doRequest(Match match) {
 		Request r = new Request();
 		m = match;
 		r.url = baseUrl + "matches/" + m.getId() + "/players/";

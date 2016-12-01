@@ -1,14 +1,14 @@
 package com.cascadia.hidenseek.network;
 
-import java.util.List;
-
 import com.cascadia.hidenseek.Match;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
+
+import java.util.List;
 
 
 public abstract class GetMatchListRequest extends NetworkRequest {
 	
-	public void DoRequest() {
+	public void doRequest() {
 		Request r = new Request();
 		r.url = baseUrl + "matches/";
 		r.type = RequestType.GET;

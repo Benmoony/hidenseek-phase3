@@ -18,49 +18,49 @@ public class HiderTask extends GameTask {
     // so checks of these are for the last players and player
     @Override
     protected void processPlayers() {
-        int numPlayers = match.players.size();
-        Message message = handler.obtainMessage();
-        Bundle bundle = new Bundle();
-        message.obj = match;
-
-        //googleMap.clear();  TODO update Google API
-
         // See if one of the other players has been found
         for (final Player hider : match.players.values()) {
             boolean thisPlayer = (hider.getId() == player.getId());
 
             Player.Status status = hider.getStatus();
 
+            Message message;
             if (thisPlayer) {
                 if (status == Player.Status.Hiding) {
-                    bundle.putString("event", "hiding");
-                    message.setData(bundle);
+                    message = createMessage("hiding", player);
                     handler.sendMessage(message);
                 }
                 // make sure the player status has changed to spotted this time so the
                 // verification only shows up once
                 else if ((status == Player.Status.Spotted) &&
                         (player.getStatus() != Player.Status.Spotted)) {
-                    bundle.putString("event", "spotted");
-                    message.setData(bundle);
+                    message = createMessage("spotted", player);
                     handler.sendMessage(message);
                 }
             }
             else if (match.getType() == Match.MatchType.HideNSeek) {
                 if ((status == Player.Status.Found) &&
                         (players.get(new Integer(hider.getId())).getStatus() != Player.Status.Found)) {
-                    bundle.putString("event", "show-other-players");
-                    message.setData(bundle);
-                    message.arg1 = hider.getId(); // let the handler know which player was found
+                    message = createMessage("show-other-players", player);
                     handler.sendMessage(message);
                 }
             }
         }
 
         if (match.getStatus() == Match.Status.Complete) {
-            bundle.putString("event", "game-over");
-            message.setData(bundle);
+            Message message = createMessage("game-over", player);
             handler.sendMessage(message);
         }
+
+    }
+    /* Create a message to send to the Active Activity */
+    protected Message createMessage(String event, Player hider) {
+        Message message = handler.obtainMessage();
+        message.obj = match;
+        message.arg1 = hider.getId();
+        Bundle bundle = new Bundle();
+        bundle.putString("event", event);
+        message.setData(bundle);
+        return message;
     }
 }
