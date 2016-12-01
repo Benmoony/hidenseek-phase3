@@ -85,7 +85,7 @@ public abstract class GameTask implements Runnable {
                         message.setData(bundle);
                         handler.sendMessage(message);
                     }
-                    Hashtable<Integer, Player> players = match.players;
+                    PlayerList players = match.players;
                     match = matchUpdate;
                     match.players = players;
                 }

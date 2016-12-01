@@ -7,24 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cascadia.hidenseek.Player;
+import com.cascadia.hidenseek.PlayerList;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.network.PlayerListFragment.OnListFragmentInteractionListener;
-import com.cascadia.hidenseek.network.dummy.DummyContent.DummyItem;
-
-import java.util.Hashtable;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link PlayerList} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
 public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecyclerViewAdapter.ViewHolder> {
 
-    private final Hashtable<Integer, Player> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final PlayerList players;
+    private final OnListFragmentInteractionListener listener;
 
-    public PlayerRecyclerViewAdapter(Hashtable<Integer,Player> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public PlayerRecyclerViewAdapter(PlayerList players, OnListFragmentInteractionListener listener) {
+        this.players = players;
+        this.listener = listener;
     }
 
     @Override
@@ -36,17 +34,16 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Integer player = new Integer(position);
-        holder.mItem = mValues.get(player);
-        holder.mContentView.setText(mValues.get(player).getName());
+        holder.player = players.get(position);
+        holder.mContentView.setText(holder.player.getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != listener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    listener.onListFragmentInteraction(holder.player);
                 }
             }
         });
@@ -54,14 +51,14 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return players.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Player mItem;
+        public Player player;
 
         public ViewHolder(View view) {
             super(view);

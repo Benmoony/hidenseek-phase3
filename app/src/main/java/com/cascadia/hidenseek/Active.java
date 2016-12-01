@@ -34,7 +34,6 @@ import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.cascadia.hidenseek.network.PutStatusRequest;
-import com.cascadia.hidenseek.network.dummy.DummyContent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -51,21 +50,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener  {
-    GoogleMap googleMap;
-    Match match;
-    Player player;
-    //boolean isActive;
-    //Status pend;
-    //Role playerRole;
-    //String Timer;
+    private GoogleMap googleMap;
+    private Match match;
+    private Player player;
+    private ArrayList<Player> playerArray = new ArrayList<>();
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
-    //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
     private PlayerListFragment playerList;
 
@@ -91,22 +87,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             ab.hide();
         }
 
-
-
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
 		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
 
 			if (savedInstanceState == null) {
 
-				if(player.getRole() == Player.Role.Seeker) {
+				if (player.getRole() == Player.Role.Seeker) {
 
-                    playerList = new PlayerListFragment();
-                    playerList.setPlayers(match.players);
-
+                    playerList = PlayerListFragment.newInstance(match.players);
 
 					getSupportFragmentManager()
 							.beginTransaction()
-							.add(R.id.Context_Player_UI, new PlayerListFragment(), "playList")
+							.add(R.id.Context_Player_UI, playerList, "playList")
 							.commit();
 				}
 				else {
@@ -146,6 +138,13 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                     .build();
         }
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_MAPS_RECEIVE);
+        } else {
+            createLocationRequest();
+        }
     }
 
     private final int MY_PERMISSIONS_REQUEST_MAPS_RECEIVE = 1;
@@ -156,17 +155,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         this.googleMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            if (!locationAnswered) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_MAPS_RECEIVE);
-            }
-        } else {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
-            createLocationRequest();
         }
         // Add a marker in Cascadia College, and move the camera.
         LatLng cascadia = new LatLng(47.760641, -122.191283);
@@ -183,12 +173,12 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_MAPS_RECEIVE: {
-                locationAnswered = true;
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    googleMap.setMyLocationEnabled(true);
+                    if (googleMap != null) {
+                        googleMap.setMyLocationEnabled(true);
+                    }
                     createLocationRequest();
                 }
                 //			return;
@@ -417,8 +407,9 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     }
 
     @Override
-    //This is where Active communicates with PlayerListFragment.java i.e. If something changes in PlayerListFragment in order to communicate with app, this manages that.
-    public void onListFragmentInteraction(Player item) {
+    //This is where Active communicates with PlayerListFragment.java i.e. If something changes in
+    // PlayerListFragment in order to communicate with app, this manages that.
+    public void onListFragmentInteraction(Player player) {
 
     }
 

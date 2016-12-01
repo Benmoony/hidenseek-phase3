@@ -3,7 +3,6 @@ package com.cascadia.hidenseek.network;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cascadia.hidenseek.Player;
+import com.cascadia.hidenseek.PlayerList;
 import com.cascadia.hidenseek.R;
-import com.cascadia.hidenseek.network.dummy.DummyContent;
-import com.cascadia.hidenseek.network.dummy.DummyContent.DummyItem;
-
-import java.util.Hashtable;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -26,12 +21,8 @@ import java.util.List;
  */
 public class PlayerListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private    OnListFragmentInteractionListener mListener;
-    Hashtable<Integer,Player> players;
+    private OnListFragmentInteractionListener mListener;
+    private PlayerList players;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,23 +31,16 @@ public class PlayerListFragment extends Fragment {
     public PlayerListFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static PlayerListFragment newInstance(int columnCount) {
+    public static PlayerListFragment newInstance(PlayerList players) {
         PlayerListFragment fragment = new PlayerListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
+        fragment.players = players;
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -68,11 +52,7 @@ public class PlayerListFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, mListener));
         }
         return view;
@@ -96,10 +76,6 @@ public class PlayerListFragment extends Fragment {
         mListener = null;
     }
 
-    public void setPlayers(Hashtable<Integer,Player> players) {
-        this.players = players;
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -111,7 +87,6 @@ public class PlayerListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Player item);
+        void onListFragmentInteraction(Player player);
     }
 }
