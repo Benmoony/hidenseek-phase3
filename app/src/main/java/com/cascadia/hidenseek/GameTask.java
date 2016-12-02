@@ -8,7 +8,10 @@ import android.os.Message;
 
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
+import com.cascadia.hidenseek.network.PutStopRequest;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 
 /**
@@ -56,9 +59,22 @@ public abstract class GameTask implements Runnable {
 
                 @Override
                 protected void onComplete(Match newMatch) {
-//                    match.players = newMatch.players;
-                    processPlayers();
 
+                    processPlayers(newMatch.players);
+
+                    if (match.getType() == Match.MatchType.HideNSeek) {
+                        int numPlayers = newMatch.players.size();
+
+                        for (final Player hider : newMatch.players.values()) {
+                            if ((hider.getRole() == Player.Role.Seeker) || !hider.isPlaying() ||
+                                    (hider.getStatus() == Player.Status.Found)) {
+                                numPlayers--;
+                            }
+                        }
+                        if (numPlayers == 0) {
+                            (new PutStopRequest()).doRequest(match);
+                        }
+                    }
                     // Update the status for each player, and the current player
                     players.clear();
                     for (Player player : newMatch.players.values()) {
@@ -77,7 +93,7 @@ public abstract class GameTask implements Runnable {
                 @Override
                 protected void onComplete(Match matchUpdate) {
                     Match.Status status = matchUpdate.getStatus();
-                    if ((status == Match.Status.Complete) /*&& (match.getStatus() != Match.Status.Complete)*/) {
+                    if ((status == Match.Status.Complete)) {
                         Message message = handler.obtainMessage();
                         Bundle bundle = new Bundle();
                         message.obj = match;
@@ -88,6 +104,14 @@ public abstract class GameTask implements Runnable {
                     Hashtable<Integer, Player> players = match.players;
                     match = matchUpdate;
                     match.players = players;
+
+                    // Check for the end of match
+                    Date now = Calendar.getInstance().getTime();
+                    Date matchEnd = match.getEndTime();
+                    if (now.after(matchEnd)) {
+                        PutStopRequest putStopRequest = new PutStopRequest();
+                        putStopRequest.doRequest(match);
+                    }
                 }
             };
 
@@ -102,8 +126,17 @@ public abstract class GameTask implements Runnable {
         }
     }
 
-    // Process the returned
-    // status for the match
-    protected abstract void processPlayers();
+    // Process the returned player status for the match
+    protected abstract void processPlayers(Hashtable<Integer, Player> players);
 
+    /* Create a message to send to the Active Activity */
+    protected Message createMessage(String event, Player hider) {
+        Message message = handler.obtainMessage();
+        message.obj = match;
+        message.arg1 = hider.getId();
+        Bundle bundle = new Bundle();
+        bundle.putString("event", event);
+        message.setData(bundle);
+        return message;
+    }
 }

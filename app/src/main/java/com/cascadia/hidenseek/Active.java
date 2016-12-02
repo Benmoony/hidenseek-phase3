@@ -253,6 +253,9 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 case "show-other-players":
                     showOtherPlayers(message.arg1);
                     break;
+                case "game-over":
+                    gameOver();
+                    break;
             }
         }
     };
