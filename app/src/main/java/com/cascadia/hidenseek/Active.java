@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.cascadia.hidenseek.Player.Role;
 import com.cascadia.hidenseek.Player.Status;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
+import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.cascadia.hidenseek.network.PutStatusRequest;
 import com.google.android.gms.common.ConnectionResult;
@@ -48,22 +50,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
-        ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
-    GoogleMap googleMap;
-    Match match;
-    Player player;
-    //boolean isActive;
-    //Status pend;
-    //Role playerRole;
-    //String Timer;
+        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener  {
+    private GoogleMap googleMap;
+    private Match match;
+    private Player player;
+    private ArrayList<Player> playerArray = new ArrayList<>();
     final Context context = this;
     boolean tagged = true;
     private ShowHider sh;
-    //Long showTime = (long) 30000;
     protected GoogleApiClient googleApiClient;
+    private PlayerListFragment playerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         match = LoginManager.getMatch();
         player = LoginManager.playerMe;
+		FrameLayout roleLayout;
         //isActive = true;
 
         if (match == null || player == null) {
@@ -87,12 +88,28 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         }
 
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.Context_Player_UI, supportMapFragment, "map")
-                    .commit();
-        }
+		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
+
+			if (savedInstanceState == null) {
+
+				if (player.getRole() == Player.Role.Seeker) {
+
+                    playerList = PlayerListFragment.newInstance(match.players);
+
+					getSupportFragmentManager()
+							.beginTransaction()
+							.add(R.id.Context_Player_UI, playerList, "playList")
+							.commit();
+				}
+				else {
+					getSupportFragmentManager()
+							.beginTransaction()
+							.add(R.id.Context_Player_UI, supportMapFragment, "map")
+							.commit();
+				}
+
+			}
+
 
 		/* Show user's position on map */
         supportMapFragment.getMapAsync(this);
@@ -121,6 +138,13 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                     .build();
         }
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_MAPS_RECEIVE);
+        } else {
+            createLocationRequest();
+        }
     }
 
     private final int MY_PERMISSIONS_REQUEST_MAPS_RECEIVE = 1;
@@ -131,17 +155,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         this.googleMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            if (!locationAnswered) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_MAPS_RECEIVE);
-            }
-        } else {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
-            createLocationRequest();
         }
         // Add a marker in Cascadia College, and move the camera.
         LatLng cascadia = new LatLng(47.760641, -122.191283);
@@ -158,12 +173,12 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_MAPS_RECEIVE: {
-                locationAnswered = true;
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    googleMap.setMyLocationEnabled(true);
+                    if (googleMap != null) {
+                        googleMap.setMyLocationEnabled(true);
+                    }
                     createLocationRequest();
                 }
                 //			return;
@@ -388,6 +403,13 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 .zoom(20.0f)                // Sets the zoom
                 .build();                   // Creates a CameraPosition from the builder
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+
+    @Override
+    //This is where Active communicates with PlayerListFragment.java i.e. If something changes in
+    // PlayerListFragment in order to communicate with app, this manages that.
+    public void onListFragmentInteraction(Player player) {
 
     }
 
