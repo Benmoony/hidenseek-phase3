@@ -51,10 +51,11 @@ public class Timer {
             Date finalTime;
             SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss");
 
+            //subtracting endTime from current Date time from calender
+
             finalTime = new Date (Calendar.getInstance().getTime().getTime() -endTime.getTime());
-
-
-            //alendar.add(Calendar.MINUTE, -endTime);
+            //get getEndTime from match
+            //finalTime  = new Date (endTime.getTime() - (Calendar.getInstance().getTime().getTime()));
 
             String countTime = timeformat.format(finalTime);
 
