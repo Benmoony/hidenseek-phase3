@@ -215,8 +215,11 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 case "showSpotted":
                     showSpotted();
                     break;
-                case "showFound":
-                    showFound();
+                case "showFound": //Update to call Player List fragment
+                    playerList.playerFound(player);
+                    break;
+                case "notFound": //Player Denies being found by the seeker (update seeker task for this case)
+                    playerList.playerNotFound(player);
                     break;
                 case "game-over":
                     gameOver();
@@ -241,6 +244,11 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     // Update the player to show found
     private void showFound() {
+        //PlayerListFragment.playerFound(player); called
+    }
+
+    private void notFound(){
+        //PlayerListFragment.playerNotFound(player); called
     }
 
     // Go back to the login screen when the game has ended
@@ -310,9 +318,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             pp.doRequest(player);
 
-            ShowSeeker();
             tagged = true;
-            Intent intent = new Intent(context, TempToHome.class);
+            Intent intent = new Intent(context, TempToHome.class); //DO NOT WANT TO GO TO NEW CLASS
             startActivity(intent);
         }
     };
@@ -321,7 +328,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         public void onClick(DialogInterface dialog, int id) {
             // if this button is clicked, just close the dialog box
             // and do nothing
-            player.setStatus(Status.Hiding);
+            //incorporate actual delay?
+            player.setStatus(Status.Hiding); //Brian to create new type of player status
             PutStatusRequest pp = new PutStatusRequest() {
 
                 @Override

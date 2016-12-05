@@ -76,6 +76,14 @@ public class PlayerListFragment extends Fragment {
         mListener = null;
     }
 
+    public void playerFound(Player player){
+
+    }
+
+    public void playerNotFound(Player player){
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
