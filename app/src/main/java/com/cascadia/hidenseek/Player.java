@@ -189,7 +189,7 @@ public class Player {
 		playerId=ID;
 	}
 	
-	public Boolean getPlaying() {
+	public Boolean isPlaying() {
 		return isPlaying;
 	}
 	
