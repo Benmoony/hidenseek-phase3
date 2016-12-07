@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,6 +71,7 @@ public class Match {
 		this.name = name;
 		this.password = password;
 		this.type = type;
+
 	}
 	
 	/**
@@ -249,7 +249,7 @@ public class Match {
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 	
-	public Hashtable<Integer, Player> players = new Hashtable();
+	public PlayerList players = new PlayerList();
 
 	public void startMatch() {
 		startTime = new Date();

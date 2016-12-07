@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Locale;
 
 public class Player {
@@ -76,9 +75,9 @@ public class Player {
 
 	
 	// parse the match/#/player json and return a list of players
-	public static Hashtable<Integer, Player> parseToList(String jsonStr, Match associatedMatch)
+	public static PlayerList parseToList(String jsonStr, Match associatedMatch)
 			throws JSONException {
-		Hashtable<Integer, Player> toReturn = new Hashtable<>();
+		PlayerList toReturn = new PlayerList();
 		JSONArray jArray = new JSONObject(jsonStr).getJSONArray("players");
 		for(int i = 0; i < jArray.length(); i++) {
 			Player player = parse(jArray.getJSONObject(i), associatedMatch);
@@ -190,7 +189,7 @@ public class Player {
 		playerId=ID;
 	}
 	
-	public Boolean getPlaying() {
+	public Boolean isPlaying() {
 		return isPlaying;
 	}
 	
