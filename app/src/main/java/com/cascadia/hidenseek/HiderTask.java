@@ -3,8 +3,6 @@ package com.cascadia.hidenseek;
 import android.os.Handler;
 import android.os.Message;
 
-import java.util.Hashtable;
-
 /**
  * Created by deb on 11/8/16.
  */
@@ -18,7 +16,7 @@ public class HiderTask extends GameTask {
     // The player objects are not updated until after this method runs,
     // so checks of these are for the last players and player
     @Override
-    protected void processPlayers(Hashtable<Integer, Player> newPlayers) {
+    protected void processPlayers(PlayerList newPlayers) {
         // See if one of the other players has been found
         for (final Player hider : newPlayers.values()) {
             boolean thisPlayer = (hider.getId() == player.getId());
