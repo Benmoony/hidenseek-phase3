@@ -34,6 +34,7 @@ public class SeekerTask extends GameTask {
                     case Hiding:
                         //If statement checking if previous status of hider was spotted
                         if (match.players.get(new Integer(hider.getId())).getStatus() == Player.Status.Spotted){
+                            //match.players is a reference to the match which has yet to be updated with the new status
                             message = createMessage("notFound", hider);
                             handler.sendMessage(message);
                             break;

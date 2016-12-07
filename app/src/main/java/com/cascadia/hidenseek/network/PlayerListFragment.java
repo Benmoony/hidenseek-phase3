@@ -77,10 +77,12 @@ public class PlayerListFragment extends Fragment {
     }
 
     public void playerFound(Player player){
+        //Change background of the player passed to the method to Green
 
     }
 
     public void playerNotFound(Player player){
+        //Build Alert Dialogue indicating that Player has denied being found
 
     }
 

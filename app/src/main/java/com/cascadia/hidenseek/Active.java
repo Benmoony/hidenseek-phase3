@@ -242,15 +242,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private void showSpotted() {
     }
 
-    // Update the player to show found
-    private void showFound() {
-        //PlayerListFragment.playerFound(player); called
-    }
-
-    private void notFound(){
-        //PlayerListFragment.playerNotFound(player); called
-    }
-
     // Go back to the login screen when the game has ended
     private void gameOver() {
         Intent end = new Intent(context, TempToHome.class);
