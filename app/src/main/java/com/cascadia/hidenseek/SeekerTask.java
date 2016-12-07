@@ -19,7 +19,7 @@ public class SeekerTask extends GameTask {
     // The player objects are not updated until after this method runs,
     // so checks of these are for the last players and player
     @Override
-    protected void processPlayers(Hashtable<Integer, Player> newPlayers) {
+    protected void processPlayers(PlayerList newPlayers) {
 
         for (final Player hider : newPlayers.values()) {
             // skip the Seeker.  The Seeker's status is null
