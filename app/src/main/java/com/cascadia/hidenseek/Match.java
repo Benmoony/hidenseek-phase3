@@ -184,10 +184,16 @@ public class Match {
 		try {
 			toReturn.startTime = dateTimeFormat.parse(jObject.getString("startTime"));
 		} catch(JSONException e) {
-				toReturn.startTime = null;
+            toReturn.startTime = null;
 		} catch (ParseException e) {
-			//Assume that the exception means there is no starTtime set.
+			//Assume that the exception means there is no startTime set.
 		}
+		try {
+			toReturn.timestamp = jObject.getInt("timestamp");
+		} catch (JSONException e) {
+            toReturn.timestamp = -1;
+        }
+
 		return toReturn;
 	}
 	
@@ -233,19 +239,21 @@ public class Match {
 		calendar.add(Calendar.MINUTE, seekTime);
 		return calendar.getTime();
 	}
+    public Date getTimeStamp() {
+        return new Date((long)timestamp * 1000);
+    }
 
-	private int matchId = -1; //Does not get set by constructor; set by
+	private int matchId = -1; //Does not get set by constructor; set by parse
 	private String name;
 	private String password;
-	private int countTime = -1;
-	private int seekTime = -1;
+	private int countTime = -1; // time in seconds for the hiders to hide
+	private int seekTime = -1; // game time in minutes
 	private Status status;
-	private MatchType type;
-	private Date startTime;
-	private Date endTime;
+	private MatchType type; // Hide N Seek or Sandbox
+	private Date startTime; // time at the server that the game startd
+	private int timestamp; // seconds past the epoch 01/01/70 12:00am
 	private Status stat;
-/*	Intent intent;*/
-	
+
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 	
@@ -257,7 +265,6 @@ public class Match {
 	}
 
     public void stopMatch() {
-        endTime = new Date();
         stat = Status.Complete;
     }
 }

@@ -10,7 +10,6 @@ import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStopRequest;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -106,7 +105,7 @@ public abstract class GameTask implements Runnable {
                     match.players = players;
 
                     // Check for the end of match
-                    Date now = Calendar.getInstance().getTime();
+                    Date now = match.getTimeStamp();
                     Date matchEnd = match.getEndTime();
                     if (now.after(matchEnd)) {
                         PutStopRequest putStopRequest = new PutStopRequest();
@@ -127,7 +126,7 @@ public abstract class GameTask implements Runnable {
     }
 
     // Process the returned player status for the match
-    protected abstract void processPlayers(Hashtable<Integer, Player> players);
+    protected abstract void processPlayers(PlayerList players);
 
     /* Create a message to send to the Active Activity */
     protected Message createMessage(String event, Player hider) {
