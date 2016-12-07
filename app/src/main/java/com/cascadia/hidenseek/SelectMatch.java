@@ -39,37 +39,47 @@ public class SelectMatch extends Activity {
 				finish();
 			}
 		});
-		initList();
-
+        new Thread(checkMatches).start();
 	}
-	
+
 	/**
 	 * initList creates a list of all the matches that are in a pending state
 	 */
-	private void initList() {
-		GetMatchListRequest request = new GetMatchListRequest(Status.Pending) {
-			
-			@Override
-			protected void onException(Exception e) { }		
-			
-			@Override
-			protected void onComplete(List<Match> matches) {
-				//Gets the list of matches and puts in listview
-				ArrayList<String> gameTitles = new ArrayList<String>();
-				for (Match m : matches) {
-					if (m.getStatus() == Status.Pending) {
-						String title = m.getId() + " - " + m.getName();
-						gameTitles.add(title);
-					}
-				}
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
-						android.R.layout.simple_list_item_single_choice, gameTitles);
-				listView.setAdapter(arrayAdapter);
-			}
-		};
-		request.doRequest();
-		
-	}
+	private Runnable checkMatches = new Runnable() {
+
+        @Override
+        public void run() {
+            while (selectedMatch == null) {
+                GetMatchListRequest request = new GetMatchListRequest(Status.Pending) {
+
+                    @Override
+                    protected void onException(Exception e) { }
+
+                    @Override
+                    protected void onComplete(List<Match> matches) {
+                        //Gets the list of matches and puts in listview
+                        ArrayList<String> gameTitles = new ArrayList<String>();
+                        for (Match m : matches) {
+                            if (m.getStatus() == Status.Pending) {
+                                String title = m.getId() + " - " + m.getName();
+                                gameTitles.add(title);
+                            }
+                        }
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
+                                android.R.layout.simple_list_item_single_choice, gameTitles);
+                        listView.setAdapter(arrayAdapter);
+                    }
+                };
+                request.doRequest();
+
+                try {
+                    Thread.sleep(500L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
