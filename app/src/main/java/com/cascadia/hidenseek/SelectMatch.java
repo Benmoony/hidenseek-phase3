@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SelectMatch extends Activity {
 
-	ListView l;
+	ListView listView;
 	
 	public static String selectedMatch;
 	
@@ -26,16 +26,16 @@ public class SelectMatch extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_match);
 
-		l = (ListView) findViewById(R.id.configPlayerList);
+		listView = (ListView) findViewById(R.id.configPlayerList);
 		
 		
-		l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				selectedMatch = l.getItemAtPosition(arg2).toString();
+				selectedMatch = listView.getItemAtPosition(arg2).toString();
 				finish();
 			}
 		});
@@ -62,8 +62,9 @@ public class SelectMatch extends Activity {
 						gameTitles.add(title);
 					}
 				}
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,android.R.layout.simple_list_item_single_choice, gameTitles);
-				l.setAdapter(arrayAdapter);				
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
+						android.R.layout.simple_list_item_single_choice, gameTitles);
+				listView.setAdapter(arrayAdapter);
 			}
 		};
 		request.doRequest();
