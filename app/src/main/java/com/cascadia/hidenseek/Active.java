@@ -400,13 +400,14 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         // Do the request
         putGpsRequest.doRequest(player);
 
-        // Update the center of the map
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to the player location
-                .zoom(20.0f)                // Sets the zoom
-                .build();                   // Creates a CameraPosition from the builder
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+        // Update the center of the map for a hider
+        if (player.getRole() != Role.Seeker) {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to the player location
+                    .zoom(20.0f)                // Sets the zoom
+                    .build();                   // Creates a CameraPosition from the builder
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     @Override
