@@ -47,7 +47,7 @@ public class SelectMatch extends Activity {
 	 * initList creates a list of all the matches that are in a pending state
 	 */
 	private void initList() {
-		GetMatchListRequest request = new GetMatchListRequest() {
+		GetMatchListRequest request = new GetMatchListRequest(Status.Pending) {
 			
 			@Override
 			protected void onException(Exception e) { }		
@@ -56,8 +56,8 @@ public class SelectMatch extends Activity {
 			protected void onComplete(List<Match> matches) {
 				//Gets the list of matches and puts in listview
 				ArrayList<String> gameTitles = new ArrayList<String>();
-				for(Match m : matches) {
-					if(m.getStatus() == Status.Pending) {
+				for (Match m : matches) {
+					if (m.getStatus() == Status.Pending) {
 						String title = m.getId() + " - " + m.getName();
 						gameTitles.add(title);
 					}
