@@ -20,16 +20,22 @@ import com.cascadia.hidenseek.network.PutRoleRequest;
 
 public class HostLogin extends Activity {
 
+	private static ConnectionChecks connectionChecks;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_login);
 		initSpinner();
 		initSettings();
+		connectionChecks = new ConnectionChecks(this);
 		
         ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+				if (!connectionChecks.isConnected()) {
+					connectionChecks.showAlert();
+					return;
+				}
             	EditText mName = (EditText) findViewById(R.id.loginMatchNameInput);
             	Spinner mType = (Spinner) findViewById(R.id.loginMatchTypeSelect);
             	EditText mPassword = (EditText) findViewById(R.id.loginPasswordInput);

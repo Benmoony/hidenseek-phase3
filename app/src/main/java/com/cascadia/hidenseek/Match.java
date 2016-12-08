@@ -114,6 +114,9 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
