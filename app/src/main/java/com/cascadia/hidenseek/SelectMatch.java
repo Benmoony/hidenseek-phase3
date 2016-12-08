@@ -2,6 +2,8 @@ package com.cascadia.hidenseek;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +22,14 @@ public class SelectMatch extends Activity {
 	ListView listView;
 	
 	public static String selectedMatch;
+    private static ConnectionChecks connectionChecks;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_match);
+        connectionChecks = new ConnectionChecks(this);
+        selectedMatch = null;
 
 		listView = (ListView) findViewById(R.id.configPlayerList);
 		
@@ -49,28 +54,40 @@ public class SelectMatch extends Activity {
 
         @Override
         public void run() {
+            boolean warned = false;
             while (selectedMatch == null) {
-                GetMatchListRequest request = new GetMatchListRequest(Status.Pending) {
+                if (connectionChecks.isConnected()) {
+                    GetMatchListRequest request = new GetMatchListRequest(Status.Pending) {
 
-                    @Override
-                    protected void onException(Exception e) { }
-
-                    @Override
-                    protected void onComplete(List<Match> matches) {
-                        //Gets the list of matches and puts in listview
-                        ArrayList<String> gameTitles = new ArrayList<String>();
-                        for (Match m : matches) {
-                            if (m.getStatus() == Status.Pending) {
-                                String title = m.getId() + " - " + m.getName();
-                                gameTitles.add(title);
-                            }
+                        @Override
+                        protected void onException(Exception e) {
                         }
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
-                                android.R.layout.simple_list_item_single_choice, gameTitles);
-                        listView.setAdapter(arrayAdapter);
-                    }
-                };
-                request.doRequest();
+
+                        @Override
+                        protected void onComplete(List<Match> matches) {
+                            // make sure matches is not null before continuing
+                            if (matches == null) return;
+
+                            //Gets the list of matches and puts in listview
+                            ArrayList<String> gameTitles = new ArrayList<String>();
+                            for (Match m : matches) {
+                                if (m.getStatus() == Status.Pending) {
+                                    String title = m.getId() + " - " + m.getName();
+                                    gameTitles.add(title);
+                                }
+                            }
+                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
+                                    android.R.layout.simple_list_item_single_choice, gameTitles);
+                            listView.setAdapter(arrayAdapter);
+                        }
+                    };
+                    request.doRequest();
+                    warned = false;
+                }
+                else if (!warned) {
+                    connectionHandler.sendMessage(connectionHandler.obtainMessage());
+                    warned = true;
+                }
 
                 try {
                     Thread.sleep(500L);
@@ -78,6 +95,13 @@ public class SelectMatch extends Activity {
                     e.printStackTrace();
                 }
             }
+        }
+    };
+
+    private static Handler connectionHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            connectionChecks.showAlert();
         }
     };
 
