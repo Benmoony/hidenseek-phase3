@@ -54,7 +54,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
-        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener  {
+        ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
     private GoogleMap googleMap;
     private Match match;
     private Player player;
@@ -64,15 +64,17 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ShowHider sh;
     protected GoogleApiClient googleApiClient;
     private PlayerListFragment playerList;
+    private static ConnectionChecks connectionChecks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
+        connectionChecks = new ConnectionChecks(this);
 
         match = LoginManager.getMatch();
         player = LoginManager.playerMe;
-		FrameLayout roleLayout;
+        FrameLayout roleLayout;
         //isActive = true;
 
         if (match == null || player == null) {
@@ -82,34 +84,28 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             finish();
         }
 
-        ActionBar ab = getActionBar();
-        if (player.getRole() != Player.Role.Seeker) {
-            ab.hide();
-        }
+        getActionBar().hide();
 
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-		roleLayout = (FrameLayout)findViewById(R.id.Context_Player_UI);
 
-			if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
 
-				if (player.getRole() == Player.Role.Seeker) {
+            if (player.getRole() == Player.Role.Seeker) {
 
-                    playerList = PlayerListFragment.newInstance(match.players);
+                playerList = PlayerListFragment.newInstance(match.players);
 
-					getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.Context_Player_UI, playerList, "playList")
-							.commit();
-				}
-				else {
-					getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.Context_Player_UI, supportMapFragment, "map")
-							.commit();
-				}
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.Context_Player_UI, playerList, "playList")
+                        .commit();
+            } else {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.Context_Player_UI, supportMapFragment, "map")
+                        .commit();
+            }
 
-			}
-
+        }
 
 		/* Show user's position on map */
         supportMapFragment.getMapAsync(this);
@@ -124,9 +120,9 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         });
 
         if (player.getRole() == Role.Seeker) {
-            new Thread(new SeekerTask(seekerHandler, player)).start();
+            new Thread(new SeekerTask(seekerHandler, player, connectionChecks)).start();
         } else {
-            new Thread(new HiderTask(hiderHandler, player)).start();
+            new Thread(new HiderTask(hiderHandler, player, connectionChecks)).start();
         }
 
         // Create an instance of GoogleAPIClient.
@@ -293,6 +289,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         // show it
         alertDialog.show();
     }
+
     // Update the player status to found when acknowledged
     private DialogInterface.OnClickListener foundClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
@@ -343,7 +340,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     public void ShowSeeker() {
 /*
-		sh = new ShowHider(showTime, 1000, temp);
+        sh = new ShowHider(showTime, 1000, temp);
 		sh.startCountDown1();
 */
     }
@@ -485,8 +482,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-           LocationServices.FusedLocationApi.requestLocationUpdates(
-                googleApiClient, locationRequest, this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    googleApiClient, locationRequest, this);
         }
     }
 

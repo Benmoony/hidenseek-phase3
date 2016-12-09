@@ -8,8 +8,8 @@ import android.os.Message;
  */
 public class HiderTask extends GameTask {
 
-    public HiderTask(Handler handler, Player player) {
-        super(handler, player);
+    public HiderTask(Handler handler, Player player, ConnectionChecks connectionChecks) {
+        super(handler, player, connectionChecks);
     }
 
     // Process the new status for the match and players.
