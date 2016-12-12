@@ -2,7 +2,7 @@ package com.cascadia.hidenseek.network;
 
 import android.content.DialogInterface;
 import android.preference.DialogPreference;
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +54,13 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int which) {
                                 holder.player.setStatus(Player.Status.Spotted);
+                                PutStatusRequest stat = new PutStatusRequest() {
+                                    @Override
+                                    protected void onException(Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                };
+                                stat.doRequest(holder.player);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener(){

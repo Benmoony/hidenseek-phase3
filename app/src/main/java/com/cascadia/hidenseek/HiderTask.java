@@ -32,7 +32,7 @@ public class HiderTask extends GameTask {
                 // make sure the player status has changed to spotted this time so the
                 // verification only shows up once
                 else if ((status == Player.Status.Spotted) &&
-                        (hider.getStatus() != Player.Status.Spotted)) {
+                        (player.getStatus() != Player.Status.Spotted)) {
                     message = createMessage("spotted", hider);
                     handler.sendMessage(message);
                 }
