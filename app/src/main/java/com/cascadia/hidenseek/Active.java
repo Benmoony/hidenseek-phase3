@@ -220,14 +220,18 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             //create the timer
             //update the UI
             hidetime = new Timer(match);
-            hidetime.setTimername("Go hide now!");
-
-            //seektime = new Timer(match.getEndTime());
-            //seektime.setTimername("Start Seeking");
+            hidetime.setTimername("Hiding Now!");
 
             roleView.setText(hidetime.timername);
+            timerView.setText(hidetime.SecondsLeft());
 
-            timerView.setText(hidetime.secondsLeft());
+            /*seektime = new Timer(match);
+            seektime.setTimername("Start Seeking");
+
+            roleView.setText(seektime.timername);
+            timerView.setText(seektime.SecondsLeft_2());*/
+
+
 
             // handle the event
             switch (event) {
