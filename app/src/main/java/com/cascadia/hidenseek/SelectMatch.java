@@ -62,7 +62,8 @@ public class SelectMatch extends Activity {
 						gameTitles.add(title);
 					}
 				}
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,android.R.layout.simple_list_item_single_choice, gameTitles);
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SelectMatch.this,
+						android.R.layout.simple_list_item_single_choice, gameTitles);
 				listView.setAdapter(arrayAdapter);
 			}
 		};
