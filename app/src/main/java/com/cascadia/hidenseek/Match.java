@@ -4,14 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
+/* The Match object contains the definition for the match, its status,
+*  and a Hashtable of the players */
 public class Match {
 
 	public enum Status {
@@ -90,7 +90,7 @@ public class Match {
 				toReturn.add(parse(jArray.getJSONObject(i)));
 			}
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -114,6 +114,9 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -127,6 +130,9 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -136,6 +142,9 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
 		
 	}
@@ -150,11 +159,14 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
 
-	
+	/* Parse a match object from a JSONObject */
 	private static Match parse(JSONObject jObject) throws JSONException 
 	{
 		Match toReturn = new Match(jObject.getString("name"),
@@ -163,34 +175,34 @@ public class Match {
 		//For the following values, set the value to -1 if no valid value is received
 		try {
 			toReturn.matchId = jObject.getInt("id");
-		} catch(JSONException e) {
+		} catch(Exception e) {
 			toReturn.matchId = -1;
 		}
 		try {
 			toReturn.countTime = jObject.getInt("countTime");
-		} catch(JSONException e) {
+		} catch(Exception e) {
 			toReturn.countTime = -1;
 		}
 		try {
 			toReturn.seekTime = jObject.getInt("seekTime");
-		} catch(JSONException e) {
+		} catch(Exception e) {
 			toReturn.seekTime = -1;
 		}
 		try {
 			toReturn.status = Status.parse(jObject.getString("status"));
-		} catch(JSONException e) {
+		} catch(Exception e) {
 			//Leave it null
 		}
 		try {
 			toReturn.startTime = dateTimeFormat.parse(jObject.getString("startTime"));
 		} catch(JSONException e) {
             toReturn.startTime = null;
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			//Assume that the exception means there is no startTime set.
 		}
 		try {
 			toReturn.timestamp = jObject.getInt("timestamp");
-		} catch (JSONException e) {
+		} catch (Exception e) {
             toReturn.timestamp = -1;
         }
 

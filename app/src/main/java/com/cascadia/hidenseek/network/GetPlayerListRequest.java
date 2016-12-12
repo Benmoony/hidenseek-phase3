@@ -6,8 +6,6 @@ import com.cascadia.hidenseek.Match;
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
-import org.json.JSONException;
-
 public abstract class GetPlayerListRequest extends NetworkRequest {
 
 	/**
@@ -29,7 +27,7 @@ public abstract class GetPlayerListRequest extends NetworkRequest {
 	protected final void processPostExecute(String s) {
 		try {
 			m.players = Player.parseToList(s, m);
-		} catch(JSONException e) {
+		} catch(Exception e) {
 			onException(e);
 		}
 		onComplete(m);

@@ -16,21 +16,32 @@ public class Home extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
+		final ConnectionChecks connectionChecks = new ConnectionChecks(this);
 		
 		//User clicked Host Match button
         ImageButton btnHost = (ImageButton) findViewById(R.id.btnHostHome);
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-    			Intent intent = new Intent(Home.this, HostLogin.class);
-    			startActivity(intent);
+				if (connectionChecks.isConnected()) {
+					Intent intent = new Intent(Home.this, HostLogin.class);
+					startActivity(intent);
+				}
+				else {
+					connectionChecks.showAlert();
+				}
             }
         });
         //User clicked Join Match button
         ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinHome);
         btnJoin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-    			Intent intent = new Intent(Home.this, JoinLogin.class);
-    			startActivity(intent);
+                if (connectionChecks.isConnected()) {
+                    Intent intent = new Intent(Home.this, JoinLogin.class);
+                    startActivity(intent);
+                }
+                else {
+                    connectionChecks.showAlert();
+                }
             }
         });
         //User clicked Settings button
@@ -38,10 +49,16 @@ public class Home extends Activity {
         btnSettings.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Home.this, Settings.class);
-				startActivity(intent);
+                if (connectionChecks.isConnected()) {
+                    Intent intent = new Intent(Home.this, Settings.class);
+                    startActivity(intent);
+                }
+                else {
+                    connectionChecks.showAlert();
+                }
 			}
 		});
+
 	}
 
 	@Override

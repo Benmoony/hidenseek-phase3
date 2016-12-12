@@ -3,16 +3,14 @@ package com.cascadia.hidenseek;
 import android.os.Handler;
 import android.os.Message;
 
-import java.util.Hashtable;
-
 /**
  * Created by deb on 11/7/16.
  */
 
 public class SeekerTask extends GameTask {
 
-    public SeekerTask(Handler handler, Player player) {
-        super(handler, player);
+    public SeekerTask(Handler handler, Player player, ConnectionChecks connectionChecks) {
+        super(handler, player, connectionChecks);
     }
 
     // Process the new status for the match and players.
@@ -22,11 +20,9 @@ public class SeekerTask extends GameTask {
     protected void processPlayers(PlayerList newPlayers) {
 
         for (final Player hider : newPlayers.values()) {
-            // skip the Seeker.  The Seeker's status is null
-            if (hider.getRole() == Player.Role.Seeker)
-                continue;
-
             Player.Status status = hider.getStatus();
+
+            if (status == null) continue; // check if the status is filled in.  It will not be for the Seeker.
 
             Message message;
             if (match.getType() == Match.MatchType.HideNSeek) {

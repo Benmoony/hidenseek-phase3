@@ -31,13 +31,15 @@ public abstract class GameTask implements Runnable {
     protected final int DELAY = 500; // delay between checks of player status
     // Keep track of the last status for all the players
     protected Hashtable<Integer, Player> players = new Hashtable<>();
+    protected ConnectionChecks connectionChecks;
 
     // Create the GameTask and provide it with a message handler in the
     // GUI task
-    public GameTask(Handler handler, Player player) {
+    public GameTask(Handler handler, Player player, ConnectionChecks connectionChecks) {
         this.handler = handler;
         this.match = player.getAssociatedMatch();
         this.player = player;
+        this.connectionChecks = connectionChecks;
     }
 
     // Run the task
@@ -49,78 +51,87 @@ public abstract class GameTask implements Runnable {
                     (player.getStatus() == Player.Status.Found)) {
                 break;
             }
-            // Do request and update values in match. No callback needed.
-            GetPlayerListRequest gplRequest = new GetPlayerListRequest() {
+            // Make sure we have internet connection before updating the Match and Players
+            if (connectionChecks.isConnected()) {
+                // Do request and update values in match. No callback needed.
+                GetPlayerListRequest gplRequest = new GetPlayerList();
+                gplRequest.doRequest(match);
 
-                @Override
-                protected void onException(Exception e) {
-                }
+                GetMatchRequest gmRequest = new GetMatch();
 
-                @Override
-                protected void onComplete(Match newMatch) {
-
-                    processPlayers(newMatch.players);
-
-                    if (match.getType() == Match.MatchType.HideNSeek) {
-                        int numPlayers = newMatch.players.size();
-
-                        for (final Player hider : newMatch.players.values()) {
-                            if ((hider.getRole() == Player.Role.Seeker) || !hider.isPlaying() ||
-                                    (hider.getStatus() == Player.Status.Found)) {
-                                numPlayers--;
-                            }
-                        }
-                        if (numPlayers == 0) {
-                            (new PutStopRequest()).doRequest(match);
-                        }
-                    }
-                    // Update the status for each player, and the current player
-                    players.clear();
-                    for (Player player : newMatch.players.values()) {
-                        players.put(new Integer(player.getId()), player);
-                    }
-                    player = players.get(new Integer(player.getId()));
-                }
-            };
-            gplRequest.doRequest(match);
-
-            GetMatchRequest gmRequest = new GetMatchRequest() {
-                @Override
-                protected void onException(Exception e) {
-                }
-
-                @Override
-                protected void onComplete(Match matchUpdate) {
-                    Match.Status status = matchUpdate.getStatus();
-                    if ((status == Match.Status.Complete)) {
-                        Message message = handler.obtainMessage();
-                        Bundle bundle = new Bundle();
-                        message.obj = match;
-                        bundle.putString("event", "game-over");
-                        message.setData(bundle);
-                        handler.sendMessage(message);
-                    }
-                    PlayerList players = match.players;
-                    match = matchUpdate;
-                    match.players = players;
-
-                    // Check for the end of match
-                    Date now = match.getTimeStamp();
-                    Date matchEnd = match.getEndTime();
-                    if (now.after(matchEnd)) {
-                        PutStopRequest putStopRequest = new PutStopRequest();
-                        putStopRequest.doRequest(match);
-                    }
-                }
-            };
-
-            gmRequest.doRequest(LoginManager.getMatch().getId());
-
+                gmRequest.doRequest(LoginManager.getMatch().getId());
+            }
             try {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 break;
+            }
+        }
+    }
+
+    private class GetPlayerList extends GetPlayerListRequest {
+
+        @Override
+        protected void onException(Exception e) {
+        }
+
+        @Override
+        protected void onComplete(Match newMatch) {
+            if (newMatch == null || newMatch.players == null) // make sure the new data is present
+                return;;
+            processPlayers(newMatch.players);
+
+            if (match.getType() == Match.MatchType.HideNSeek) {
+                int numPlayers = newMatch.players.size();
+
+                for (final Player hider : newMatch.players.values()) {
+                    if ((hider.getRole() == Player.Role.Seeker) || !hider.isPlaying() ||
+                            (hider.getStatus() == Player.Status.Found)) {
+                        numPlayers--;
+                    }
+                }
+                if (numPlayers == 0) {
+                    (new PutStopRequest()).doRequest(match);
+                }
+            }
+            // Update the status for each player, and the current player
+            players.clear();
+            for (Player player : newMatch.players.values()) {
+                players.put(new Integer(player.getId()), player);
+            }
+            player = players.get(new Integer(player.getId()));
+        }
+    }
+
+    private class GetMatch extends GetMatchRequest {
+        @Override
+        protected void onException(Exception e) {
+        }
+
+        @Override
+        protected void onComplete(Match matchUpdate) {
+            if (matchUpdate == null) return; // make sure the match object is not null
+
+            Match.Status status = matchUpdate.getStatus();
+            if ((status == Match.Status.Complete)) {
+                Message message = handler.obtainMessage();
+                Bundle bundle = new Bundle();
+                message.obj = match;
+                bundle.putString("event", "game-over");
+                message.setData(bundle);
+                handler.sendMessage(message);
+            }
+            PlayerList players = match.players;
+            match = matchUpdate;
+            match.players = players;
+
+            // Check for the end of match
+            Date now = match.getTimeStamp();
+            Date matchEnd = match.getEndTime();
+            if (now.after(matchEnd)) {
+                PutStopRequest putStopRequest = new PutStopRequest();
+                putStopRequest.doRequest(match);
             }
         }
     }
