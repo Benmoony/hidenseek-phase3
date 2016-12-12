@@ -53,6 +53,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.cascadia.hidenseek.Timer;
+
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
     private GoogleMap googleMap;
@@ -63,6 +65,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     boolean tagged = true;
     private ShowHider sh;
     protected GoogleApiClient googleApiClient;
+    TextView roleView;
+    TextView timerView;
+    Timer hidetime;
+    Timer seektime;
     private PlayerListFragment playerList;
     private static ConnectionChecks connectionChecks;
 
@@ -71,6 +77,9 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
         connectionChecks = new ConnectionChecks(this);
+
+        roleView = (TextView) findViewById(R.id.textrole);
+        timerView = (TextView) findViewById(R.id.timer);
 
         match = LoginManager.getMatch();
         player = LoginManager.playerMe;
@@ -153,6 +162,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
+            createLocationRequest();
         }
         // Add a marker in Cascadia College, and move the camera.
         LatLng cascadia = new LatLng(47.760641, -122.191283);
@@ -203,6 +213,22 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             match = (Match) message.obj;
             player = match.players.get(new Integer(player.getId()));
 
+            //create the timer
+            //update the UI
+            hidetime = new Timer(match);
+            hidetime.setTimername("Hiding Now!");
+
+            roleView.setText(hidetime.timername);
+            timerView.setText(hidetime.SecondsLeft());
+
+            /*seektime = new Timer(match);
+            seektime.setTimername("Start Seeking");
+
+            roleView.setText(seektime.timername);
+            timerView.setText(seektime.SecondsLeft_2());*/
+
+
+
             // handle the event
             switch (event) {
                 case "showDistance":
@@ -225,10 +251,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     // Update the distance indication
     // from the Seeker to the hider
     private void showDistance() {
-        TextView phase = (TextView) findViewById(R.id.textrole);
-        phase.setText("Seek");
-        TextView timeLeft = (TextView) findViewById(R.id.timer);
-        timeLeft.setText(String.format("%d", match.getEndTime().compareTo(Calendar.getInstance().getTime())));
     }
 
     // Update the player to show spotted
