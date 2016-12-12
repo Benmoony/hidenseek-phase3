@@ -16,5 +16,9 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- <item name="android:textColor">@color/text</item> -->
 	</style>
+    
+    <style name="AlertDialog.AppCompat." parent="AlertDialog.AppCompat.">
+
+    </style>
 
 </resources>

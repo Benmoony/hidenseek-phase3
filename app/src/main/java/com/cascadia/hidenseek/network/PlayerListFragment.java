@@ -76,6 +76,8 @@ public class PlayerListFragment extends Fragment {
         mListener = null;
     }
 
+
+
     public void playerFound(Player player){
         //Change background of the player passed to the method to Green
 

@@ -48,6 +48,21 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
                     // fragment is attached to one) that an item has been selected.
                     listener.onListFragmentInteraction(holder.player);
                 }
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Found Player")
+                        .setMessage("Have you found this player?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which) {
+                                holder.player.setStatus(Player.Status.Spotted);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which){
+                                return;
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }
@@ -57,6 +72,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
     public int getItemCount() {
         return players.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
@@ -79,21 +95,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
 
         @Override
         public void onClick(View v){
-            new AlertDialog.Builder(mView.getContext())
-                    .setTitle("Found Player")
-                    .setMessage("Have you found this player?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int which) {
-                            player.setStatus(Player.Status.Spotted);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int which){
-                            return;
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+
         }
     }
 }
