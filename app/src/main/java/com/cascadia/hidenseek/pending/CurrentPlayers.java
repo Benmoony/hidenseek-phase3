@@ -1,5 +1,9 @@
-package com.cascadia.hidenseek;
-import com.cascadia.hidenseek.Match.Status;
+package com.cascadia.hidenseek.pending;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.login.LoginManager;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Match.Status;
+import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import android.app.Activity;
@@ -14,6 +18,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.Arrays;
+
+import com.cascadia.hidenseek.active.Active;
 
 
 public class CurrentPlayers extends Activity {

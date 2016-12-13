@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.model;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

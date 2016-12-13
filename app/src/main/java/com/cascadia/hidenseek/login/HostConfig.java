@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.login;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,11 +18,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cascadia.hidenseek.Match.MatchType;
-import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.pending.CustomList;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Match.MatchType;
+import com.cascadia.hidenseek.model.Match.Status;
+import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStartRequest;
+
+import com.cascadia.hidenseek.active.Active;
 
 
 public class HostConfig extends Activity {

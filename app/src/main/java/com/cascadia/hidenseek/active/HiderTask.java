@@ -1,7 +1,12 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
 import android.os.Handler;
 import android.os.Message;
+
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.PlayerList;
 
 /**
  * Created by deb on 11/8/16.
@@ -32,7 +37,7 @@ public class HiderTask extends GameTask {
                 // make sure the player status has changed to spotted this time so the
                 // verification only shows up once
                 else if ((status == Player.Status.Spotted) &&
-                        (hider.getStatus() != Player.Status.Spotted)) {
+                        (player.getStatus() != Player.Status.Spotted)) {
                     message = createMessage("spotted", hider);
                     handler.sendMessage(message);
                 }

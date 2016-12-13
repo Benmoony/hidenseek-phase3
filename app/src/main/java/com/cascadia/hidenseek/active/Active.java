@@ -1,8 +1,7 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -28,8 +27,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.pending.CurrentPlayers;
+import com.cascadia.hidenseek.Home;
+import com.cascadia.hidenseek.login.LoginManager;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.GameEnd;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.Player.Role;
+import com.cascadia.hidenseek.model.Player.Status;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
@@ -51,9 +58,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import com.cascadia.hidenseek.Timer;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
@@ -63,7 +67,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ArrayList<Player> playerArray = new ArrayList<>();
     final Context context = this;
     boolean tagged = true;
-    private ShowHider sh;
     protected GoogleApiClient googleApiClient;
     TextView roleView;
     TextView timerView;
@@ -99,7 +102,8 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         if (savedInstanceState == null) {
 
-            if (player.getRole() == Player.Role.Seeker) {
+            if (match.getType() == Match.MatchType.HideNSeek &&
+                    player.getRole() == Player.Role.Seeker) {
 
                 playerList = PlayerListFragment.newInstance(match.players);
 
@@ -263,7 +267,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     // Go back to the login screen when the game has ended
     private void gameOver() {
-        Intent end = new Intent(context, TempToHome.class);
+        Intent end = new Intent(context, GameEnd.class);
         startActivity(end);
     }
 
@@ -331,7 +335,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             ShowSeeker();
             tagged = true;
-            Intent intent = new Intent(context, TempToHome.class);
+            Intent intent = new Intent(context, GameEnd.class);
             startActivity(intent);
         }
     };

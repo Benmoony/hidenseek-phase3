@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.pending;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.cascadia.hidenseek.R;
 
 public class CustomList extends ArrayAdapter<String>{
 	

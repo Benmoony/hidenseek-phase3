@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.login;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,7 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Match.Status;
 import com.cascadia.hidenseek.network.GetMatchListRequest;
 
 import java.util.ArrayList;

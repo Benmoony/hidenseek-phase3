@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 
+import com.cascadia.hidenseek.pending.Settings;
+import com.cascadia.hidenseek.login.HostLogin;
+import com.cascadia.hidenseek.login.JoinLogin;
+
 public class Home extends Activity {
 
 	@Override

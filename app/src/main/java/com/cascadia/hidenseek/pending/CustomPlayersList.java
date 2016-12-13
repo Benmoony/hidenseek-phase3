@@ -1,9 +1,12 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.pending;
 
 import java.util.Hashtable;
 
 
-import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.login.LoginManager;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.Player.Status;
 import com.cascadia.hidenseek.network.PutStatusRequest;
 
 import android.app.Activity;

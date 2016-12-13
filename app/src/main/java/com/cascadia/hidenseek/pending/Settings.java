@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.pending;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cascadia.hidenseek.R;
+
 public class Settings extends Activity implements OnClickListener {
 	Button submit, exit;
 	String username, counttime, seektime; 
@@ -21,7 +23,7 @@ public class Settings extends Activity implements OnClickListener {
 	@Override 
 	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState); 
-		setContentView(R.layout.settings); 
+		setContentView(R.layout.settings);
 		initSettings();
 		getInit(); 	
 	} 
@@ -78,7 +80,7 @@ public class Settings extends Activity implements OnClickListener {
 				counttime = userctime.getText().toString();
 				seektime = userstime.getText().toString();
 				sharedPreferences(); 
-				Toast.makeText(this, "Details are saved", 20).show(); 
+				Toast.makeText(this, "Details are saved", Toast.LENGTH_LONG).show();
 				break; 
 			case R.id.exit: 
 				finish(); 

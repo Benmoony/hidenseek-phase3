@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cascadia.hidenseek.Player;
-import com.cascadia.hidenseek.PlayerList;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.PlayerList;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.network.PlayerListFragment.OnListFragmentInteractionListener;
 
