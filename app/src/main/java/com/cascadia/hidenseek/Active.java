@@ -2,7 +2,6 @@ package com.cascadia.hidenseek;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -30,6 +29,7 @@ import android.widget.Toast;
 
 import com.cascadia.hidenseek.Player.Role;
 import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.network.DeletePlayerRequest;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
@@ -51,9 +51,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import com.cascadia.hidenseek.Timer;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
@@ -123,6 +120,14 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
         btnLeave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // send a message to the API that the player is leaving, but don't worry if it works
+                DeletePlayerRequest deletePlayerRequest = new DeletePlayerRequest() {
+                    @Override
+                    protected void onComplete(Player player) {}
+                    @Override
+                    protected void onException(Exception e) { }
+                };
+                deletePlayerRequest.doRequest(player);
                 Intent intent = new Intent(Active.this, Home.class);
                 startActivity(intent);
             }
