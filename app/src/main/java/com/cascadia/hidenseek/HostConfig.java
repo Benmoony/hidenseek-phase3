@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.cascadia.hidenseek.Match.MatchType;
 import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.DeletePlayerRequest;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStartRequest;
@@ -52,9 +53,6 @@ public class HostConfig extends Activity {
             d.show();
             finish();
         }
-//		int temp=LoginManager.playerMe.getId();
-//		Toast.makeText(this, Integer.toString(temp), Toast.LENGTH_LONG).show();
-//		LoginManager.playerMe.setID(temp);
         Toast.makeText(this, "Id Changed to" + Integer.toString(LoginManager.playerMe.getId()), Toast.LENGTH_LONG).show();
         initSettings();
 
@@ -261,6 +259,14 @@ public class HostConfig extends Activity {
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
+                                DeletePlayerRequest deletePlayerRequest = new DeletePlayerRequest() {
+                                    @Override
+                                    protected void onComplete(Player player) {}
+                                    @Override
+                                    protected void onException(Exception e) { }
+                                };
+                                deletePlayerRequest.doRequest(LoginManager.playerMe);
                                 finish();
                             }
                         })
