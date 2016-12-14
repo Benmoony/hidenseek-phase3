@@ -216,10 +216,10 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                     showSpotted();
                     break;
                 case "showFound": //Update to call Player List fragment
-                    playerList.playerFound(player);
+                    playerList.playerFound(hider);
                     break;
                 case "notFound": //Player Denies being found by the seeker (update seeker task for this case)
-                    playerList.playerNotFound(player);
+                    playerList.playerNotFound(hider);
                     break;
                 case "game-over":
                     gameOver();
