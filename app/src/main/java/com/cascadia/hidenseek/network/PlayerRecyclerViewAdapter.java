@@ -81,7 +81,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
@@ -92,7 +92,6 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.playerName);
             mContentView = (TextView) view.findViewById(R.id.content);
-            view.setOnClickListener(this);
         }
 
         @Override
@@ -100,9 +99,5 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
             return super.toString() + " '" + mContentView.getText() + "'";
         }
 
-        @Override
-        public void onClick(View v){
-
-        }
     }
 }

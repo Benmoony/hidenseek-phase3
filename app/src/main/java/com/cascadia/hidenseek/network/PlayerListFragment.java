@@ -82,7 +82,7 @@ public class PlayerListFragment extends Fragment {
 
 
     public void playerFound(Player player){
-        //Change background of the player passed to the method to Green
+        //TODO:Change background of the player passed to the method to Green
        // Toast.makeText(this, "The player has been found!", Toast.LENGTH_LONG).show();)
 
     }
@@ -93,12 +93,7 @@ public class PlayerListFragment extends Fragment {
         String playname = player.getName();
         new AlertDialog.Builder(this.getContext())
                 .setTitle("Denied")
-                .setMessage(playname + " has not been found!")
-                .setNegativeButton("Okay", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
-                        return;
-                    }
-                })
+                .setMessage(playname + " denies being found")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
