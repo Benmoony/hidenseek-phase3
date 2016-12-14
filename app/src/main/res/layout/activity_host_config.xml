@@ -15,14 +15,9 @@
         android:src="@drawable/bg"
          />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -30,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.08" >
+                android:layout_weight="0" >
 
                 <TextView
                     android:id="@+id/configCountTimeTitle"
@@ -109,7 +104,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.08" >
+                android:layout_weight="0" >
 
                 <TextView
                     android:id="@+id/configPlayersTitle"
@@ -137,24 +132,22 @@
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_help" />
 
-                <ListView
-                    android:id="@+id/configPlayerList"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:layout_alignStart="@+id/configPlayersTitle"
-                    android:layout_alignEnd="@+id/configPlayersHelp"
-                    android:layout_alignLeft="@+id/configPlayersTitle"
-                    android:layout_alignRight="@+id/configPlayersHelp"
-                    android:layout_below="@+id/configPlayersTitle" >
-                </ListView>
-                
-
             </RelativeLayout>
+
+            <ListView
+                android:id="@+id/configPlayerList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_alignStart="@+id/configPlayersTitle"
+                android:layout_alignEnd="@+id/configPlayersHelp"
+                android:layout_below="@+id/configPlayersTitle" >
+            </ListView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.08" >
+                android:layout_weight="0" >
              
                 
                 <RelativeLayout
@@ -196,8 +189,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-
-    </ScrollView>
-
 
 </FrameLayout>
