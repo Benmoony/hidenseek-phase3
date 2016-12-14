@@ -9,13 +9,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cascadia.hidenseek.Match.MatchType;
@@ -29,7 +30,7 @@ import com.cascadia.hidenseek.network.PutStartRequest;
 public class HostConfig extends Activity {
 
     String username, counttime, seektime;
-    ListView list;
+    RecyclerView list;
     boolean isActive;
     SharedPreferences sh_Pref;
     Editor toEdit;
@@ -56,7 +57,9 @@ public class HostConfig extends Activity {
         Toast.makeText(this, "Id Changed to" + Integer.toString(LoginManager.playerMe.getId()), Toast.LENGTH_LONG).show();
         initSettings();
 
-        list = (ListView) findViewById(R.id.configPlayerList);
+        list = (RecyclerView) findViewById(R.id.configPlayerList);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(joinedListAdapter);
         isActive = true;
 
         ImageView countHelp = (ImageView) findViewById(R.id.configCountTimeHelp);
@@ -194,12 +197,14 @@ public class HostConfig extends Activity {
 
     }
 
+    private PlayerList joinedPlayers = new PlayerList();
+    private JoinListAdapter joinedListAdapter = JoinListAdapter.newInstance(HostConfig.this, joinedPlayers);
 
     private void setPlayerList() {
         if (LoginManager.getMatch() == null) {
             String[] titles = {"Failed to update match list.", "(null match)"};
-            CustomList adapter = new CustomList(HostConfig.this, titles);
-            list.setAdapter(adapter);
+            joinedPlayers.clear();
+            joinedListAdapter.notifyDataSetChanged();
             return;
         }
         GetPlayerListRequest request = new GetPlayerListRequest() {
@@ -207,21 +212,18 @@ public class HostConfig extends Activity {
             @Override
             protected void onException(Exception e) {
                 String[] titles = {"Failed to update match list."};
-                CustomList adapter = new CustomList(HostConfig.this, titles);
-                list.setAdapter(adapter);
+                joinedPlayers.clear();
+                joinedListAdapter.notifyDataSetChanged();
             }
 
             @Override
             protected void onComplete(Match match) {
-                String[] titles = new String[match.players.size()];
-                int i = 0;
+                // refill the player list
+                joinedPlayers.clear();
                 for (Player p : match.players.values()) {
-                    titles[i] = p.getName();
-                    i++;
+                    joinedPlayers.put(new Integer(p.getId()), p);
                 }
-                CustomList adapter = new CustomList(HostConfig.this, titles);
-                list.setAdapter(adapter);
-
+                joinedListAdapter.notifyDataSetChanged();
             }
         };
         request.doRequest(LoginManager.getMatch());
