@@ -1,5 +1,6 @@
 package com.cascadia.hidenseek.network;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,22 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.playerName);
             mContentView = (TextView) view.findViewById(R.id.content);
+
+
+            if (player.getTemperature() == Player.Temperature.Hot) {
+                mContentView.setBackgroundColor(Color.RED);
+            }
+
+            else if
+                (player.getTemperature() == Player.Temperature.Warm) {
+                    mContentView.setBackgroundColor(Color.YELLOW);
+                }
+                else if
+                (player.getTemperature() == Player.Temperature.Cold) {
+                mContentView.setBackgroundColor(Color.BLUE);
+            }
         }
+
 
         @Override
         public String toString() {

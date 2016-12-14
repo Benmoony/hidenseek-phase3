@@ -27,7 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.cascadia.hidenseek.Player.Temperature;
 import com.cascadia.hidenseek.Player.Role;
 import com.cascadia.hidenseek.Player.Status;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
@@ -53,7 +53,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.cascadia.hidenseek.Player.Role.Hider;
+import static com.cascadia.hidenseek.R.id.textView;
+
+import static com.cascadia.hidenseek.Player.Role.Hider;
+import static com.cascadia.hidenseek.R.id.textView;
+
 import com.cascadia.hidenseek.Timer;
+
+import static com.cascadia.hidenseek.Player.Role.Hider;
+import static com.cascadia.hidenseek.R.id.textView;
 
 public class Active extends FragmentActivity implements OnMapReadyCallback,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener, PlayerListFragment.OnListFragmentInteractionListener {
@@ -253,6 +262,12 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private void showDistance() {
     }
 
+
+
+
+
+
+
     // Update the player to show spotted
     private void showSpotted() {
     }
@@ -292,6 +307,32 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             }
         }
     };
+
+//    Handle events from the Seeker task
+//    private Handler seekerHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message message) {
+//            Bundle bundle = message.getData();
+//
+//            Location location = player.getLocation();
+//            if (location != null) {
+//            }
+//
+//            String event = bundle.getString("event");
+//
+//            switch (event) {
+//                case "Hot":
+//                    SomethingHappensHere();
+//                    break;
+//                case "Warm":
+//                    SomethingHappensHere();
+//                    break;
+//                case "Cold":
+//                    SomethingHappensHere();
+//                    break;
+//            }
+//        }
+//    };
 
     private void showFoundAlert() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

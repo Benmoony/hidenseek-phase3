@@ -16,7 +16,6 @@ import java.util.Locale;
 import static com.cascadia.hidenseek.Player.Temperature.Cold;
 import static com.cascadia.hidenseek.Player.Temperature.Hot;
 import static com.cascadia.hidenseek.Player.Temperature.Warm;
-import static com.cascadia.hidenseek.Player.Temperature.temperature;
 
 public class Player {
 
@@ -52,7 +51,7 @@ return temperature;
 	public enum Temperature {
         Hot,
         Warm,
-		temperature, Cold
+		Cold
     }
 
         // Show hot or cold location from seeker to hiders
@@ -245,6 +244,7 @@ return temperature;
 	private Status status;
 	private boolean isPlaying = true;
 	private int playerId = -1;
+    private Temperature temperature;
 	
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 
