@@ -66,19 +66,17 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.playerName);
             mContentView = (TextView) view.findViewById(R.id.content);
+            if (player != null) { //This only runs when view updater is run
 
-
-            if (player.getTemperature() == Player.Temperature.Hot) {
-                mContentView.setBackgroundColor(Color.RED);
-            }
-
-            else if
-                (player.getTemperature() == Player.Temperature.Warm) {
+                if (player.getTemperature() == Player.Temperature.Hot) {
+                    mContentView.setBackgroundColor(Color.RED);
+                } else if
+                        (player.getTemperature() == Player.Temperature.Warm) {
                     mContentView.setBackgroundColor(Color.YELLOW);
+                } else if
+                        (player.getTemperature() == Player.Temperature.Cold) {
+                    mContentView.setBackgroundColor(Color.BLUE);
                 }
-                else if
-                (player.getTemperature() == Player.Temperature.Cold) {
-                mContentView.setBackgroundColor(Color.BLUE);
             }
         }
 
