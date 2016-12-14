@@ -134,15 +134,17 @@
 
             </RelativeLayout>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/configPlayerList"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_alignStart="@+id/configPlayersTitle"
                 android:layout_alignEnd="@+id/configPlayersHelp"
-                android:layout_below="@+id/configPlayersTitle" >
-            </ListView>
+                android:layout_below="@+id/configPlayersTitle"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"

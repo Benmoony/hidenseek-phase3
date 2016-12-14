@@ -17,7 +17,7 @@ should evaluate whether these are still needed in your project and if
 so manually move them:
 
 * .DS_Store
-* ic_launcher-web.png
+* ic_launcher-players.png
 * proguard-project.txt
 
 Replaced Jars with Dependencies:

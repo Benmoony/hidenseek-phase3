@@ -10,9 +10,18 @@ import java.util.Hashtable;
  */
 
 public class PlayerList extends Hashtable<Integer, Player> {
+    // When players are added to the hashtable, they are appended to the arraylist
+    // also, which gives them a position
     ArrayList<Integer> playerIDs = new ArrayList<>();
+    // Return the player at a position
     public Player get(int idx) {
         return super.get(playerIDs.get(idx));
+    }
+    // Make sure to clear out the position array when the hashtable is cleared
+    @Override
+    public void clear() {
+        super.clear();
+        playerIDs.clear();
     }
     /* When adding a Player to the Hashtable, put the playerID in the list so the player
      * can be found by index.
