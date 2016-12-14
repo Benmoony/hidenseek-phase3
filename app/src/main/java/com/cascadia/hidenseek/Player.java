@@ -13,9 +13,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.cascadia.hidenseek.Player.Temperature.Cold;
+import static com.cascadia.hidenseek.Player.Temperature.Hot;
+import static com.cascadia.hidenseek.Player.Temperature.Warm;
+import static com.cascadia.hidenseek.Player.Temperature.temperature;
+
 public class Player {
 
-	public enum Role {
+public Temperature getTemperature() {
+return temperature;
+}
+
+    public enum Role {
 		Hider,
 		Seeker,
 		Supervisor;
@@ -39,6 +48,30 @@ public class Player {
 			}
 		}
 	}
+
+	public enum Temperature {
+        Hot,
+        Warm,
+		temperature, Cold
+    }
+
+        // Show hot or cold location from seeker to hiders
+        public Temperature hotOrCold(Player seeker) {
+
+            if (this.getLocation().distanceTo(seeker.getLocation()) <= 10f) {
+                return Hot;
+            }
+
+            else if (this.getLocation().distanceTo(seeker.getLocation()) < 20f) {
+                return Warm;
+            }
+
+            else {
+                return Cold;
+            }
+        }
+
+
 	
 	public enum Status {
 		Hiding,
@@ -172,7 +205,11 @@ public class Player {
 	public void setRole(Role r) {
 		role = r;
 	}
-	
+
+//    public Temperature hotOrCold() {
+//        return Temperature;
+//    }
+
 	public Status getStatus() {
 		return status;
 	}
