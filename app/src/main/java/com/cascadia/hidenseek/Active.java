@@ -205,7 +205,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             String event = bundle.getString("event");
             match = (Match) message.obj;
-            player = match.players.get(new Integer(message.arg1));
+            Player hider = match.players.get(new Integer(message.arg1));
 
             // handle the event
             switch (event) {
