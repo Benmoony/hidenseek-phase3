@@ -308,31 +308,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         }
     };
 
-//    Handle events from the Seeker task
-//    private Handler seekerHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message message) {
-//            Bundle bundle = message.getData();
-//
-//            Location location = player.getLocation();
-//            if (location != null) {
-//            }
-//
-//            String event = bundle.getString("event");
-//
-//            switch (event) {
-//                case "Hot":
-//                    SomethingHappensHere();
-//                    break;
-//                case "Warm":
-//                    SomethingHappensHere();
-//                    break;
-//                case "Cold":
-//                    SomethingHappensHere();
-//                    break;
-//            }
-//        }
-//    };
 
     private void showFoundAlert() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

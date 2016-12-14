@@ -205,10 +205,6 @@ return temperature;
 		role = r;
 	}
 
-//    public Temperature hotOrCold() {
-//        return Temperature;
-//    }
-
 	public Status getStatus() {
 		return status;
 	}
