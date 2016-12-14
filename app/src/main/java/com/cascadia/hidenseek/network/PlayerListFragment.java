@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cascadia.hidenseek.Player;
-import com.cascadia.hidenseek.PlayerList;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.PlayerList;
 import com.cascadia.hidenseek.R;
 
 /**

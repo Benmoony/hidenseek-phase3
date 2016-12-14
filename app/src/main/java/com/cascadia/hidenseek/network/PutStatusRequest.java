@@ -1,6 +1,6 @@
 package com.cascadia.hidenseek.network;
 
-import com.cascadia.hidenseek.Player;
+import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 import org.json.JSONException;

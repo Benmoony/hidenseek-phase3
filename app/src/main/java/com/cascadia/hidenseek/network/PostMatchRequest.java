@@ -1,6 +1,6 @@
 package com.cascadia.hidenseek.network;
 
-import com.cascadia.hidenseek.Match;
+import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 /* Send a POST to the API to create a match */
 public abstract class PostMatchRequest extends NetworkRequest {

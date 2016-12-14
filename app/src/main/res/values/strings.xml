@@ -44,11 +44,11 @@
     <string name="title_AlarmManagerBroadcastReceiver">Alarm Manager</string>
     <string name="descr">image</string>
     <string name="select_match">Select Match</string>
-    <string name="endGameMessage">Thank you for playing hide and seek.  If you wish to play again, please hit the button to go back to the main screen.  If not, please remember to leave ideas or feedback for this alpha test.  Thank you!</string>
-    <string name="goHome">Go Back to Homepage</string>
-    <string name="title_activity_temp_to_home">TempToHome</string>
+    <string name="endGameMessage">Thank you for playing</string>
+    <string name="goHome">Play Again</string>
+    <string name="leaveFeedback">Leave Feedback</string>
+    <string name="title_activity_game_end">Game End</string>
     <string name="title_activity_temp">Landing Page</string>
-    <string name="title_activity_to_home">ToHome</string>
     <string name="get_password_help">Get the password from the Match Host/Hostess.</string>
     <string name="hide_help">Select a match to join.  The game will soon start! Hide in a safe place!</string>
 

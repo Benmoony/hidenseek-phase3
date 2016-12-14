@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HostLogin"
+            android:name=".login.HostLogin"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_host_login"
             android:parentActivityName=".Home" >
@@ -58,7 +58,7 @@
                 android:value="com.cascadia.hidenseek.Home" />
         </activity>
         <activity
-            android:name=".JoinLogin"
+            android:name=".login.JoinLogin"
             android:label="@string/title_activity_join_login"
             android:parentActivityName=".Home" >
             <meta-data
@@ -66,34 +66,29 @@
                 android:value="com.cascadia.hidenseek.Home" />
         </activity>
         <activity
-            android:name=".HostConfig"
+            android:name=".login.HostConfig"
             android:label="@string/title_activity_host_config"
-            android:parentActivityName=".HostLogin" >
+            android:parentActivityName=".login.HostLogin" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cascadia.hidenseek.HostLogin" />
+                android:value="com.cascadia.hidenseek.login.HostLogin" />
         </activity>
         <activity
-            android:name=".Active"
+            android:name=".active.Active"
             android:label="@string/title_activity_active"
             android:theme="@android:style/Theme.Holo" >
         </activity>
         <activity
-            android:name=".CurrentPlayers"
+            android:name=".pending.CurrentPlayers"
             android:label="@string/current_Players" >
         </activity>
         <activity
-            android:name=".Settings"
+            android:name=".pending.Settings"
             android:label="@string/title_settings" >
         </activity>
         <activity
-            android:name=".SplashActivity"
-            android:label="@string/title_splash"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".TempToHome"
-            android:label="@string/title_activity_temp_to_home" >
+            android:name=".GameEnd"
+            android:label="@string/title_activity_game_end" >
         </activity>
 
         <meta-data
@@ -104,21 +99,15 @@
             android:value="AIzaSyC5YvkPtxmbXyKbFibFj7kCqZGvHLj6dlU" />
 
         <activity
-            android:name=".SelectMatch"
+            android:name=".login.SelectMatch"
             android:label="@string/title_activity_select_match"
-            android:parentActivityName=".JoinLogin"
+            android:parentActivityName=".login.JoinLogin"
             android:theme="@android:style/Theme.Holo" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cascadia.hidenseek.JoinLogin" />
+                android:value="com.cascadia.hidenseek.login.JoinLogin" />
         </activity>
 
-        <receiver android:name=".AlarmReciever" />
-
-        <activity
-            android:name=".ToHome"
-            android:label="@string/title_activity_to_home" >
-        </activity>
     </application>
 
 </manifest>

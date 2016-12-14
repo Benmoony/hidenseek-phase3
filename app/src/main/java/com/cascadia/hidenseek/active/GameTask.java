@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
 
 import android.content.Context;
@@ -7,6 +7,11 @@ import android.os.Handler;
 import android.os.Message;
 
 
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.login.LoginManager;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.PlayerList;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStopRequest;

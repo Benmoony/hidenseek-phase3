@@ -1,10 +1,16 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
 import android.os.Handler;
 import android.os.Message;
 
+import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.PlayerList;
+
 /**
  * Created by deb on 11/7/16.
+ * This task checks for events related to the seeker.
  */
 
 public class SeekerTask extends GameTask {

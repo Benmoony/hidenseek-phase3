@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;

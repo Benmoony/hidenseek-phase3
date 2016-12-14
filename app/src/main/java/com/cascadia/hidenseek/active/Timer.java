@@ -1,15 +1,10 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.text.format.DateUtils;
-import android.widget.TextView;
+import com.cascadia.hidenseek.model.Match;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by zinmaung on 11/27/16.

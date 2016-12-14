@@ -2,8 +2,8 @@ package com.cascadia.hidenseek.network;
 
 
 
-import com.cascadia.hidenseek.Match;
-import com.cascadia.hidenseek.Player;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class GetPlayerListRequest extends NetworkRequest {

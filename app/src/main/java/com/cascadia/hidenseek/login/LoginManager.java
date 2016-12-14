@@ -1,6 +1,8 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.login;
 
-import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Match.MatchType;
+import com.cascadia.hidenseek.model.Player;
 
 public class LoginManager {
 	
