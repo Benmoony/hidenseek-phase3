@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek.login;
+package com.cascadia.hidenseek;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,33 +9,28 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cascadia.hidenseek.ConnectionChecks;
-import com.cascadia.hidenseek.pending.CustomList;
-import com.cascadia.hidenseek.R;
-import com.cascadia.hidenseek.model.Match;
-import com.cascadia.hidenseek.model.Match.MatchType;
-import com.cascadia.hidenseek.model.Match.Status;
-import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.DeletePlayerRequest;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutStartRequest;
-
-import com.cascadia.hidenseek.active.Active;
 
 
 public class HostConfig extends Activity {
 
     String username, counttime, seektime;
-    ListView list;
+    RecyclerView list;
     boolean isActive;
     SharedPreferences sh_Pref;
     Editor toEdit;
@@ -59,13 +54,12 @@ public class HostConfig extends Activity {
             d.show();
             finish();
         }
-//		int temp=LoginManager.playerMe.getId();
-//		Toast.makeText(this, Integer.toString(temp), Toast.LENGTH_LONG).show();
-//		LoginManager.playerMe.setID(temp);
         Toast.makeText(this, "Id Changed to" + Integer.toString(LoginManager.playerMe.getId()), Toast.LENGTH_LONG).show();
         initSettings();
 
-        list = (ListView) findViewById(R.id.configPlayerList);
+        list = (RecyclerView) findViewById(R.id.configPlayerList);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(joinedListAdapter);
         isActive = true;
 
         ImageView countHelp = (ImageView) findViewById(R.id.configCountTimeHelp);
@@ -203,12 +197,14 @@ public class HostConfig extends Activity {
 
     }
 
+    private PlayerList joinedPlayers = new PlayerList();
+    private JoinListAdapter joinedListAdapter = JoinListAdapter.newInstance(HostConfig.this, joinedPlayers);
 
     private void setPlayerList() {
         if (LoginManager.getMatch() == null) {
             String[] titles = {"Failed to update match list.", "(null match)"};
-            CustomList adapter = new CustomList(HostConfig.this, titles);
-            list.setAdapter(adapter);
+            joinedPlayers.clear();
+            joinedListAdapter.notifyDataSetChanged();
             return;
         }
         GetPlayerListRequest request = new GetPlayerListRequest() {
@@ -216,21 +212,18 @@ public class HostConfig extends Activity {
             @Override
             protected void onException(Exception e) {
                 String[] titles = {"Failed to update match list."};
-                CustomList adapter = new CustomList(HostConfig.this, titles);
-                list.setAdapter(adapter);
+                joinedPlayers.clear();
+                joinedListAdapter.notifyDataSetChanged();
             }
 
             @Override
             protected void onComplete(Match match) {
-                String[] titles = new String[match.players.size()];
-                int i = 0;
+                // refill the player list
+                joinedPlayers.clear();
                 for (Player p : match.players.values()) {
-                    titles[i] = p.getName();
-                    i++;
+                    joinedPlayers.put(new Integer(p.getId()), p);
                 }
-                CustomList adapter = new CustomList(HostConfig.this, titles);
-                list.setAdapter(adapter);
-
+                joinedListAdapter.notifyDataSetChanged();
             }
         };
         request.doRequest(LoginManager.getMatch());
@@ -268,6 +261,14 @@ public class HostConfig extends Activity {
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
+                                DeletePlayerRequest deletePlayerRequest = new DeletePlayerRequest() {
+                                    @Override
+                                    protected void onComplete(Player player) {}
+                                    @Override
+                                    protected void onException(Exception e) { }
+                                };
+                                deletePlayerRequest.doRequest(LoginManager.playerMe);
                                 finish();
                             }
                         })

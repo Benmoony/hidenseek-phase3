@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek.active;
+package com.cascadia.hidenseek;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -27,16 +27,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cascadia.hidenseek.ConnectionChecks;
-import com.cascadia.hidenseek.pending.CurrentPlayers;
-import com.cascadia.hidenseek.Home;
-import com.cascadia.hidenseek.login.LoginManager;
-import com.cascadia.hidenseek.R;
-import com.cascadia.hidenseek.GameEnd;
-import com.cascadia.hidenseek.model.Match;
-import com.cascadia.hidenseek.model.Player;
-import com.cascadia.hidenseek.model.Player.Role;
-import com.cascadia.hidenseek.model.Player.Status;
+import com.cascadia.hidenseek.Player.Role;
+import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.network.DeletePlayerRequest;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
@@ -67,6 +60,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ArrayList<Player> playerArray = new ArrayList<>();
     final Context context = this;
     boolean tagged = true;
+    private ShowHider sh;
     protected GoogleApiClient googleApiClient;
     TextView roleView;
     TextView timerView;
@@ -102,8 +96,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
         if (savedInstanceState == null) {
 
-            if (match.getType() == Match.MatchType.HideNSeek &&
-                    player.getRole() == Player.Role.Seeker) {
+            if (player.getRole() == Player.Role.Seeker) {
 
                 playerList = PlayerListFragment.newInstance(match.players);
 
@@ -127,6 +120,14 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
         btnLeave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // send a message to the API that the player is leaving, but don't worry if it works
+                DeletePlayerRequest deletePlayerRequest = new DeletePlayerRequest() {
+                    @Override
+                    protected void onComplete(Player player) {}
+                    @Override
+                    protected void onException(Exception e) { }
+                };
+                deletePlayerRequest.doRequest(player);
                 Intent intent = new Intent(Active.this, Home.class);
                 startActivity(intent);
             }
@@ -267,7 +268,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     // Go back to the login screen when the game has ended
     private void gameOver() {
-        Intent end = new Intent(context, GameEnd.class);
+        Intent end = new Intent(context, TempToHome.class);
         startActivity(end);
     }
 
@@ -335,7 +336,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             ShowSeeker();
             tagged = true;
-            Intent intent = new Intent(context, GameEnd.class);
+            Intent intent = new Intent(context, TempToHome.class);
             startActivity(intent);
         }
     };
