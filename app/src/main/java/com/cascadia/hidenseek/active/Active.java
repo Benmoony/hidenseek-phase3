@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.active;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -27,13 +27,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cascadia.hidenseek.Player.Role;
-import com.cascadia.hidenseek.Player.Status;
+import com.cascadia.hidenseek.GameEnd;
+import com.cascadia.hidenseek.Home;
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.model.Match;
+import com.cascadia.hidenseek.model.Player;
+import com.cascadia.hidenseek.model.Player.Role;
+import com.cascadia.hidenseek.model.Player.Status;
 import com.cascadia.hidenseek.network.DeletePlayerRequest;
 import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.PlayerListFragment;
 import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.cascadia.hidenseek.network.PutStatusRequest;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
+import com.cascadia.hidenseek.utilities.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -60,7 +67,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
     private ArrayList<Player> playerArray = new ArrayList<>();
     final Context context = this;
     boolean tagged = true;
-    private ShowHider sh;
     protected GoogleApiClient googleApiClient;
     TextView roleView;
     TextView timerView;
@@ -268,7 +274,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     // Go back to the login screen when the game has ended
     private void gameOver() {
-        Intent end = new Intent(context, TempToHome.class);
+        Intent end = new Intent(context, GameEnd.class);
         startActivity(end);
     }
 
@@ -336,7 +342,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             ShowSeeker();
             tagged = true;
-            Intent intent = new Intent(context, TempToHome.class);
+            Intent intent = new Intent(context, GameEnd.class);
             startActivity(intent);
         }
     };
@@ -482,28 +488,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
         googleApiClient.disconnect();
         super.onStop();
         //isActive = true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.players, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.players_list) {
-            Intent intent = new Intent(Active.this, CurrentPlayers.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.cascadia.hidenseek.network;
 
-import com.cascadia.hidenseek.Player;
+import com.cascadia.hidenseek.model.Player;
 
 /**
  * Created by deb on 12/12/16.

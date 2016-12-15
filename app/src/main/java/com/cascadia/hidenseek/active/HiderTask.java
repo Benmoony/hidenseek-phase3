@@ -3,7 +3,7 @@ package com.cascadia.hidenseek.active;
 import android.os.Handler;
 import android.os.Message;
 
-import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
 import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.model.PlayerList;

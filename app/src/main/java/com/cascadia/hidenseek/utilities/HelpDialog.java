@@ -1,12 +1,6 @@
-package com.cascadia.hidenseek.login;
-
-import java.lang.String;
-
-
-
+package com.cascadia.hidenseek.utilities;
 
 import android.R;
-import android.R.string;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -18,10 +12,10 @@ public class HelpDialog extends DialogFragment {
 	
 	public static String helpText; 
 	private static String header;
-	HelpDialog(String help,String title)
+	public HelpDialog(String help,String title)
 	{
 		helpText = help;
-		header=title;
+		header = title;
 	}
    
 

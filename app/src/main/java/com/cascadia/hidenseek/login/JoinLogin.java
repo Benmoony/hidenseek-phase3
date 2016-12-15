@@ -11,12 +11,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.cascadia.hidenseek.ConnectionChecks;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.model.Player;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.PostPlayerRequest;
+import com.cascadia.hidenseek.pending.HostConfig;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
+import com.cascadia.hidenseek.utilities.HelpDialog;
+import com.cascadia.hidenseek.utilities.LoginManager;
 
 public class JoinLogin extends Activity {
 

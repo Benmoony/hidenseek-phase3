@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek.login;
+package com.cascadia.hidenseek.utilities;
 
 import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.model.Match.MatchType;
