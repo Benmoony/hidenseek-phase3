@@ -34,6 +34,13 @@ public class SeekerTask extends GameTask {
             if (match.getType() == Match.MatchType.HideNSeek) {
                 switch (status) {
                     case Hiding:
+                        //If statement checking if previous status of hider was spotted
+                        if (match.players.get(new Integer(hider.getId())).getStatus() == Player.Status.Spotted){
+                            //match.players is a reference to the match which has yet to be updated with the new status
+                            message = createMessage("notFound", hider);
+                            handler.sendMessage(message);
+                            break;
+                        }
                         message = createMessage("showDistance", hider);
                         handler.sendMessage(message);
                         break;
@@ -49,6 +56,7 @@ public class SeekerTask extends GameTask {
                             handler.sendMessage(message);
                         }
                         break;
+
                 }
             }
         }

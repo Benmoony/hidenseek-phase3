@@ -1,5 +1,6 @@
-package com.cascadia.hidenseek.network;
+package com.cascadia.hidenseek.active;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -74,6 +75,25 @@ public class PlayerListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+
+    public void playerFound(Player player){
+        //TODO:Change background of the player passed to the method to Green
+       // Toast.makeText(this, "The player has been found!", Toast.LENGTH_LONG).show();)
+
+    }
+
+    public void playerNotFound(Player player){
+        //Build Alert Dialogue indicating that Player has denied being found
+       // Toast.makeText(this, "You have not found the player", Toast.LENGTH_LONG).show();)
+        String playname = player.getName();
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("Denied")
+                .setMessage(playname + " denies being found")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     /**

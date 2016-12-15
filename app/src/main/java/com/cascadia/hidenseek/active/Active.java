@@ -2,6 +2,7 @@ package com.cascadia.hidenseek.active;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -222,7 +223,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             String event = bundle.getString("event");
             match = (Match) message.obj;
-            player = match.players.get(new Integer(player.getId()));
+            Player hider = match.players.get(new Integer(message.arg1));
 
             //create the timer
             //update the UI
@@ -232,14 +233,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
             roleView.setText(hidetime.timername);
             timerView.setText(hidetime.SecondsLeft());
 
-            /*seektime = new Timer(match);
-            seektime.setTimername("Start Seeking");
-
-            roleView.setText(seektime.timername);
-            timerView.setText(seektime.SecondsLeft_2());*/
-
-
-
             // handle the event
             switch (event) {
                 case "showDistance":
@@ -248,8 +241,11 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
                 case "showSpotted":
                     showSpotted();
                     break;
-                case "showFound":
-                    showFound();
+                case "showFound": //Update to call Player List fragment
+                    playerList.playerFound(hider);
+                    break;
+                case "notFound": //Player Denies being found by the seeker (update seeker task for this case)
+                    playerList.playerNotFound(hider);
                     break;
                 case "game-over":
                     gameOver();
@@ -266,10 +262,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     // Update the player to show spotted
     private void showSpotted() {
-    }
-
-    // Update the player to show found
-    private void showFound() {
     }
 
     // Go back to the login screen when the game has ended
@@ -340,7 +332,6 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
             pp.doRequest(player);
 
-            ShowSeeker();
             tagged = true;
             Intent intent = new Intent(context, GameEnd.class);
             startActivity(intent);
@@ -373,7 +364,7 @@ public class Active extends FragmentActivity implements OnMapReadyCallback,
 
     public void ShowSeeker() {
 /*
-        sh = new ShowHider(showTime, 1000, temp);
+		sh = new ShowHider(showTime, 1000, temp);
 		sh.startCountDown1();
 */
     }
