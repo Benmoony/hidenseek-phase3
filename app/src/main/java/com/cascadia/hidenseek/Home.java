@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import com.cascadia.hidenseek.pending.Settings;
 import com.cascadia.hidenseek.login.HostLogin;
 import com.cascadia.hidenseek.login.JoinLogin;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
 
 public class Home extends Activity {
 

@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.cascadia.hidenseek.ConnectionChecks;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.model.Match.Status;

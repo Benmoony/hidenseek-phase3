@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.utilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;

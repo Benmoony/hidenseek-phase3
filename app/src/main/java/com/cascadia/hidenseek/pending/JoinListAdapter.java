@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.pending;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.cascadia.hidenseek.R;
+import com.cascadia.hidenseek.model.PlayerList;
+import com.cascadia.hidenseek.model.Player;
 
 public class JoinListAdapter extends RecyclerView.Adapter<JoinListAdapter.ViewHolder>  {
 

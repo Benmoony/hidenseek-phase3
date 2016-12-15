@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.cascadia.hidenseek.ConnectionChecks;
 import com.cascadia.hidenseek.R;
 import com.cascadia.hidenseek.model.Match;
 import com.cascadia.hidenseek.model.Player;
@@ -20,6 +19,10 @@ import com.cascadia.hidenseek.model.Player.Role;
 import com.cascadia.hidenseek.network.PostMatchRequest;
 import com.cascadia.hidenseek.network.PostPlayerRequest;
 import com.cascadia.hidenseek.network.PutRoleRequest;
+import com.cascadia.hidenseek.pending.HostConfig;
+import com.cascadia.hidenseek.utilities.ConnectionChecks;
+import com.cascadia.hidenseek.utilities.HelpDialog;
+import com.cascadia.hidenseek.utilities.LoginManager;
 
 
 public class HostLogin extends Activity {
